@@ -73,6 +73,12 @@
     <Filter Include="Source Files\Systems\Inputs">
       <UniqueIdentifier>{8dc549d3-353f-4e81-84f6-56a232fb9792}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\GameObjects\BackGrounds">
+      <UniqueIdentifier>{3872a9b6-0e42-437b-a65e-abb5a5cb961b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameObjects\BackGrounds">
+      <UniqueIdentifier>{42946b10-7265-452b-bf34-09c56d2e1744}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -147,6 +153,9 @@
     <ClInclude Include="SampleKeyEventHandler.h">
       <Filter>Header Files\Systems\Inputs</Filter>
     </ClInclude>
+    <ClInclude Include="BackGroundImage.h">
+      <Filter>Header Files\GameObjects\BackGrounds</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -205,6 +214,9 @@
     </ClCompile>
     <ClCompile Include="SampleKeyEventHandler.cpp">
       <Filter>Source Files\Systems\Inputs</Filter>
+    </ClCompile>
+    <ClCompile Include="BackGroundImage.cpp">
+      <Filter>Source Files\GameObjects\BackGrounds</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

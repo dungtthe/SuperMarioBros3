@@ -9,6 +9,7 @@
 #include "Portal.h"
 #include "Coin.h"
 #include "Platform.h"
+#include "BackGroundImage.h"
 
 #include "SampleKeyEventHandler.h"
 
@@ -145,9 +146,13 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		float b = (float)atof(tokens[4].c_str());
 		int scene_id = atoi(tokens[5].c_str());
 		obj = new CPortal(x, y, r, b, scene_id);
+		break;
 	}
-	break;
-
+	case OBJECT_TYPE_BACKGROUND_IMAGE: {
+		obj = new CBackGroundImage(x, y);
+		obj->SetObjectType(OBJECT_TYPE_BACKGROUND_IMAGE);
+		break;
+	}
 
 	default:
 		DebugOut(L"[ERROR] Invalid object type: %d\n", object_type);
@@ -157,8 +162,12 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	// General object setup
 	obj->SetPosition(x, y);
 
-
-	objects.push_back(obj);
+	if (obj->GetObjectType() == OBJECT_TYPE_BACKGROUND_IMAGE) {
+		objBackgroundImage = obj;
+	}
+	else {
+		objects.push_back(obj);
+	}
 }
 
 void CPlayScene::LoadAssets(LPCWSTR assetFile)
@@ -267,6 +276,10 @@ void CPlayScene::Update(DWORD dt)
 
 void CPlayScene::Render()
 {
+	if (objBackgroundImage != NULL)
+	{
+		objBackgroundImage->Render();
+	}
 	for (int i = 0; i < objects.size(); i++)
 		objects[i]->Render();
 }
