@@ -11,7 +11,7 @@
 #include "Platform.h"
 #include "BackGroundImage.h"
 #include "Pipe.h"
-
+#include "BackGroundTile.h"
 #include "SampleKeyEventHandler.h"
 
 using namespace std;
@@ -173,7 +173,30 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		obj->SetObjectType(OBJECT_TYPE_BACKGROUND_IMAGE);
 		break;
 	}
+	case OBJECT_TYPE_BACKGROUND_TILE: {
+		float cell_width = (float)atof(tokens[3].c_str());
+		float cell_height = (float)atof(tokens[4].c_str());
+		int length = atoi(tokens[5].c_str());
+		int sprite_begin = atoi(tokens[6].c_str());
+		int sprite_middle = -1;
+		int sprite_end = -1;
+		if (length > 1) {
+			sprite_middle = atoi(tokens[7].c_str());
+			sprite_end = atoi(tokens[8].c_str());
+		}
+		else {
+			sprite_middle = sprite_begin;
+			sprite_end = sprite_begin;
+		}
 
+		obj = new CBackGroundTile(
+			x, y,
+			cell_width, cell_height, length,
+			sprite_begin, sprite_middle, sprite_end
+		);
+		obj->SetObjectType(OBJECT_TYPE_BACKGROUND_TILE);
+		break;
+	}
 	default:
 		DebugOut(L"[ERROR] Invalid object type: %d\n", object_type);
 		return;
@@ -184,6 +207,9 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
 	if (obj->GetObjectType() == OBJECT_TYPE_BACKGROUND_IMAGE) {
 		objBackgroundImage = obj;
+	}
+	else if (obj->GetObjectType() == OBJECT_TYPE_BACKGROUND_TILE) {
+		objectsBackGroundTile.push_back(obj);
 	}
 	else {
 		objects.push_back(obj);
@@ -297,10 +323,20 @@ void CPlayScene::Update(DWORD dt)
 
 void CPlayScene::Render()
 {
+	//BG
+	//bg img
 	if (objBackgroundImage != NULL)
 	{
 		objBackgroundImage->Render();
 	}
+	//bg tile
+	for (int i = 0; i < objectsBackGroundTile.size(); i++)
+	{
+		objectsBackGroundTile[i]->Render();
+	}
+
+
+	//OBJ
 	for (int i = 0; i < objects.size(); i++)
 		objects[i]->Render();
 }
@@ -331,7 +367,10 @@ void CPlayScene::Unload()
 
 	objects.clear();
 	player = NULL;
-
+	for (int i = 0; i < objectsBackGroundTile.size(); i++)
+		delete objectsBackGroundTile[i];
+	objectsBackGroundTile.clear();
+	objBackgroundImage = NULL;
 	DebugOut(L"[INFO] Scene %d unloaded! \n", id);
 }
 

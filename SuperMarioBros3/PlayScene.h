@@ -17,6 +17,7 @@ protected:
 
 	vector<LPGAMEOBJECT> objects;
 	LPGAMEOBJECT objBackgroundImage;
+	vector<LPGAMEOBJECT> objectsBackGroundTile;
 
 	void _ParseSection_SPRITES(string line);
 	void _ParseSection_ANIMATIONS(string line);
