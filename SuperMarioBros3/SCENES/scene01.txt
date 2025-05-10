@@ -64,4 +64,5 @@ SCENES/bgimg1.txt
 50	300	110	316	140	2
 
 #BackGroundImg
-100	1048	313
+#type	x	y	spriteId
+100	1408	313	100000

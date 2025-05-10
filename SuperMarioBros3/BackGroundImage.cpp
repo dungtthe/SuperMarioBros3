@@ -2,8 +2,10 @@
 
 void CBackGroundImage::Render()
 {
-	CAnimations* animations = CAnimations::GetInstance();
-	animations->Get(ID_ANI_BACKGROUND_IMG)->Render(x, y);
+	CSprites* s = CSprites::GetInstance();
+	CSprite* sprite = s->Get(this->spriteId);
+	if (sprite == NULL) return;
+	s->Get(this->spriteId)->Draw(x, y);
 }
 
 void CBackGroundImage::GetBoundingBox(float& l, float& t, float& r, float& b)

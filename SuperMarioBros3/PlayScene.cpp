@@ -149,7 +149,8 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		break;
 	}
 	case OBJECT_TYPE_BACKGROUND_IMAGE: {
-		obj = new CBackGroundImage(x, y);
+		int spriteId = atoi(tokens[3].c_str());
+		obj = new CBackGroundImage(x, y,spriteId);
 		obj->SetObjectType(OBJECT_TYPE_BACKGROUND_IMAGE);
 		break;
 	}

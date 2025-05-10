@@ -4,6 +4,7 @@ SCENES/mario.txt
 SCENES/coin.txt
 SCENES/cloud.txt
 SCENES/brick.txt
+SCENES/bgimg2.txt
 #
 [OBJECTS]
 # type	x	y	extra_settings per object type
@@ -33,3 +34,6 @@ SCENES/brick.txt
 #Portal 
 50	200	160	216	180	1
 
+#BackGroundImg
+#type	x	y	spriteId
+100	1408	313	110000
