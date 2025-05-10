@@ -240,7 +240,8 @@ void CMario::Render()
 
 	//RenderBoundingBox();
 	
-	DebugOutTitle(L"Coins: %d", coin);
+	//DebugOutTitle(L"Coins: %d", coin);
+	DebugOutTitle(L"X: %.2f, Y: %.2f", x, y);
 }
 
 void CMario::SetState(int state)

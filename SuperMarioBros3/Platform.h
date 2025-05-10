@@ -2,6 +2,12 @@
 
 #include "GameObject.h"
 
+
+//PlatformType
+#define PLATFORM_TYPE_GROUND	0
+#define PLATFORM_TYPE_TEETH		1
+#define PLATFORM_TYPE_METAL		2
+
 // 
 // The most popular type of object in Mario! 
 // 
@@ -12,11 +18,13 @@ protected:
 	float cellWidth;
 	float cellHeight;
 	int spriteIdBegin, spriteIdMiddle, spriteIdEnd;
+	int type;
+	bool shouldCheckDirectionColliable;
 
 public:
 	CPlatform(float x, float y,
 		float cell_width, float cell_height, int length,
-		int sprite_id_begin, int sprite_id_middle, int sprite_id_end) :CGameObject(x, y)
+		int sprite_id_begin, int sprite_id_middle, int sprite_id_end, int type, bool shouldCheckDirectionColliable) :CGameObject(x, y)
 	{
 		this->length = length;
 		this->cellWidth = cell_width;
@@ -24,6 +32,8 @@ public:
 		this->spriteIdBegin = sprite_id_begin;
 		this->spriteIdMiddle = sprite_id_middle;
 		this->spriteIdEnd = sprite_id_end;
+		this->type = type;
+		this->shouldCheckDirectionColliable = shouldCheckDirectionColliable;
 	}
 
 	void Render();
