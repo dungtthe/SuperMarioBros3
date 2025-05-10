@@ -7,6 +7,7 @@ SCENES/goomba.txt
 SCENES/cloud.txt
 SCENES/bgimg1.txt
 SCENES/platform.txt
+SCENES/pipe.txt
 #
 [OBJECTS]
 # type	x	y	extra_settings per object type
@@ -14,7 +15,7 @@ SCENES/platform.txt
 # See OBJECT_TYPE constants in AssetIDs.h
 
 # MARIO
-0	2072	400
+0	1950	400
 
 # BRICKS
 
@@ -111,3 +112,16 @@ SCENES/platform.txt
 #BackGroundImg
 #type	x	y	spriteId
 100	1408	313	100000
+
+
+#Pipe
+#type	x	y	cell_width	cell_height	length	spriteIdBegin	spriteIdMiddle	spriteIdEnd
+6	368	376	32	16	3	400001	400002	400002
+6	1808	392	32	16	2	400001	400002	400002
+6	1872	376	32	16	3	400001	400002	400002
+6	2272	392	32	16	2	400002	400002	400002
+6	2336	392	32	16	2	400001	400002	400002
+6	2272	120	32	16	12	400001	400002	400002
+
+6	2112	440	32	16	2	400003	400003	400004
+6	2336	440	32	16	2	400003	400003	400004
