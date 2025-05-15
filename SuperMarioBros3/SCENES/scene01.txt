@@ -9,6 +9,7 @@ SCENES/bgimg1.txt
 SCENES/platform.txt
 SCENES/pipe.txt
 SCENES/bgtile.txt
+SCENES/question-block.txt
 #
 [OBJECTS]
 # type	x	y	extra_settings per object type
@@ -302,3 +303,24 @@ SCENES/bgtile.txt
 101	1928	24	16	16	1	500013
 101	1928	56	16	16	1	500013
 101	2120	120	16	16	1	500013
+
+
+
+#QuestionBlock
+#type	x	y
+7	184	360
+7	200	360
+
+7	232	312
+7	248	312
+
+7	424	328
+
+7	664	392
+
+7	712	360
+
+7	1480	376
+
+
+

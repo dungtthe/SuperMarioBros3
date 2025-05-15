@@ -162,6 +162,9 @@
     <ClInclude Include="BackGroundTile.h">
       <Filter>Header Files\GameObjects\BackGrounds</Filter>
     </ClInclude>
+    <ClInclude Include="QuestionBlock.h">
+      <Filter>Header Files\GameObjects\Blocks</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -229,6 +232,9 @@
     </ClCompile>
     <ClCompile Include="BackGroundTile.cpp">
       <Filter>Source Files\GameObjects\BackGrounds</Filter>
+    </ClCompile>
+    <ClCompile Include="QuestionBlock.cpp">
+      <Filter>Source Files\GameObjects\Blocks</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

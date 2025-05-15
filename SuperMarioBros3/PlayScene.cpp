@@ -13,6 +13,7 @@
 #include "Pipe.h"
 #include "BackGroundTile.h"
 #include "SampleKeyEventHandler.h"
+#include "QuestionBlock.h"
 
 using namespace std;
 
@@ -121,7 +122,10 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_GOOMBA: obj = new CGoomba(x, y); break;
 	case OBJECT_TYPE_BRICK: obj = new CBrick(x, y); break;
 	case OBJECT_TYPE_COIN: obj = new CCoin(x, y); break;
-
+	case OBJECT_TYPE_QUESTIONBLOCK: {
+		obj = new CQuestionBlock(x, y);
+		break;
+	}
 	case OBJECT_TYPE_PLATFORM:
 	{
 
@@ -197,6 +201,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		obj->SetObjectType(OBJECT_TYPE_BACKGROUND_TILE);
 		break;
 	}
+	
 	default:
 		DebugOut(L"[ERROR] Invalid object type: %d\n", object_type);
 		return;
