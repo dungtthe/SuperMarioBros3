@@ -121,7 +121,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		break;
 	case OBJECT_TYPE_GOOMBA: obj = new CGoomba(x, y); break;
 	case OBJECT_TYPE_BRICK: obj = new CBrick(x, y); break;
-	case OBJECT_TYPE_COIN: obj = new CCoin(x, y); break;
+	case OBJECT_TYPE_COIN: obj = new CCoin(x, y, COIN_PLACED); break;
 	case OBJECT_TYPE_QUESTIONBLOCK: {
 		obj = new CQuestionBlock(x, y);
 		break;
@@ -201,7 +201,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		obj->SetObjectType(OBJECT_TYPE_BACKGROUND_TILE);
 		break;
 	}
-	
+
 	default:
 		DebugOut(L"[ERROR] Invalid object type: %d\n", object_type);
 		return;
@@ -374,6 +374,11 @@ void CPlayScene::Render()
 		player->Render();
 	}
 	objectsNotPlatform.clear();
+}
+
+void CPlayScene::AddObject(LPGAMEOBJECT obj)
+{
+	objects.push_back(obj);
 }
 
 /*

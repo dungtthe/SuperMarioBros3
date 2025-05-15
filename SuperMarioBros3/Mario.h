@@ -101,6 +101,9 @@
 #define ID_ANI_MARIO_RACOON_BRACE_RIGHT 2700
 #define ID_ANI_MARIO_RACOON_BRACE_LEFT 2701
 
+#define ID_ANI_MARIO_RACOON_ATTACK_RIGHT 2800
+#define ID_ANI_MARIO_RACOON_ATTACK_LEFT 2801
+
 
 #pragma endregion
 
@@ -122,21 +125,20 @@
 #define MARIO_BIG_SIT_HEIGHT_ADJUST ((MARIO_BIG_BBOX_HEIGHT-MARIO_BIG_SITTING_BBOX_HEIGHT)/2)
 //small
 #define MARIO_SMALL_BBOX_WIDTH  12
-#define MARIO_SMALL_BBOX_HEIGHT 13
+#define MARIO_SMALL_BBOX_HEIGHT 12
 //racoon
-#define MARIO_RACOON_BBOX_WIDTH  15
-#define MARIO_RACOON_BBOX_HEIGHT 26
-#define MARIO_RACOON_SITTING_BBOX_WIDTH  15
-#define MARIO_RACOON_SITTING_BBOX_HEIGHT 17
+#define MARIO_RACOON_BBOX_WIDTH  14
+#define MARIO_RACOON_BBOX_HEIGHT 24
+#define MARIO_RACOON_SITTING_BBOX_WIDTH  14
+#define MARIO_RACOON_SITTING_BBOX_HEIGHT 16
 #define MARIO_RACOON_SIT_HEIGHT_ADJUST ((MARIO_RACOON_BBOX_HEIGHT-MARIO_RACOON_SITTING_BBOX_HEIGHT)/2)
-
-
-
-
 
 
 #define MARIO_UNTOUCHABLE_TIME 2500
 #define MARIO_MAX_FLY_TIME 5000
+#define MARIO_RACOON_ATTACK_TIME 300
+#define MARIO_RACOON_ATTACK_COOLDOWN 400
+#define MARIO_RACOON_ATTACK_SPEED 0.02f
 
 class CMario : public CGameObject
 {
@@ -153,9 +155,12 @@ class CMario : public CGameObject
 	long pCountTimeMeter;
 	bool isFlyImmediately;
 	long startFlyTime;
+	long startAttackTime;
+	bool isAttacking;
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
 	void OnCollisionWithCoin(LPCOLLISIONEVENT e);
 	void OnCollisionWithPortal(LPCOLLISIONEVENT e);
+	void OnCollisionWithQuestionBlock(LPCOLLISIONEVENT e);
 
 	int GetAniIdBig();
 	int GetAniIdSmall();
@@ -178,13 +183,17 @@ public:
 		pCountTimeMeter = 0;
 		isFlyImmediately = false;
 		startFlyTime = 0;
+		startAttackTime = 0;
+		isAttacking = false;
 	}
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void Render();
 	void SetState(int state);
 	void UpdateFlyTime(long dt);
 	long GetPMeter();
-
+	void Attack();
+	void UpdateAttack();
+	void UpdateCoint(int coinAdd);
 	int IsCollidable()
 	{ 
 		return (state != MARIO_STATE_DIE); 

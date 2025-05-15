@@ -9,10 +9,12 @@
 #include "Portal.h"
 
 #include "Collision.h"
+#include "QuestionBlock.h"
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	UpdateFlyTime(dt);
+	UpdateAttack();
 
 	vy += ay * dt;
 	vx += ax * dt;
@@ -56,6 +58,8 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithCoin(e);
 	else if (dynamic_cast<CPortal*>(e->obj))
 		OnCollisionWithPortal(e);
+	else if (dynamic_cast<CQuestionBlock*>(e->obj))
+		OnCollisionWithQuestionBlock(e);
 }
 
 void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
@@ -94,14 +98,26 @@ void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 
 void CMario::OnCollisionWithCoin(LPCOLLISIONEVENT e)
 {
+	CCoin* c = (CCoin*)e->obj;
+	if (c->GetCoinType() == COIN_FROM_QUESTIONBLOCK) {
+		return;
+	}
 	e->obj->Delete();
-	coin++;
+	coin += 100;
 }
 
 void CMario::OnCollisionWithPortal(LPCOLLISIONEVENT e)
 {
 	CPortal* p = (CPortal*)e->obj;
 	CGame::GetInstance()->InitiateSwitchScene(p->GetSceneId());
+}
+
+void CMario::OnCollisionWithQuestionBlock(LPCOLLISIONEVENT e)
+{
+	CQuestionBlock* qb = (CQuestionBlock*)e->obj;
+	if (e->ny > 0 || (e->nx != 0 && isAttacking)) {
+		qb->SpawnItem(this->state);
+	}
 }
 
 //
@@ -168,6 +184,18 @@ int CMario::GetAniIdSmall()
 int CMario::GetAniIdRacoon()
 {
 	int aniId = -1;
+
+	if (isAttacking) {
+		if (nx >= 0) {
+			aniId = ID_ANI_MARIO_RACOON_ATTACK_RIGHT;
+		}
+		else {
+			aniId = ID_ANI_MARIO_RACOON_ATTACK_LEFT;
+		}
+		return aniId;
+	}
+
+
 	if (!isOnPlatform)
 	{
 		if (abs(ax) == MARIO_ACCEL_RUN_X)
@@ -292,8 +320,8 @@ int CMario::GetAniIdBig()
 
 void CMario::Render()
 {
-	//CSprites* sprites = CSprites::GetInstance();
-	//sprites->Get(13711)->Draw(x, y);
+	/*CSprites* sprites = CSprites::GetInstance();
+	sprites->Get(13631)->Draw(x, y);*/
 
 	CAnimations* animations = CAnimations::GetInstance();
 	int aniId = -1;
@@ -313,7 +341,7 @@ void CMario::Render()
 	//RenderBoundingBox();
 
 	//DebugOutTitle(L"Coins: %d", coin);
-	DebugOutTitle(L"X: %.2f, Y: %.2f, P: %d", x, y, GetPMeter());
+	DebugOutTitle(L"X: %.2f, Y: %.2f, P: %d , Coin: %d, isAttacking: %d", x, y, GetPMeter(), coin, isAttacking);
 }
 
 void CMario::SetState(int state)
@@ -372,7 +400,7 @@ void CMario::SetState(int state)
 					}
 				}
 			}
-			
+
 		}
 		break;
 
@@ -446,6 +474,33 @@ long CMario::GetPMeter()
 
 	long pMeter = pCountTimeMeter / 250;
 	return pMeter >= 6 ? 6 : pMeter;
+}
+
+void CMario::Attack()
+{
+	if (GetTickCount64() - startAttackTime > MARIO_RACOON_ATTACK_COOLDOWN) {
+		startAttackTime = GetTickCount64();
+	}
+}
+
+void CMario::UpdateAttack()
+{
+	if (level != MARIO_LEVEL_RACOON) {
+		isAttacking = false;
+		return;
+	}
+	if ((GetTickCount64() - startAttackTime) > MARIO_RACOON_ATTACK_TIME) {
+		isAttacking = false;
+	}
+	else {
+		vx += MARIO_RACOON_ATTACK_SPEED * nx;
+		isAttacking = true;
+	}
+}
+
+void CMario::UpdateCoint(int coinAdd)
+{
+	coin += coinAdd;
 }
 
 void CMario::GetBoundingBox(float& left, float& top, float& right, float& bottom)

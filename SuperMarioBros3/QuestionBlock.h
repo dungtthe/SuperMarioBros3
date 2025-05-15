@@ -10,9 +10,15 @@
 #define QUESTIONBLOCK_BBOX_HEIGHT 16
 
 class CQuestionBlock : public CGameObject {
+private:
+	bool isEmpty;
 public:
-	CQuestionBlock(float x, float y) : CGameObject(x, y) {}
+	CQuestionBlock(float x, float y) : CGameObject(x, y) 
+	{
+		this->isEmpty = false;
+	}
 	void Render();
 	void Update(DWORD dt) {}
 	void GetBoundingBox(float& l, float& t, float& r, float& b);
+	void SpawnItem(int marioState);
 };
