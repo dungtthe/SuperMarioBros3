@@ -202,6 +202,10 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		return;
 	}
 
+	if (obj != NULL) {
+		obj->SetObjectType(object_type);
+	}
+
 	// General object setup
 	obj->SetPosition(x, y);
 
@@ -337,8 +341,34 @@ void CPlayScene::Render()
 
 
 	//OBJ
+	/*for (int i = 0; i < objects.size(); i++)
+	{
+		if (objects[i] != player) {
+			objects[i]->Render();
+		}
+	}*/
+
+	vector<LPGAMEOBJECT> objectsNotPlatform;
 	for (int i = 0; i < objects.size(); i++)
-		objects[i]->Render();
+	{
+		if (objects[i]->GetObjectType() == OBJECT_TYPE_PLATFORM) {
+			objects[i]->Render();
+		}
+		else {
+			objectsNotPlatform.push_back(objects[i]);
+		}
+	}
+
+	for (int i = 0; i < objectsNotPlatform.size(); i++) {
+		if (objectsNotPlatform[i] != player) {
+			objectsNotPlatform[i]->Render();
+		}
+	}
+
+	if (player != NULL) {
+		player->Render();
+	}
+	objectsNotPlatform.clear();
 }
 
 /*

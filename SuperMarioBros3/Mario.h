@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "GameObject.h"
 
 #include "Animation.h"
@@ -14,6 +14,7 @@
 
 #define MARIO_JUMP_SPEED_Y		0.5f
 #define MARIO_JUMP_RUN_SPEED_Y	0.6f
+#define MARIO_FLY_SPEED_Y	0.4f
 
 #define MARIO_GRAVITY			0.002f
 
@@ -78,28 +79,64 @@
 #define ID_ANI_MARIO_SMALL_JUMP_RUN_RIGHT 1600
 #define ID_ANI_MARIO_SMALL_JUMP_RUN_LEFT 1601
 
+//racoon
+#define ID_ANI_MARIO_RACOON_IDLE_RIGHT 2100
+#define ID_ANI_MARIO_RACOON_IDLE_LEFT 2102
+
+#define ID_ANI_MARIO_RACOON_WALKING_RIGHT 2200
+#define ID_ANI_MARIO_RACOON_WALKING_LEFT 2201
+
+#define ID_ANI_MARIO_RACOON_RUNNING_RIGHT 2300
+#define ID_ANI_MARIO_RACOON_RUNNING_LEFT 2301
+
+#define ID_ANI_MARIO_RACOON_JUMP_WALK_RIGHT 2400
+#define ID_ANI_MARIO_RACOON_JUMP_WALK_LEFT 2401
+
+#define ID_ANI_MARIO_RACOON_JUMP_RUN_RIGHT 2500
+#define ID_ANI_MARIO_RACOON_JUMP_RUN_LEFT 2501
+
+#define ID_ANI_MARIO_RACOON_SIT_RIGHT 2600
+#define ID_ANI_MARIO_RACOON_SIT_LEFT 2601
+
+#define ID_ANI_MARIO_RACOON_BRACE_RIGHT 2700
+#define ID_ANI_MARIO_RACOON_BRACE_LEFT 2701
+
+
 #pragma endregion
 
-#define GROUND_Y 160.0f
 
 
 
-
+//level
 #define	MARIO_LEVEL_SMALL	1
 #define	MARIO_LEVEL_BIG		2
+#define	MARIO_LEVEL_RACOON	3
 
+
+//height k lấy mũ
+//big
 #define MARIO_BIG_BBOX_WIDTH  14
 #define MARIO_BIG_BBOX_HEIGHT 24
 #define MARIO_BIG_SITTING_BBOX_WIDTH  14
 #define MARIO_BIG_SITTING_BBOX_HEIGHT 16
+#define MARIO_BIG_SIT_HEIGHT_ADJUST ((MARIO_BIG_BBOX_HEIGHT-MARIO_BIG_SITTING_BBOX_HEIGHT)/2)
+//small
+#define MARIO_SMALL_BBOX_WIDTH  12
+#define MARIO_SMALL_BBOX_HEIGHT 13
+//racoon
+#define MARIO_RACOON_BBOX_WIDTH  15
+#define MARIO_RACOON_BBOX_HEIGHT 26
+#define MARIO_RACOON_SITTING_BBOX_WIDTH  15
+#define MARIO_RACOON_SITTING_BBOX_HEIGHT 17
+#define MARIO_RACOON_SIT_HEIGHT_ADJUST ((MARIO_RACOON_BBOX_HEIGHT-MARIO_RACOON_SITTING_BBOX_HEIGHT)/2)
 
-#define MARIO_SIT_HEIGHT_ADJUST ((MARIO_BIG_BBOX_HEIGHT-MARIO_BIG_SITTING_BBOX_HEIGHT)/2)
 
-#define MARIO_SMALL_BBOX_WIDTH  13
-#define MARIO_SMALL_BBOX_HEIGHT 12
+
+
 
 
 #define MARIO_UNTOUCHABLE_TIME 2500
+#define MARIO_MAX_FLY_TIME 5000
 
 class CMario : public CGameObject
 {
@@ -107,19 +144,22 @@ class CMario : public CGameObject
 	float maxVx;
 	float ax;				// acceleration on x 
 	float ay;				// acceleration on y 
-
 	int level; 
 	int untouchable; 
 	ULONGLONG untouchable_start;
 	BOOLEAN isOnPlatform;
 	int coin; 
 
+	long pCountTimeMeter;
+	bool isFlyImmediately;
+	long startFlyTime;
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
 	void OnCollisionWithCoin(LPCOLLISIONEVENT e);
 	void OnCollisionWithPortal(LPCOLLISIONEVENT e);
 
 	int GetAniIdBig();
 	int GetAniIdSmall();
+	int GetAniIdRacoon();
 
 public:
 	CMario(float x, float y) : CGameObject(x, y)
@@ -129,15 +169,21 @@ public:
 		ax = 0.0f;
 		ay = MARIO_GRAVITY; 
 
-		level = MARIO_LEVEL_BIG;
+		//level = MARIO_LEVEL_BIG;
+		level = MARIO_LEVEL_RACOON;
 		untouchable = 0;
 		untouchable_start = -1;
 		isOnPlatform = false;
 		coin = 0;
+		pCountTimeMeter = 0;
+		isFlyImmediately = false;
+		startFlyTime = 0;
 	}
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void Render();
 	void SetState(int state);
+	void UpdateFlyTime(long dt);
+	long GetPMeter();
 
 	int IsCollidable()
 	{ 
