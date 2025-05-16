@@ -165,6 +165,12 @@
     <ClInclude Include="QuestionBlock.h">
       <Filter>Header Files\GameObjects\Blocks</Filter>
     </ClInclude>
+    <ClInclude Include="SpawnTrigger.h">
+      <Filter>Header Files\GameObjects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="RedGoomba.h">
+      <Filter>Header Files\GameObjects\Enemies</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -235,6 +241,12 @@
     </ClCompile>
     <ClCompile Include="QuestionBlock.cpp">
       <Filter>Source Files\GameObjects\Blocks</Filter>
+    </ClCompile>
+    <ClCompile Include="SpawnTrigger.cpp">
+      <Filter>Source Files\GameObjects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="RedGoomba.cpp">
+      <Filter>Source Files\GameObjects\Enemies</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

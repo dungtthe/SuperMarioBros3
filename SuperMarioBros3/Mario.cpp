@@ -90,15 +90,30 @@ void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 		{
 			if (goomba->GetState() != GOOMBA_STATE_DIE)
 			{
-				if (level > MARIO_LEVEL_SMALL)
-				{
-					level = MARIO_LEVEL_SMALL;
-					StartUntouchable();
+				//check attack
+				if (isAttacking) {
+					if (goomba->GetState() != GOOMBA_STATE_DIE)
+					{
+						goomba->KilledByTail();
+						goomba->SetState(GOOMBA_STATE_DIE);
+					}
 				}
-				else
-				{
-					DebugOut(L">>> Mario DIE >>> \n");
-					SetState(MARIO_STATE_DIE);
+				else {
+					if (level > MARIO_LEVEL_SMALL)
+					{
+						if (level > MARIO_LEVEL_BIG) {
+							level = MARIO_LEVEL_BIG;
+						}
+						else {
+							level = MARIO_LEVEL_SMALL;
+						}
+						StartUntouchable();
+					}
+					else
+					{
+						DebugOut(L">>> Mario DIE >>> \n");
+						SetState(MARIO_STATE_DIE);
+					}
 				}
 			}
 		}

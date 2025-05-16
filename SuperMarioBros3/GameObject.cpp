@@ -15,6 +15,8 @@ CGameObject::CGameObject()
 	nx = 1;	
 	state = -1;
 	isDeleted = false;
+	isSpawnedByTrigger = false;
+	idSpawnedByTrigger = -1;
 }
 
 void CGameObject::RenderBoundingBox()

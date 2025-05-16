@@ -17,7 +17,7 @@ SCENES/question-block.txt
 # See OBJECT_TYPE constants in AssetIDs.h
 
 # MARIO
-0	1564	151
+0	30	280
 
 # BRICKS
 
@@ -69,7 +69,8 @@ SCENES/question-block.txt
 
 
 #Goomba
-
+2	232	408
+2	536	408
 
 #Platform
 #type	x	y	cell_width	cell_height	length	spriteIdBegin	spriteIdMiddle	spriteIdEnd type(nhin trong Platform.h)	ShouldCheckDirectionColliable
@@ -368,4 +369,10 @@ SCENES/question-block.txt
 7	1480	376
 
 
-
+#SpawnTrigger
+#type	xStart	xEnd	id	spawnLimit	objSpawnType	xSpawnObj	ySpawnObj	nxStart
+#goomba
+8	656	1088	1	1	2	840	392	-1
+8	656	1088	2	1	2	920	392	-1
+#red goomba
+8	704	1088	3	1	9	968	392	-1

@@ -14,6 +14,8 @@
 #include "BackGroundTile.h"
 #include "SampleKeyEventHandler.h"
 #include "QuestionBlock.h"
+#include "SpawnTrigger.h"
+#include "RedGoomba.h"
 
 using namespace std;
 
@@ -146,6 +148,22 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
 		break;
 	}
+	case OBJECT_TYPE_SPAWNTRIGGER: {
+
+		//x: xStart
+		//y: xEnd
+		int id = atoi(tokens[3].c_str());
+		int spawnLimit = atoi(tokens[4].c_str());
+		int objSpawnType = atoi(tokens[5].c_str());
+
+		float xSpawnObj = (float)atof(tokens[6].c_str());
+		float ySpawnObj = (float)atof(tokens[7].c_str());
+		int nxStart = atoi(tokens[8].c_str());
+
+
+		obj = new CSpawnTrigger(id, x, y, spawnLimit, objSpawnType, xSpawnObj, ySpawnObj, nxStart);
+		break;
+	}
 
 	case OBJECT_TYPE_PIPE: {
 		float cell_width = (float)atof(tokens[3].c_str());
@@ -207,9 +225,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		return;
 	}
 
-	if (obj != NULL) {
-		obj->SetObjectType(object_type);
-	}
+	obj->SetObjectType(object_type);
 
 	// General object setup
 	obj->SetPosition(x, y);
@@ -219,6 +235,9 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	}
 	else if (obj->GetObjectType() == OBJECT_TYPE_BACKGROUND_TILE) {
 		objectsBackGroundTile.push_back(obj);
+	}
+	else if (obj->GetObjectType() == OBJECT_TYPE_SPAWNTRIGGER) {
+		objectsSpawnTrigger.push_back(obj);
 	}
 	else {
 		objects.push_back(obj);
@@ -311,8 +330,14 @@ void CPlayScene::Update(DWORD dt)
 		objects[i]->Update(dt, &coObjects);
 	}
 
+
 	// skip the rest if scene was already unloaded (Mario::Update might trigger PlayScene::Unload)
 	if (player == NULL) return;
+
+	//check SpawnTrigger
+	for (int i = 0; i < objectsSpawnTrigger.size(); i++) {
+		objectsSpawnTrigger[i]->Update(dt);
+	}
 
 	// Update camera to follow mario
 	float cx, cy;
@@ -381,6 +406,11 @@ void CPlayScene::AddObject(LPGAMEOBJECT obj)
 	objects.push_back(obj);
 }
 
+vector<LPGAMEOBJECT> CPlayScene::GetObjectsSpawnTrigger()
+{
+	return objectsSpawnTrigger;
+}
+
 /*
 *	Clear all objects from this scene
 */
@@ -411,6 +441,7 @@ void CPlayScene::Unload()
 		delete objectsBackGroundTile[i];
 	objectsBackGroundTile.clear();
 	objBackgroundImage = NULL;
+	objectsSpawnTrigger.clear();
 	DebugOut(L"[INFO] Scene %d unloaded! \n", id);
 }
 

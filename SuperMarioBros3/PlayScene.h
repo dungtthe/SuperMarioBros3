@@ -9,15 +9,16 @@
 //#include "Koopas.h"
 
 
-class CPlayScene: public CScene
+class CPlayScene : public CScene
 {
-protected: 
+protected:
 	// A play scene has to have player, right? 
-	LPGAMEOBJECT player;					
+	LPGAMEOBJECT player;
 
 	vector<LPGAMEOBJECT> objects;
 	LPGAMEOBJECT objBackgroundImage;
 	vector<LPGAMEOBJECT> objectsBackGroundTile;
+	vector<LPGAMEOBJECT> objectsSpawnTrigger;
 
 	void _ParseSection_SPRITES(string line);
 	void _ParseSection_ANIMATIONS(string line);
@@ -26,8 +27,8 @@ protected:
 	void _ParseSection_OBJECTS(string line);
 
 	void LoadAssets(LPCWSTR assetFile);
-	
-public: 
+
+public:
 	CPlayScene(int id, LPCWSTR filePath);
 
 	virtual void Load();
@@ -38,6 +39,7 @@ public:
 	LPGAMEOBJECT GetPlayer() { return player; }
 
 	void AddObject(LPGAMEOBJECT obj);
+	vector <LPGAMEOBJECT> GetObjectsSpawnTrigger();
 
 	void Clear();
 	void PurgeDeletedObjects();
