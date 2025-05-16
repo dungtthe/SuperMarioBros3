@@ -11,7 +11,9 @@
 #include "Collision.h"
 #include "QuestionBlock.h"
 #include "Koopa.h"
-
+#include "Utils.h"
+#include "Mushroom.h"
+#include "Leaf.h"
 void CMario::SetPosition(float x, float y)
 {
 	if (!isAttacking) {
@@ -72,8 +74,27 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithQuestionBlock(e);
 	else if (dynamic_cast<CKoopa*>(e->obj))
 		OnCollisionWithKoopa(e);
+	else if (dynamic_cast<CMushroom*>(e->obj))
+		OnCollisionWithMushroom(e);
+	else if (dynamic_cast<CLeaf*>(e->obj))
+		OnCollisionWithLeaf(e);
 }
 
+
+void CMario::OnCollisionWithMushroom(LPCOLLISIONEVENT e)
+{
+	CMushroom* mus = dynamic_cast<CMushroom*>(e->obj);
+	SetLevel(MARIO_LEVEL_BIG);
+	mus->Delete();
+	UpdateCoint(1000);
+}
+void CMario::OnCollisionWithLeaf(LPCOLLISIONEVENT e)
+{
+	CLeaf* lea = dynamic_cast<CLeaf*>(e->obj);
+	SetLevel(MARIO_LEVEL_RACOON);
+	lea->Delete();
+	UpdateCoint(1000);
+}
 void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 {
 	CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
@@ -168,7 +189,7 @@ void CMario::OnCollisionWithKoopa(LPCOLLISIONEVENT e)
 				else {
 					int nxRan = e->nx;
 					if (nxRan == 0) {
-						nxRan = (rand() % 2) * 2 - 1;//1 or -1
+						nxRan = RandomNV();
 					}
 					DebugOut(L"jumontop koopa nxran: %d", nxRan);
 

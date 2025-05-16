@@ -11,6 +11,8 @@ SCENES/pipe.txt
 SCENES/bgtile.txt
 SCENES/question-block.txt
 SCENES/koopa.txt
+SCENES/mushroom.txt
+SCENES/leaf.txt
 #
 [OBJECTS]
 # type	x	y	extra_settings per object type
@@ -18,7 +20,7 @@ SCENES/koopa.txt
 # See OBJECT_TYPE constants in AssetIDs.h
 
 # MARIO
-0	473	280
+0	252	325
 
 # BRICKS
 
@@ -352,22 +354,22 @@ SCENES/koopa.txt
 
 
 #QuestionBlock
-#type	x	y
-7	184	360
-7	200	360
+#type	x	y	isRanCoin	isRanMushRoom(red)	isRanLeaf
+7	184	360	1	0	0
+7	200	360	1	0	0
 
-7	232	312
-7	248	312
+7	232	312	1	0	0
+7	248	312	0	1	1
 
-7	424	328
+7	424	328	1	0	0
 
-7	664	392
+7	664	392	0	1	1
 
-7	712	360
+7	712	360	1	0	0
 
-7	1448	136
+7	1448	136	1	0	0
 
-7	1480	376
+7	1480	376	1	0	0
 
 
 #SpawnTrigger

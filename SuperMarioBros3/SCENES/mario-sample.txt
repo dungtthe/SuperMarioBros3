@@ -18,6 +18,7 @@ height	240
 10	textures\enemies_left.png
 11	textures\enemies_right.png
 20	textures\misc.png
+21	textures\misc_right.png
 30	textures\tileset.png
 301	textures\bgimg\1.png
 302	textures\bgimg\2.png

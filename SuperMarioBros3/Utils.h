@@ -17,3 +17,6 @@ vector<string> split(string line, string delimeter = "\t");
 wstring ToWSTR(string st);
 
 LPCWSTR ToLPCWSTR(string st);
+
+//huong cua van toc
+int RandomNV();

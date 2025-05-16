@@ -12,10 +12,16 @@
 class CQuestionBlock : public CGameObject {
 private:
 	bool isEmpty;
+	bool isRanCoin;
+	bool isRanRedMushRoom;
+	bool isRanLeaf;
 public:
-	CQuestionBlock(float x, float y) : CGameObject(x, y) 
+	CQuestionBlock(float x, float y, bool isRanCoin, bool isRanRedMushRoom, bool isRanLeaf) : CGameObject(x, y)
 	{
 		this->isEmpty = false;
+		this->isRanCoin = isRanCoin;
+		this->isRanRedMushRoom = isRanRedMushRoom;
+		this->isRanLeaf = isRanLeaf;
 	}
 	void Render();
 	void Update(DWORD dt) {}

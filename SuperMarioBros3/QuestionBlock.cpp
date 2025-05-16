@@ -2,6 +2,9 @@
 #include "Coin.h"
 #include "Game.h"
 #include "PlayScene.h"
+#include "AssetIDs.h"
+#include "Mushroom.h"
+#include "Leaf.h"
 
 void CQuestionBlock::Render()
 {
@@ -36,8 +39,27 @@ void CQuestionBlock::SpawnItem()
 	}
 
 	//spawn coin
-	CCoin* coin = new CCoin(this->x, this->y, COIN_FROM_QUESTIONBLOCK);
-	playScene->AddObject(coin);
+	if (isRanCoin) {
+		CCoin* coin = new CCoin(this->x, this->y, COIN_FROM_QUESTIONBLOCK);
+		playScene->AddObject(coin);
+		return;
+	}
+	
+	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+	if (mario == NULL) {
+		return;
+	}
+
+	LPGAMEOBJECT objRan = NULL;
+	if (isRanRedMushRoom && isRanLeaf) {
+		if (mario->GetLevel() == MARIO_LEVEL_SMALL) {
+			objRan = new CMushroom(this->x, this->y);
+		}
+		else {
+			objRan = new CLeaf(this->x, this->y-(QUESTIONBLOCK_BBOX_HEIGHT*2));
+		}
+		playScene->AddObject(objRan);
+	}
 
 
 }

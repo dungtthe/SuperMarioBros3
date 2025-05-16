@@ -51,3 +51,10 @@ LPCWSTR ToLPCWSTR(string st)
 	// delete wcstring   // << can I ? 
 	return w->c_str();
 }
+
+
+int RandomNV() {
+	srand(time(0));
+	int n = (rand() % 2) * 2 - 1;
+	return n;
+}
