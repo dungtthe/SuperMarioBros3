@@ -16,6 +16,7 @@
 #include "QuestionBlock.h"
 #include "SpawnTrigger.h"
 #include "RedGoomba.h"
+#include "Koopa.h"
 
 using namespace std;
 
@@ -126,6 +127,10 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_COIN: obj = new CCoin(x, y, COIN_PLACED); break;
 	case OBJECT_TYPE_QUESTIONBLOCK: {
 		obj = new CQuestionBlock(x, y);
+		break;
+	}
+	case OBJECT_TYPE_KOOPAS: {
+		obj = new CKoopa(x, y);
 		break;
 	}
 	case OBJECT_TYPE_PLATFORM:

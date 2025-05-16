@@ -60,6 +60,11 @@
 
 #define ID_ANI_MARIO_DIE 999
 
+#define ID_ANI_MARIO_HOLD_IDLE_RIGHT 1051
+#define ID_ANI_MARIO_HOLD_IDLE_LEFT 1052
+#define ID_ANI_MARIO_HOLD_WALK_RIGHT 1053
+#define ID_ANI_MARIO_HOLD_WALK_LEFT 1054
+
 // SMALL MARIO
 #define ID_ANI_MARIO_SMALL_IDLE_RIGHT 1100
 #define ID_ANI_MARIO_SMALL_IDLE_LEFT 1102
@@ -78,6 +83,11 @@
 
 #define ID_ANI_MARIO_SMALL_JUMP_RUN_RIGHT 1600
 #define ID_ANI_MARIO_SMALL_JUMP_RUN_LEFT 1601
+
+#define ID_ANI_MARIO_SMALL_HOLD_IDLE_RIGHT 1701
+#define ID_ANI_MARIO_SMALL_HOLD_IDLE_LEFT 1702
+#define ID_ANI_MARIO_SMALL_HOLD_WALK_RIGHT 1703
+#define ID_ANI_MARIO_SMALL_HOLD_WALK_LEFT 1704
 
 //racoon
 #define ID_ANI_MARIO_RACOON_IDLE_RIGHT 2100
@@ -103,6 +113,12 @@
 
 #define ID_ANI_MARIO_RACOON_ATTACK_RIGHT 2800
 #define ID_ANI_MARIO_RACOON_ATTACK_LEFT 2801
+
+#define ID_ANI_MARIO_RACOON_HOLD_IDLE_RIGHT 2901
+#define ID_ANI_MARIO_RACOON_HOLD_IDLE_LEFT 2902
+
+#define ID_ANI_MARIO_RACOON_HOLD_WALK_RIGHT 2903
+#define ID_ANI_MARIO_RACOON_HOLD_WALK_LEFT 2904
 
 
 #pragma endregion
@@ -138,7 +154,8 @@
 #define MARIO_MAX_FLY_TIME 5000
 #define MARIO_RACOON_ATTACK_TIME 300
 #define MARIO_RACOON_ATTACK_COOLDOWN 400
-#define MARIO_RACOON_ATTACK_SPEED 0.02f
+//#define MARIO_RACOON_ATTACK_SPEED 0.02f
+#define MARIO_RACOON_ATTACK_SPEED 0.04f
 
 class CMario : public CGameObject
 {
@@ -157,10 +174,15 @@ class CMario : public CGameObject
 	long startFlyTime;
 	long startAttackTime;
 	bool isAttacking;
+
+	bool isCanHoldObj;
+	LPGAMEOBJECT objHold;
+
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
 	void OnCollisionWithCoin(LPCOLLISIONEVENT e);
 	void OnCollisionWithPortal(LPCOLLISIONEVENT e);
 	void OnCollisionWithQuestionBlock(LPCOLLISIONEVENT e);
+	void OnCollisionWithKoopa(LPCOLLISIONEVENT e);
 
 	int GetAniIdBig();
 	int GetAniIdSmall();
@@ -185,6 +207,8 @@ public:
 		startFlyTime = 0;
 		startAttackTime = 0;
 		isAttacking = false;
+		isCanHoldObj = false;
+		objHold = NULL;
 	}
 	void SetPosition(float x, float y);
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
@@ -194,7 +218,12 @@ public:
 	long GetPMeter();
 	void Attack();
 	void UpdateAttack();
+	void UpdateHoldingObj();
 	void UpdateCoint(int coinAdd);
+	void SetIsCanHoldingObj(bool isCanHold) { this->isCanHoldObj = isCanHold; }
+	bool CanHoldObj() { return this->isCanHoldObj; }
+	void SetObjHold(LPGAMEOBJECT obj) { this->objHold = obj; }
+	int GetLevel() { return this->level; }
 	int IsCollidable()
 	{ 
 		return (state != MARIO_STATE_DIE); 

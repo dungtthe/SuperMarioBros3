@@ -10,6 +10,7 @@ SCENES/platform.txt
 SCENES/pipe.txt
 SCENES/bgtile.txt
 SCENES/question-block.txt
+SCENES/koopa.txt
 #
 [OBJECTS]
 # type	x	y	extra_settings per object type
@@ -17,7 +18,7 @@ SCENES/question-block.txt
 # See OBJECT_TYPE constants in AssetIDs.h
 
 # MARIO
-0	30	280
+0	473	280
 
 # BRICKS
 
@@ -372,7 +373,13 @@ SCENES/question-block.txt
 #SpawnTrigger
 #type	xStart	xEnd	id	spawnLimit	objSpawnType	xSpawnObj	ySpawnObj	nxStart
 #goomba
-8	656	1088	1	1	2	840	392	-1
+8	656	1088	1	1	2	780	392	-1
 8	656	1088	2	1	2	920	392	-1
 #red goomba
 8	704	1088	3	1	9	968	392	-1
+
+
+
+#Koopa
+#type	x	y
+3	584	355

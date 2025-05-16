@@ -44,7 +44,8 @@ public:
 	int GetState() { return this->state; }
 	virtual void Delete() { isDeleted = true; }
 	bool IsDeleted() { return isDeleted; }
-
+	void SetNX(int nx) { this->nx = nx; }
+	int GetNX() { return this->nx ; }
 	void RenderBoundingBox();
 
 	CGameObject();

@@ -8,7 +8,7 @@ CGoomba::CGoomba(float x, float y) :CGameObject(x, y)
 	this->ay = GOOMBA_GRAVITY;
 	die_start = -1;
 	SetState(GOOMBA_STATE_WALKING);
-	this->isKilledByTail = false;
+	this->isKilledByTailOrKoopaShell = false;
 }
 
 
@@ -39,7 +39,7 @@ void CGoomba::OnNoCollision(DWORD dt)
 void CGoomba::OnCollisionWith(LPCOLLISIONEVENT e)
 {
 	if (!e->obj->IsBlocking()) return;
-	if (dynamic_cast<CGoomba*>(e->obj)) return;
+	//if (dynamic_cast<CGoomba*>(e->obj)) return;
 
 	if (e->ny != 0)
 	{
@@ -106,7 +106,7 @@ void CGoomba::SetState(int state)
 		}
 		die_start = GetTickCount64();
 		y += (GOOMBA_BBOX_HEIGHT - GOOMBA_BBOX_HEIGHT_DIE) / 2;
-		if (!isKilledByTail) {
+		if (!isKilledByTailOrKoopaShell) {
 			vx = 0;
 			vy = 0;
 			ay = 0;
@@ -124,7 +124,7 @@ void CGoomba::SetState(int state)
 	}
 }
 
-void CGoomba::KilledByTail()
+void CGoomba::KilledByTailOrKoopaShell()
 {
-	this->isKilledByTail = true;
+	this->isKilledByTailOrKoopaShell = true;
 }

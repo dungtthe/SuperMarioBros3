@@ -25,7 +25,7 @@ protected:
 	float ay;
 
 	ULONGLONG die_start;
-	bool isKilledByTail;
+	bool isKilledByTailOrKoopaShell;
 
 
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
@@ -33,7 +33,7 @@ protected:
 	virtual void Render();
 
 	virtual int IsCollidable() { return  state != GOOMBA_STATE_DIE; };
-	virtual int IsBlocking() { return 0; }
+	virtual int IsBlocking() { return state != GOOMBA_STATE_DIE;}
 	virtual void OnNoCollision(DWORD dt);
 
 	virtual void OnCollisionWith(LPCOLLISIONEVENT e);
@@ -41,5 +41,5 @@ protected:
 public:
 	CGoomba(float x, float y);
 	virtual void SetState(int state);
-	void KilledByTail();
+	void KilledByTailOrKoopaShell();
 };

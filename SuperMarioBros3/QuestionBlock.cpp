@@ -23,7 +23,7 @@ void CQuestionBlock::GetBoundingBox(float& l, float& t, float& r, float& b)
 	b = t + QUESTIONBLOCK_BBOX_HEIGHT;
 }
 
-void CQuestionBlock::SpawnItem(int marioState)
+void CQuestionBlock::SpawnItem()
 {
 	if (isEmpty) {
 		return;

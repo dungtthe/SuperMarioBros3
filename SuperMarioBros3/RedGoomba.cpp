@@ -110,7 +110,7 @@ void CRedGoomba::OnNoCollision(DWORD dt)
 void CRedGoomba::OnCollisionWith(LPCOLLISIONEVENT e)
 {
 	if (!e->obj->IsBlocking()) return;
-	if (dynamic_cast<CGoomba*>(e->obj)) return;
+	//if (dynamic_cast<CGoomba*>(e->obj)) return;
 
 	if (e->ny != 0 && e->obj->IsBlocking())
 	{
@@ -165,7 +165,7 @@ void CRedGoomba::SetState(int state)
 	if (isHasWing) {
 		if (state == GOOMBA_STATE_DIE) {
 			isHasWing = false;
-			isKilledByTail = false;
+			isKilledByTailOrKoopaShell = false;
 			return;
 		}
 	}
@@ -176,7 +176,7 @@ void CRedGoomba::SetState(int state)
 	case GOOMBA_STATE_DIE:
 		die_start = GetTickCount64();
 		y += (RED_GOOMBA_BBOX_HEIGHT - RED_GOOMBA_BBOX_HEIGHT_DIE) / 2;
-		if (!isKilledByTail) {
+		if (!isKilledByTailOrKoopaShell) {
 			vx = 0;
 			vy = 0;
 			ay = 0;
