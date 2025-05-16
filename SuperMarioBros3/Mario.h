@@ -157,17 +157,21 @@
 //#define MARIO_RACOON_ATTACK_SPEED 0.02f
 #define MARIO_RACOON_ATTACK_SPEED 0.04f
 
+
+
+
+
 class CMario : public CGameObject
 {
 	BOOLEAN isSitting;
 	float maxVx;
 	float ax;				// acceleration on x 
 	float ay;				// acceleration on y 
-	int level; 
-	int untouchable; 
+	int level;
+	int untouchable;
 	ULONGLONG untouchable_start;
 	BOOLEAN isOnPlatform;
-	int coin; 
+	int coin;
 
 	long pCountTimeMeter;
 	bool isFlyImmediately;
@@ -177,6 +181,9 @@ class CMario : public CGameObject
 
 	bool isCanHoldObj;
 	LPGAMEOBJECT objHold;
+
+
+	int countUntouchable;
 
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
 	void OnCollisionWithCoin(LPCOLLISIONEVENT e);
@@ -198,7 +205,7 @@ public:
 		isSitting = false;
 		maxVx = 0.0f;
 		ax = 0.0f;
-		ay = MARIO_GRAVITY; 
+		ay = MARIO_GRAVITY;
 
 		//level = MARIO_LEVEL_BIG;
 		level = MARIO_LEVEL_BIG;
@@ -229,17 +236,17 @@ public:
 	void SetObjHold(LPGAMEOBJECT obj) { this->objHold = obj; }
 	int GetLevel() { return this->level; }
 	int IsCollidable()
-	{ 
-		return (state != MARIO_STATE_DIE); 
+	{
+		return (state != MARIO_STATE_DIE);
 	}
 
-	int IsBlocking() { return (state != MARIO_STATE_DIE && untouchable==0); }
+	int IsBlocking() { return (state != MARIO_STATE_DIE && untouchable == 0); }
 
 	void OnNoCollision(DWORD dt);
 	void OnCollisionWith(LPCOLLISIONEVENT e);
 
 	void SetLevel(int l);
-	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount64(); }
+	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount64(); this->countUntouchable = 0; }
 
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 };

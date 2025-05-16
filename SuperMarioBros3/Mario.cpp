@@ -611,6 +611,15 @@ int CMario::GetAniIdBig()
 
 void CMario::Render()
 {
+	if (untouchable==1) {
+		if (countUntouchable++ < 2) {
+			return;
+		}
+		else {
+			countUntouchable = 0;
+		}
+	}
+
 	//CSprites* sprites = CSprites::GetInstance();
 	//sprites->Get(13713)->Draw(x, y);
 
@@ -880,6 +889,10 @@ void CMario::SetLevel(int l)
 	else if (this->level == MARIO_LEVEL_BIG && l == MARIO_LEVEL_RACOON) {
 		y -= (MARIO_RACOON_BBOX_HEIGHT - MARIO_BIG_BBOX_HEIGHT) / 2;
 	}
+	/*if ((level - l) != 0) {
+		startChangeLevelTime = GetTickCount64();
+		countChangeLevel = 0;
+	}*/
 	level = l;
 }
 
