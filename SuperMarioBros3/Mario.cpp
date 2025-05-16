@@ -14,6 +14,8 @@
 #include "Utils.h"
 #include "Mushroom.h"
 #include "Leaf.h"
+#include "PiranhaPlant.h"
+#include "Bullet.h"
 void CMario::SetPosition(float x, float y)
 {
 	if (!isAttacking) {
@@ -78,6 +80,10 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithMushroom(e);
 	else if (dynamic_cast<CLeaf*>(e->obj))
 		OnCollisionWithLeaf(e);
+	else if (dynamic_cast<CPiranhaPlant*>(e->obj))
+		OnCollisionWithPiranhaPlant(e);
+	else if (dynamic_cast<CBullet*>(e->obj))
+		OnCollisionWithBullet(e);
 }
 
 
@@ -94,6 +100,58 @@ void CMario::OnCollisionWithLeaf(LPCOLLISIONEVENT e)
 	SetLevel(MARIO_LEVEL_RACOON);
 	lea->Delete();
 	UpdateCoint(1000);
+}
+void CMario::OnCollisionWithPiranhaPlant(LPCOLLISIONEVENT e)
+{
+	DebugOut(L"OnCollisionWithPiranhaPlant");
+	CPiranhaPlant* piranha = dynamic_cast<CPiranhaPlant*>(e->obj);
+	if (piranha->GetState() != PIRANHA_STATE_DIE) {
+		if (isAttacking) {
+			piranha->SetState(PIRANHA_STATE_DIE);
+		}
+		else {
+			if (untouchable == 0)
+			{
+				if (level > MARIO_LEVEL_SMALL)
+				{
+					if (level > MARIO_LEVEL_BIG) {
+						level = MARIO_LEVEL_BIG;
+					}
+					else {
+						level = MARIO_LEVEL_SMALL;
+					}
+					StartUntouchable();
+				}
+				else
+				{
+					DebugOut(L">>> Mario DIE >>> \n");
+					SetState(MARIO_STATE_DIE);
+				}
+			}
+		}
+	}
+}
+void CMario::OnCollisionWithBullet(LPCOLLISIONEVENT e)
+{
+	CBullet* bullet = dynamic_cast<CBullet*>(e->obj);
+	if (untouchable == 0)
+	{
+		if (level > MARIO_LEVEL_SMALL)
+		{
+			if (level > MARIO_LEVEL_BIG) {
+				level = MARIO_LEVEL_BIG;
+			}
+			else {
+				level = MARIO_LEVEL_SMALL;
+			}
+			StartUntouchable();
+		}
+		else
+		{
+			DebugOut(L">>> Mario DIE >>> \n");
+			SetState(MARIO_STATE_DIE);
+		}
+	}
 }
 void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 {
@@ -737,7 +795,7 @@ void CMario::UpdateAttack()
 
 void CMario::UpdateHoldingObj()
 {
-	if (objHold == NULL|| !this->isCanHoldObj) {
+	if (objHold == NULL || !this->isCanHoldObj) {
 		objHold = NULL;
 		return;
 	}

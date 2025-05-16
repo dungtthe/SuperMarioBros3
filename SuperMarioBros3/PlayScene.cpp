@@ -17,6 +17,7 @@
 #include "SpawnTrigger.h"
 #include "RedGoomba.h"
 #include "Koopa.h"
+#include "PiranhaPlant.h"
 
 using namespace std;
 
@@ -125,6 +126,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_GOOMBA: obj = new CGoomba(x, y); break;
 	case OBJECT_TYPE_BRICK: obj = new CBrick(x, y); break;
 	case OBJECT_TYPE_COIN: obj = new CCoin(x, y, COIN_PLACED); break;
+	case OBJECT_TYPE_PIRANHAPLANT: obj = new CPiranhaPlant(x, y); break;
 	case OBJECT_TYPE_QUESTIONBLOCK: {
 		bool isRanCoin = atoi(tokens[3].c_str()) == 1;
 		bool isRanRedMushRoom = atoi(tokens[4].c_str()) == 1;
@@ -397,16 +399,27 @@ void CPlayScene::Render()
 		}
 	}
 
+	vector<LPGAMEOBJECT> objectsPIPE;
 	for (int i = 0; i < objectsNotPlatform.size(); i++) {
-		if (objectsNotPlatform[i] != player) {
+		if (objectsNotPlatform[i]->GetObjectType() != OBJECT_TYPE_PIPE) {
 			objectsNotPlatform[i]->Render();
 		}
+		else {
+			if (objectsNotPlatform[i] != player) {
+				objectsPIPE.push_back(objectsNotPlatform[i]);
+			}
+		}
+	}
+
+	for (int i = 0; i < objectsPIPE.size(); i++) {
+		objectsPIPE[i]->Render();
 	}
 
 	if (player != NULL) {
 		player->Render();
 	}
 	objectsNotPlatform.clear();
+	objectsPIPE.clear();
 }
 
 void CPlayScene::AddObject(LPGAMEOBJECT obj)

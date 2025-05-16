@@ -13,6 +13,7 @@ SCENES/question-block.txt
 SCENES/koopa.txt
 SCENES/mushroom.txt
 SCENES/leaf.txt
+SCENES/piranha.txt
 #
 [OBJECTS]
 # type	x	y	extra_settings per object type
@@ -385,3 +386,8 @@ SCENES/leaf.txt
 #Koopa
 #type	x	y
 3	584	355
+
+
+# PIRANHAPLANT
+#type	x	y
+12	360	388
