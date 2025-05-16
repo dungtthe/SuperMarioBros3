@@ -11,6 +11,14 @@
 #include "Collision.h"
 #include "QuestionBlock.h"
 
+void CMario::SetPosition(float x, float y)
+{
+	if (!isAttacking) {
+		this->x = x;
+	}
+	this->y = y;
+}
+
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	UpdateFlyTime(dt);
@@ -34,6 +42,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void CMario::OnNoCollision(DWORD dt)
 {
+
 	x += vx * dt;
 	y += vy * dt;
 	isOnPlatform = false;
@@ -480,6 +489,8 @@ void CMario::Attack()
 {
 	if (GetTickCount64() - startAttackTime > MARIO_RACOON_ATTACK_COOLDOWN) {
 		startAttackTime = GetTickCount64();
+		vx += MARIO_RACOON_ATTACK_SPEED * nx;
+		isAttacking = true;
 	}
 }
 
@@ -492,10 +503,10 @@ void CMario::UpdateAttack()
 	if ((GetTickCount64() - startAttackTime) > MARIO_RACOON_ATTACK_TIME) {
 		isAttacking = false;
 	}
-	else {
+	/*else {
 		vx += MARIO_RACOON_ATTACK_SPEED * nx;
 		isAttacking = true;
-	}
+	}*/
 }
 
 void CMario::UpdateCoint(int coinAdd)

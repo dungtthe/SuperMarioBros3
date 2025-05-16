@@ -186,6 +186,7 @@ public:
 		startAttackTime = 0;
 		isAttacking = false;
 	}
+	void SetPosition(float x, float y);
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void Render();
 	void SetState(int state);
