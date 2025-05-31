@@ -154,6 +154,7 @@
 #define MARIO_MAX_FLY_TIME 5000
 #define MARIO_RACOON_ATTACK_TIME 300
 #define MARIO_RACOON_ATTACK_COOLDOWN 400
+#define MARIO_RACOON_FLOATING_TIME 300
 //#define MARIO_RACOON_ATTACK_SPEED 0.02f
 #define MARIO_RACOON_ATTACK_SPEED 0.04f
 
@@ -184,6 +185,9 @@ class CMario : public CGameObject
 
 
 	int countUntouchable;
+
+	bool isFloating;
+	long startFloatingTime;
 
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
 	void OnCollisionWithCoin(LPCOLLISIONEVENT e);
@@ -220,6 +224,8 @@ public:
 		isAttacking = false;
 		isCanHoldObj = false;
 		objHold = NULL;
+		isFloating = false;
+		startFloatingTime = 0;
 	}
 	void SetPosition(float x, float y);
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);

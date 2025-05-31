@@ -28,6 +28,20 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	UpdateFlyTime(dt);
 	UpdateAttack();
+
+
+	//check floating
+	if (level == MARIO_LEVEL_RACOON) {
+		if (!isOnPlatform && GetPMeter() < 6 && isFloating) {
+			vy = 0.0f;
+		}
+		if ((GetTickCount64() - startFloatingTime) > MARIO_RACOON_FLOATING_TIME) {
+			isFloating = false;
+		}
+	}
+	
+
+
 	vy += ay * dt;
 	vx += ax * dt;
 
@@ -611,7 +625,7 @@ int CMario::GetAniIdBig()
 
 void CMario::Render()
 {
-	if (untouchable==1) {
+	if (untouchable == 1) {
 		if (countUntouchable++ < 2) {
 			return;
 		}
@@ -641,7 +655,7 @@ void CMario::Render()
 	//RenderBoundingBox();
 
 	//DebugOutTitle(L"Coins: %d", coin);
-	DebugOutTitle(L"X: %.2f, Y: %.2f, P: %d , Coin: %d, isAttacking: %d, isCanHolding: %d", x, y, GetPMeter(), coin, isAttacking, isCanHoldObj);
+	DebugOutTitle(L"X: %.2f, Y: %.2f, P: %d , Coin: %d, isAttacking: %d, isCanHolding: %d, isFloa: %d, vy: %.4f", x, y, GetPMeter(), coin, isAttacking, isCanHoldObj, isFloating, vy);
 }
 
 void CMario::SetState(int state)
@@ -686,19 +700,24 @@ void CMario::SetState(int state)
 				vy = -MARIO_JUMP_SPEED_Y;
 		}
 		else {
-			if (level == MARIO_LEVEL_RACOON && GetPMeter() >= 6) {
-				isFlyImmediately = true;
-				//check thoi gian bay
-				if (startFlyTime == 0) {
-					startFlyTime = GetTickCount64();
-				}
-				else {
-					if ((GetTickCount64() - startFlyTime) > MARIO_MAX_FLY_TIME) {
-						isFlyImmediately = false;
-						startFlyTime = 0;
-						pCountTimeMeter = 0;
+			if (level == MARIO_LEVEL_RACOON) {
+				if (GetPMeter() >= 6) {
+					isFlyImmediately = true;
+					//check thoi gian bay
+					if (startFlyTime == 0) {
+						startFlyTime = GetTickCount64();
+					}
+					else {
+						if ((GetTickCount64() - startFlyTime) > MARIO_MAX_FLY_TIME) {
+							isFlyImmediately = false;
+							startFlyTime = 0;
+							pCountTimeMeter = 0;
+						}
 					}
 				}
+				//floating
+				isFloating = true;
+				startFloatingTime = GetTickCount64();
 			}
 
 		}
