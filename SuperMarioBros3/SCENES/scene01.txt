@@ -79,7 +79,7 @@ SCENES/piranha.txt
 #Platform
 #type	x	y	cell_width	cell_height	length	spriteIdBegin	spriteIdMiddle	spriteIdEnd type(nhin trong Platform.h)	ShouldCheckDirectionColliable
 5	8	424	16	16	39	300001	300002	300003	0	1
-5	632	424	16	16	29	300004	300005	300006	0	1
+5	632	424	16	16	29	300004	300005	300006	0	0
 5	632	408	16	16	29	300001	300002	300003	0	1
 5	1160	424	16	16	22	300001	300002	300003	0	1
 5	1544	424	16	16	5	300001	300002	300003	0	1

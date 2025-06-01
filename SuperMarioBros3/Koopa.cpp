@@ -26,16 +26,18 @@ void CKoopa::GetBoundingBox(float& left, float& top, float& right, float& bottom
 
 void CKoopa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-
 	//checkdie
-	if ((state == KOOPA_STATE_DIE) && (GetTickCount64() - die_start > KOOPA_DIE_TIMEOUT))
+	if (state == KOOPA_STATE_DIE)
 	{
-		CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
-		if (mario == NULL) {
-			return;
+		if ((GetTickCount64() - die_start > KOOPA_DIE_TIMEOUT)) {
+			CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+			if (mario == NULL) {
+				return;
+			}
+			mario->SetObjHold(NULL);
+			isDeleted = true;
 		}
-		mario->SetObjHold(NULL);
-		isDeleted = true;
+		DebugOut(L"koopa die roi \n");
 		return;
 	}
 
@@ -126,8 +128,21 @@ void CKoopa::OnNoCollision(DWORD dt)
 	isOnPlatform = false;
 
 	if (xLastOnPlatform != -1 && !IsShell()) {
+		float deltaX = abs(x - xLastOnPlatform);
+		float deltaY = abs(y - yLastOnPlatform);
+		DebugOut(L"deltaX: %.2f, deltaY: %.2f \n", deltaX, deltaY);
+
+		if (deltaX > KOOPA_BBOX_WIDTH / 2 || deltaY > KOOPA_BBOX_HEIGHT / 2) {
+			SetState(KOOPA_STATE_DIE);
+			DebugOut(L"set koopa die trong check delta \n");
+			return;
+		}
+
+
 		x = xLastOnPlatform;
 		y = yLastOnPlatform;
+
+
 		//vx = -vx;
 		if (vx > 0) {
 			SetState(KOOPA_STATE_WALKING_LEFT);
@@ -137,10 +152,18 @@ void CKoopa::OnNoCollision(DWORD dt)
 		}
 	}
 
+	//DebugOut(L"KOOPA_OnNoCollision: x: %.2f, y: %.2f, vx: %.2f, vy: %.2f \n", x, y, vx, vy);
+
 }
 
 void CKoopa::OnCollisionWith(LPCOLLISIONEVENT e)
 {
+	if (state == KOOPA_STATE_DIE) {
+		return;
+	}
+
+	//DebugOut(L"KOOPA_OnCollisionWith: x: %.2f, y: %.2f, vx: %.2f, vy: %.2f \n", x, y, vx, vy);
+
 	if (!e->obj->IsBlocking()) return;
 
 	if (!isBeingHeld) {
@@ -175,10 +198,7 @@ void CKoopa::OnCollisionWith(LPCOLLISIONEVENT e)
 
 void CKoopa::OnCollisionWithQestionBlock(LPCOLLISIONEVENT e)
 {
-	DebugOut(L">>> KOOPA coli QestionBlock >>> \n");
-	if (state == KOOPA_STATE_DIE) {
-		return;
-	}
+	//DebugOut(L">>> KOOPA coli QestionBlock >>> \n");
 
 	CQuestionBlock* qb = (CQuestionBlock*)e->obj;
 	if (IsShell() && vx != 0 && !isBeingHeld) {
@@ -188,10 +208,8 @@ void CKoopa::OnCollisionWithQestionBlock(LPCOLLISIONEVENT e)
 
 void CKoopa::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 {
-	DebugOut(L">>> KOOPA coli Goomba >>> \n");
-	if (state == KOOPA_STATE_DIE) {
-		return;
-	}
+	//DebugOut(L">>> KOOPA coli Goomba >>> \n");
+
 	CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
 	if (this->isBeingHeld) {
 		SetState(KOOPA_STATE_DIE);
