@@ -391,10 +391,15 @@ void CPlayScene::Render()
 			objects[i]->Render();
 		}
 	}*/
+	vector<LPGAMEOBJECT> bullets;
 
 	vector<LPGAMEOBJECT> objectsNotPlatform;
 	for (int i = 0; i < objects.size(); i++)
 	{
+		if (objects[i]->GetObjectType() == OBJECT_TYPE_BULLET) {
+			bullets.push_back(objects[i]);
+			continue;
+		}
 		if (objects[i]->GetObjectType() == OBJECT_TYPE_PLATFORM) {
 			objects[i]->Render();
 		}
@@ -422,8 +427,14 @@ void CPlayScene::Render()
 	if (player != NULL) {
 		player->Render();
 	}
+
+	for (int i = 0; i < bullets.size(); i++) {
+		bullets[i]->Render();
+	}
+
 	objectsNotPlatform.clear();
 	objectsPIPE.clear();
+	bullets.clear();
 }
 
 void CPlayScene::AddObject(LPGAMEOBJECT obj)

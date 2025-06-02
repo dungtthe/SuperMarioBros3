@@ -2,6 +2,7 @@
 #include "Gameobject.h"
 #include <ctime>
 #include "Utils.h"
+#include "AssetIDs.h"
 
 
 
@@ -30,6 +31,8 @@ public:
 		else {
 			vy = -BULLET_Y_SPEED;
 		}
+
+		objType = OBJECT_TYPE_BULLET;
 	}
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
