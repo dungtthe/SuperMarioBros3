@@ -21,7 +21,7 @@ SCENES/piranha.txt
 # See OBJECT_TYPE constants in AssetIDs.h
 
 # MARIO
-0	252	325
+0	1980	325
 
 # BRICKS
 
@@ -389,5 +389,6 @@ SCENES/piranha.txt
 
 
 # PIRANHAPLANT
-#type	x	y
-12	360	388
+#type	x	y	piranhaType
+12	360	388	0
+12	1872	383	1

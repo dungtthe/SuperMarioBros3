@@ -126,7 +126,11 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_GOOMBA: obj = new CGoomba(x, y); break;
 	case OBJECT_TYPE_BRICK: obj = new CBrick(x, y); break;
 	case OBJECT_TYPE_COIN: obj = new CCoin(x, y, COIN_PLACED); break;
-	case OBJECT_TYPE_PIRANHAPLANT: obj = new CPiranhaPlant(x, y); break;
+	case OBJECT_TYPE_PIRANHAPLANT: {
+		int piranhaType = atoi(tokens[3].c_str());
+		obj = new CPiranhaPlant(x, y, piranhaType);
+		break;
+	}
 	case OBJECT_TYPE_QUESTIONBLOCK: {
 		bool isRanCoin = atoi(tokens[3].c_str()) == 1;
 		bool isRanRedMushRoom = atoi(tokens[4].c_str()) == 1;

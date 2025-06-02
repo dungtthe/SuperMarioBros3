@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "Gameobject.h"
 #include <ctime>
 #include "Utils.h"
@@ -14,16 +14,29 @@
 #define PIRANHA_STATE_RETRACTING	3
 #define PIRANHA_STATE_DIE			4
 
+//PIRANHA TYPE
+#define PIRANHAPLANT_RED_HAS_BULLET_TYPE	0
+#define PIRANHAPLANT_GREEN_HAS_BULLET_TYPE	1
+
+//RED HAS BULLET
+#define PIRANHAPLANT_RED_HAS_BULLET_BBOX_WIDTH		16
+#define PIRANHAPLANT_RED_HAS_BULLET_BBOX_HEIGHT		32
+//GREEN HAS BULLET
+#define PIRANHAPLANT_GREEN_HAS_BULLET_BBOX_WIDTH	16
+#define PIRANHAPLANT_GREEN_HAS_BULLET_BBOX_HEIGHT	24
 
 
-#define PIRANHAPLANT_BBOX_WIDTH 16
-#define PIRANHAPLANT_BBOX_HEIGHT 32
+//RED HAS BULLET
+#define ID_ANI_PIRANHAPLANT_RED_HAS_BULLET_LEFT_UP			850500
+#define ID_ANI_PIRANHAPLANT_RED_HAS_BULLET_LEFT_DOWN		850501
+#define ID_ANI_PIRANHAPLANT_RED_HAS_BULLET_RIGHT_UP			850502
+#define ID_ANI_PIRANHAPLANT_RED_HAS_BULLET_RIGHT_DOWN		850503
 
-#define ID_ANI_PIRANHAPLANT_LEFT_UP 850500
-#define ID_ANI_PIRANHAPLANT_LEFT_DOWN 850501
-#define ID_ANI_PIRANHAPLANT_RIGHT_UP 850502
-#define ID_ANI_PIRANHAPLANT_RIGHT_DOWN 850503
-
+//GREEN HAS BULLET
+#define ID_ANI_PIRANHAPLANT_GREEN_HAS_BULLET_LEFT_UP		850510
+#define ID_ANI_PIRANHAPLANT_GREEN_HAS_BULLET_LEFT_DOWN		850511
+#define ID_ANI_PIRANHAPLANT_GREEN_HAS_BULLET_RIGHT_UP		850512
+#define ID_ANI_PIRANHAPLANT_GREEN_HAS_BULLET_RIGHT_DOWN		850513
 
 #define PIRANHAPLANT_RISING_TIME	4000
 #define PIRANHAPLANT_RISING_COOLDOWN_TIME	6000
@@ -36,15 +49,25 @@ private:
 	int nxFollow;
 	int nyFollow;
 	bool canShoot;
+	int piranhaType;
+
 public:
-	CPiranhaPlant(float x, float y) : CGameObject(x, y)
+	CPiranhaPlant(float x, float y, int piranhaType) : CGameObject(x, y)
 	{
 		this->yHIDDEN = y;
-		this->yCANATTACK = this->yHIDDEN - PIRANHAPLANT_BBOX_HEIGHT;
+
+		if (piranhaType == PIRANHAPLANT_RED_HAS_BULLET_TYPE)
+		{
+			this->yCANATTACK = this->yHIDDEN - PIRANHAPLANT_RED_HAS_BULLET_BBOX_HEIGHT;
+		}
+		else {
+			this->yCANATTACK = this->yHIDDEN - PIRANHAPLANT_GREEN_HAS_BULLET_BBOX_HEIGHT;
+		}
 		SetState(PIRANHA_STATE_HIDDEN);
 		startTimeRISING = 0;
 		vy = PIRANHA_Y_SPEED;
 		canShoot = true;
+		this->piranhaType = piranhaType;
 	}
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
@@ -55,4 +78,6 @@ public:
 	virtual void CheckState();
 	virtual void FollowMario();
 	virtual int GetIdAni();
+	virtual int GetBBoxWidth();
+	virtual int GetBBoxHeight();
 };

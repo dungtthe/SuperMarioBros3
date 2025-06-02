@@ -5,10 +5,12 @@
 
 void CPiranhaPlant::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	left = x - PIRANHAPLANT_BBOX_WIDTH / 2;
-	top = y - PIRANHAPLANT_BBOX_HEIGHT / 2;
-	right = left + PIRANHAPLANT_BBOX_WIDTH;
-	bottom = top + PIRANHAPLANT_BBOX_HEIGHT;
+	int width = GetBBoxWidth();
+	int height = GetBBoxHeight();
+	left = x - width / 2;
+	top = y - height / 2;
+	right = left + width;
+	bottom = top + height;
 }
 
 void CPiranhaPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -83,7 +85,7 @@ void CPiranhaPlant::FollowMario()
 		nxFollow = 1;
 	}
 
-	if (yMario <= (y + PIRANHAPLANT_BBOX_HEIGHT / 4)) {
+	if (yMario <= (y + GetBBoxHeight() / 4)) {
 		nyFollow = -1;
 	}
 	else {
@@ -99,7 +101,9 @@ void CPiranhaPlant::FollowMario()
 			return;
 		}
 		canShoot = false;
-		playScene->AddObject(new CBullet(x + (nxFollow * PIRANHAPLANT_BBOX_WIDTH) / 2, y - PIRANHAPLANT_BBOX_HEIGHT / 3, nxFollow, nyFollow));
+
+		float yBulletOffSet = nyFollow * GetBBoxHeight() / 6.0f;
+		playScene->AddObject(new CBullet(x + (nxFollow * GetBBoxWidth()) / 2, y - GetBBoxHeight() / 3 + yBulletOffSet, nxFollow, nyFollow));
 	}
 }
 
@@ -109,20 +113,57 @@ int CPiranhaPlant::GetIdAni()
 	int aniId = -1;
 	if (nxFollow >= 0) {
 		if (nyFollow >= 0) {
-			aniId = ID_ANI_PIRANHAPLANT_RIGHT_UP;
+
+			if (piranhaType == PIRANHAPLANT_RED_HAS_BULLET_TYPE) {
+				aniId = ID_ANI_PIRANHAPLANT_RED_HAS_BULLET_RIGHT_UP;
+			}
+			else {
+				aniId = ID_ANI_PIRANHAPLANT_GREEN_HAS_BULLET_RIGHT_UP;
+			}
 		}
 		else {
-			aniId = ID_ANI_PIRANHAPLANT_RIGHT_DOWN;
+			if (piranhaType == PIRANHAPLANT_RED_HAS_BULLET_TYPE) {
+				aniId = ID_ANI_PIRANHAPLANT_RED_HAS_BULLET_RIGHT_DOWN;
+			}
+			else {
+				aniId = ID_ANI_PIRANHAPLANT_GREEN_HAS_BULLET_RIGHT_DOWN;
+			}
 		}
 	}
 	else {
 		if (nyFollow >= 0) {
-			aniId = ID_ANI_PIRANHAPLANT_LEFT_UP;
+			if (piranhaType == PIRANHAPLANT_RED_HAS_BULLET_TYPE) {
+				aniId = ID_ANI_PIRANHAPLANT_RED_HAS_BULLET_LEFT_UP;
+			}
+			else {
+				aniId = ID_ANI_PIRANHAPLANT_GREEN_HAS_BULLET_LEFT_UP;
+			}
 		}
 		else {
-			aniId = ID_ANI_PIRANHAPLANT_LEFT_DOWN;
+			if (piranhaType == PIRANHAPLANT_RED_HAS_BULLET_TYPE) {
+				aniId = ID_ANI_PIRANHAPLANT_RED_HAS_BULLET_LEFT_DOWN;
+			}
+			else {
+				aniId = ID_ANI_PIRANHAPLANT_GREEN_HAS_BULLET_LEFT_DOWN;
+			}
 		}
 	}
 
 	return aniId;
+}
+
+int CPiranhaPlant::GetBBoxWidth()
+{
+	if (piranhaType == PIRANHAPLANT_RED_HAS_BULLET_TYPE) {
+		return PIRANHAPLANT_RED_HAS_BULLET_BBOX_WIDTH;
+	}
+	return PIRANHAPLANT_GREEN_HAS_BULLET_BBOX_WIDTH;
+}
+
+int CPiranhaPlant::GetBBoxHeight()
+{
+	if (piranhaType == PIRANHAPLANT_RED_HAS_BULLET_TYPE) {
+		return PIRANHAPLANT_RED_HAS_BULLET_BBOX_HEIGHT;
+	}
+	return PIRANHAPLANT_GREEN_HAS_BULLET_BBOX_HEIGHT;
 }
