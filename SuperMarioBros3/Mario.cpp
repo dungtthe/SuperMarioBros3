@@ -799,6 +799,10 @@ long CMario::GetPMeter()
 
 void CMario::Attack()
 {
+	if (isSitting) {
+		return;
+	}
+
 	if (GetTickCount64() - startAttackTime > MARIO_RACOON_ATTACK_COOLDOWN) {
 		startAttackTime = GetTickCount64();
 		vx += MARIO_RACOON_ATTACK_SPEED * nx;
