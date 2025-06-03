@@ -69,6 +69,10 @@ void CPiranhaPlant::CheckState()
 
 void CPiranhaPlant::FollowMario()
 {
+	if (piranhaType == PIRANHAPLANT_GREEN_NO_BULLET_TYPE) {
+		return ;
+	}
+
 	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 	if (mario == NULL) {
 		return;
@@ -110,6 +114,10 @@ void CPiranhaPlant::FollowMario()
 
 int CPiranhaPlant::GetIdAni()
 {
+	if (piranhaType == PIRANHAPLANT_GREEN_NO_BULLET_TYPE) {
+		return ID_ANI_PIRANHAPLANT_GREEN_NO_BULLET;
+	}
+
 	int aniId = -1;
 	if (nxFollow >= 0) {
 		if (nyFollow >= 0) {
@@ -157,6 +165,9 @@ int CPiranhaPlant::GetBBoxWidth()
 	if (piranhaType == PIRANHAPLANT_RED_HAS_BULLET_TYPE) {
 		return PIRANHAPLANT_RED_HAS_BULLET_BBOX_WIDTH;
 	}
+	else if (piranhaType == PIRANHAPLANT_GREEN_NO_BULLET_TYPE) {
+		return PIRANHAPLANT_GREEN_NO_BULLET_BBOX_WIDTH;
+	}
 	return PIRANHAPLANT_GREEN_HAS_BULLET_BBOX_WIDTH;
 }
 
@@ -164,6 +175,9 @@ int CPiranhaPlant::GetBBoxHeight()
 {
 	if (piranhaType == PIRANHAPLANT_RED_HAS_BULLET_TYPE) {
 		return PIRANHAPLANT_RED_HAS_BULLET_BBOX_HEIGHT;
+	}
+	else if (piranhaType == PIRANHAPLANT_GREEN_NO_BULLET_TYPE) {
+		return PIRANHAPLANT_GREEN_NO_BULLET_BBOX_HEIGHT;
 	}
 	return PIRANHAPLANT_GREEN_HAS_BULLET_BBOX_HEIGHT;
 }
