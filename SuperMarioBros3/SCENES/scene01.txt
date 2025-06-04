@@ -21,7 +21,7 @@ SCENES/piranha.txt
 # See OBJECT_TYPE constants in AssetIDs.h
 
 # MARIO
-0	1740	325
+0	500	100
 
 # BRICKS
 

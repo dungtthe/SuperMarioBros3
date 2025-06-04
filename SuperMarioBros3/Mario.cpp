@@ -283,23 +283,29 @@ void CMario::OnCollisionWithKoopa(LPCOLLISIONEVENT e)
 	}
 	else // hit by Koopa
 	{
+
 		if (untouchable == 0)
 		{
 			if (koopa->GetState() != KOOPA_STATE_DIE)
 			{
+				DebugOut(L">>> vao day 1 >>> \n");
+
 				//check hold
 				if (isCanHoldObj && koopa->IsShellIdle()) {
+					DebugOut(L">>> vao day 2 >>> \n");
 					this->objHold = koopa;
 				}
 				//check attack
 				else if (isAttacking) {
 
+					DebugOut(L">>> vao day 3 >>> \n");
 					koopa->KilledByTail();
 					koopa->SetState(KOOPA_STATE_SHELL_IDLE_UPTURNED);
 				}
 				else {
 					if (koopa->IsShell() && !koopa->IsShellWalking()) {
 						if (e->nx != 0) {
+							DebugOut(L">>> vao day 4 >>> \n");
 							koopa->SetNX(-e->nx);
 							if (koopa->IsShellUpturned()) {
 								koopa->SetState(KOOPA_STATE_SHELL_WALK_UPTURNED);
@@ -310,6 +316,7 @@ void CMario::OnCollisionWithKoopa(LPCOLLISIONEVENT e)
 						}
 					}
 					else {
+						DebugOut(L">>> vao day 5 >>> \n");
 						if (level > MARIO_LEVEL_SMALL)
 						{
 							if (level > MARIO_LEVEL_BIG) {
