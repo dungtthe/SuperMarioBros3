@@ -25,6 +25,9 @@ SCENES/piranha.txt
 
 # BRICKS
 
+# DEATH_BOUNDARY_Y
+200	0	25000
+
 
 #COIN
 4	1080	328

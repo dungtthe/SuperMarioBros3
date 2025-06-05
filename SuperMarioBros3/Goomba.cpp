@@ -34,6 +34,11 @@ void CGoomba::OnNoCollision(DWORD dt)
 {
 	x += vx * dt;
 	y += vy * dt;
+
+	if (CGameObject::CheckFallDeath() && state != GOOMBA_STATE_DIE) {
+		SetState(GOOMBA_STATE_DIE);
+		DebugOut(L"set goomba die trong CheckFallDeath %f, %f \n",x,y);
+	}
 };
 
 void CGoomba::OnCollisionWith(LPCOLLISIONEVENT e)
@@ -117,7 +122,7 @@ void CGoomba::SetState(int state)
 		}
 		break;
 	}
-		
+
 	case GOOMBA_STATE_WALKING:
 		vx = -GOOMBA_WALKING_SPEED;
 		break;

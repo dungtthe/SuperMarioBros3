@@ -108,7 +108,10 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	int object_type = atoi(tokens[0].c_str());
 	float x = (float)atof(tokens[1].c_str());
 	float y = (float)atof(tokens[2].c_str());
-
+	if (object_type == OBJECT_TYPE_DEATH_BOUNDARY_Y) {
+		deathBoundaryY = y;
+		return;
+	}
 	CGameObject* obj = NULL;
 
 	switch (object_type)
@@ -234,7 +237,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		obj->SetObjectType(OBJECT_TYPE_BACKGROUND_TILE);
 		break;
 	}
-
+	
 	default:
 		DebugOut(L"[ERROR] Invalid object type: %d\n", object_type);
 		return;

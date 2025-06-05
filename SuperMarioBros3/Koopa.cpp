@@ -59,7 +59,6 @@ void CKoopa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		vx += ax * dt;
 	}
 	//DebugOut(L"vx: %f \n", vx);
-
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }

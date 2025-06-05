@@ -12,6 +12,7 @@
 class CPlayScene : public CScene
 {
 protected:
+	float deathBoundaryY;
 	// A play scene has to have player, right? 
 	LPGAMEOBJECT player;
 
@@ -37,6 +38,7 @@ public:
 	virtual void Unload();
 
 	LPGAMEOBJECT GetPlayer() { return player; }
+	float GetDeathBoundaryY() { return deathBoundaryY; }
 
 	void AddObject(LPGAMEOBJECT obj);
 	vector <LPGAMEOBJECT> GetObjectsSpawnTrigger();

@@ -51,7 +51,6 @@ void CRedGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		isDeleted = true;
 		return;
 	}
-
 	CGameObject::Update(dt, coObjects);
 
 	CCollision::GetInstance()->Process(this, dt, coObjects);
@@ -105,6 +104,10 @@ void CRedGoomba::OnNoCollision(DWORD dt)
 	x += vx * dt;
 	y += vy * dt;
 	isOnPlatform = false;
+	if (CGameObject::CheckFallDeath() && state != GOOMBA_STATE_DIE) {
+		SetState(GOOMBA_STATE_DIE);
+		DebugOut(L"set red goomba die trong CheckFallDeath %f, %f\n", x, y);
+	}
 }
 
 void CRedGoomba::OnCollisionWith(LPCOLLISIONEVENT e)

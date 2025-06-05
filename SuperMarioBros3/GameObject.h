@@ -47,7 +47,7 @@ public:
 	void SetNX(int nx) { this->nx = nx; }
 	int GetNX() { return this->nx ; }
 	void RenderBoundingBox();
-
+	bool CheckFallDeath();
 	CGameObject();
 	CGameObject(float x, float y) :CGameObject() { this->x = x; this->y = y; this->isSpawnedByTrigger = false; }
 

@@ -7,6 +7,7 @@
 #include "Game.h"
 #include "GameObject.h"
 #include "Sprites.h"
+#include "PlayScene.h"
 
 CGameObject::CGameObject()
 {
@@ -38,6 +39,23 @@ void CGameObject::RenderBoundingBox()
 	CGame::GetInstance()->GetCamPos(cx, cy);
 
 	CGame::GetInstance()->Draw(x - cx, y - cy, bbox, &rect, BBOX_ALPHA);
+}
+
+bool CGameObject::CheckFallDeath()
+{
+	CScene* scene = CGame::GetInstance()->GetCurrentScene();
+	CPlayScene* playScene = dynamic_cast<CPlayScene*>(scene);
+	if (!playScene) {
+		if (y >= 100000) {
+			return true;
+		}
+	}
+	else {
+		if (y >= playScene->GetDeathBoundaryY()) {
+			return true;
+		}
+	}
+	return false;
 }
 
 CGameObject::~CGameObject()
