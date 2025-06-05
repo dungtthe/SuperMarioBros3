@@ -3,6 +3,7 @@
 #include "PlayScene.h"
 #include "RedKoopa.h"
 #include "QuestionBlock.h"
+#include "PiranhaPlant.h"
 
 void CGreenKoopa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 	if (isHasWing && isOnPlatform) {
@@ -123,10 +124,6 @@ void CGreenKoopa::OnCollisionWith(LPCOLLISIONEVENT e)
 
 		}
 	}
-	if (dynamic_cast<CQuestionBlock*>(e->obj))
-		OnCollisionWithQestionBlock(e);
-	else if (dynamic_cast<CGoomba*>(e->obj))
-		OnCollisionWithGoomba(e);
-	else if (dynamic_cast<CKoopa*>(e->obj))
-		OnCollisionWithKoopa(e);
+
+	CKoopa::OnCollisionWith(e);
 }

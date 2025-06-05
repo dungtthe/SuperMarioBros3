@@ -30,6 +30,10 @@ void CPiranhaPlant::Render()
 
 void CPiranhaPlant::SetState(int state)
 {
+	if (state == PIRANHA_STATE_DIE && this->state == PIRANHA_STATE_DIE) {
+		return;
+	}
+
 	CGameObject::SetState(state);
 	if (state == PIRANHA_STATE_HIDDEN) {
 		canShoot = true;

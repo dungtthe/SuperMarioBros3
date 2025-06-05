@@ -1,6 +1,7 @@
 #include "RedKoopa.h"
 #include "PlayScene.h"
 #include "QuestionBlock.h"
+#include "PiranhaPlant.h"
 int CRedKoopa::GetBBoxHeightCur() {
 	if (IsShell() || state == KOOPA_STATE_DIE) {
 		return KOOPA_SHELL_BBOX_HEIGHT;
@@ -144,10 +145,5 @@ void CRedKoopa::OnCollisionWith(LPCOLLISIONEVENT e)
 		}
 	}
 
-	if (dynamic_cast<CQuestionBlock*>(e->obj))
-		OnCollisionWithQestionBlock(e);
-	else if (dynamic_cast<CGoomba*>(e->obj))
-		OnCollisionWithGoomba(e);
-	else if (dynamic_cast<CKoopa*>(e->obj))
-		OnCollisionWithKoopa(e);
+	CKoopa::OnCollisionWith(e);
 }

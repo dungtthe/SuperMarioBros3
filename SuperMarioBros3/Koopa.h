@@ -57,6 +57,7 @@ protected:
 	virtual void OnCollisionWithQestionBlock(LPCOLLISIONEVENT e);
 	virtual void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
 	virtual void OnCollisionWithKoopa(LPCOLLISIONEVENT e);
+	virtual void OnCollisionWithPiranhaPlant(LPCOLLISIONEVENT e);
 	virtual int GetBBoxWidthCur() = 0;
 	virtual int GetBBoxHeightCur() = 0;
 	virtual int GetIdAnimation() = 0;

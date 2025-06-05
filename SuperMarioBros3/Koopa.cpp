@@ -5,6 +5,7 @@
 #include "Mario.h"
 #include "PlayScene.h"
 #include "SpawnTrigger.h"
+#include "PiranhaPlant.h"
 
 void CKoopa::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
@@ -16,7 +17,7 @@ void CKoopa::GetBoundingBox(float& left, float& top, float& right, float& bottom
 
 void CKoopa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	
+
 	//checkdie
 	if (state == KOOPA_STATE_DIE)
 	{
@@ -137,14 +138,31 @@ void CKoopa::OnCollisionWithKoopa(LPCOLLISIONEVENT e)
 	if (this->isBeingHeld || (IsShell() && vx != 0)) {
 		//this
 		SetState(KOOPA_STATE_DIE);
-		vy = - KOOPA_JUMP_DEFLECT_SPEED;
-		
+		vy = -KOOPA_JUMP_DEFLECT_SPEED;
+
 		//event
 		koopa->SetState(KOOPA_STATE_DIE);
 		float koopaVx;
 		float koopaVy;
 		koopa->GetPosition(koopaVx, koopaVy);
-		koopa->SetSpeed(koopaVx, - KOOPA_JUMP_DEFLECT_SPEED);
+		koopa->SetSpeed(koopaVx, -KOOPA_JUMP_DEFLECT_SPEED);
+	}
+}
+
+
+void CKoopa::OnCollisionWithPiranhaPlant(LPCOLLISIONEVENT e)
+{
+	//DebugOut(L">>> KOOPA coli Goomba >>> \n");
+	CPiranhaPlant* piranha = dynamic_cast<CPiranhaPlant*>(e->obj);
+	if (this->isBeingHeld) {
+		SetState(KOOPA_STATE_DIE);
+		vy = -KOOPA_JUMP_DEFLECT_SPEED;
+		piranha->SetState(PIRANHA_STATE_DIE);
+	}
+	else if (IsShell() && vx != 0) {
+		SetState(KOOPA_STATE_DIE);
+		vy = -KOOPA_JUMP_DEFLECT_SPEED;
+		piranha->SetState(PIRANHA_STATE_DIE);
 	}
 }
 
@@ -229,4 +247,16 @@ void CKoopa::UpdateHeld()
 	}
 	//DebugOut(L"vx: %f \n", vx);
 	//DebugOut(L"isBeingHeld: %d\n", isBeingHeld);
+}
+
+
+void CKoopa::OnCollisionWith(LPCOLLISIONEVENT e) {
+	if (dynamic_cast<CQuestionBlock*>(e->obj))
+		OnCollisionWithQestionBlock(e);
+	else if (dynamic_cast<CGoomba*>(e->obj))
+		OnCollisionWithGoomba(e);
+	else if (dynamic_cast<CKoopa*>(e->obj))
+		OnCollisionWithKoopa(e);
+	else if (dynamic_cast<CPiranhaPlant*>(e->obj))
+		OnCollisionWithPiranhaPlant(e);
 }
