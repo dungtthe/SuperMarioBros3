@@ -19,6 +19,7 @@
 #include "Koopa.h"
 #include "PiranhaPlant.h"
 #include "RedKoopa.h"
+#include "GreenKoopa.h"
 
 using namespace std;
 

@@ -4,6 +4,7 @@
 #include "debug.h"
 #include "Mario.h"
 #include "PlayScene.h"
+#include "SpawnTrigger.h"
 
 void CKoopa::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
@@ -24,6 +25,19 @@ void CKoopa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				return;
 			}
 			mario->SetObjHold(NULL);
+			if (isSpawnedByTrigger) {
+				CScene* scene = CGame::GetInstance()->GetCurrentScene();
+				CPlayScene* playScene = dynamic_cast<CPlayScene*>(scene);
+				if (!playScene) {
+					return;
+				}
+
+				auto objs = playScene->GetObjectsSpawnTrigger();
+				for (int i = 0; i < objs.size(); i++) {
+					CSpawnTrigger* objSpawn = (CSpawnTrigger*)objs[i];
+					objSpawn->CanSpawn();
+				}
+			}
 			isDeleted = true;
 		}
 		DebugOut(L"koopa die roi \n");

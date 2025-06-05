@@ -21,7 +21,7 @@ SCENES/piranha.txt
 # See OBJECT_TYPE constants in AssetIDs.h
 
 # MARIO
-0	500	100
+0	1400	200
 
 # BRICKS
 
@@ -383,12 +383,14 @@ SCENES/piranha.txt
 8	656	1088	2	1	2	920	392	-1
 #red goomba
 8	704	1088	3	1	9	968	392	-1
+#Koopa Green
+8	1190	1420	4	10000	14	1460	400	-1
 
 
-
-#Koopa
+#Koopa Red
 #type	x	y
 3	584	355
+
 
 
 # PIRANHAPLANT

@@ -3,7 +3,7 @@
 #include "PlayScene.h"
 #include "AssetIDs.h"
 #include "RedGoomba.h"
-
+#include "GreenKoopa.h"
 void CSpawnTrigger::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
@@ -31,6 +31,9 @@ void CSpawnTrigger::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 		else if (objSpawnType == OBJECT_TYPE_RED_GOOMBA) {
 			objSpawn = new CRedGoomba(xSpawnObj, ySpawnObj);
+		}
+		else if (objSpawnType == OBJECT_TYPE_GREEN_KOOPAS) {
+			objSpawn = new CGreenKoopa(xSpawnObj, ySpawnObj);
 		}
 		if (objSpawn == NULL) {
 			return;
