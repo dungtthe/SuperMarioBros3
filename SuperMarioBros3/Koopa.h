@@ -39,7 +39,7 @@ class CKoopa : public CGameObject
 protected:
 	float ax;
 	float ay;
-
+	bool isOnPlatform;
 	ULONGLONG die_start;
 	
 	long startTime_STATE_SHELL_IDLE;
@@ -68,7 +68,7 @@ public:
 		this->ay = KOOPA_GRAVITY;
 		die_start = -1;
 		SetState(KOOPA_STATE_WALKING_LEFT);
-		
+		this->isOnPlatform = false;
 		this->isBeingHeld = false;
 	}
 

@@ -20,7 +20,6 @@
 class CRedKoopa : public CKoopa
 {
 private:
-	bool isOnPlatform;
 	float xLastOnPlatform;
 	float yLastOnPlatform;
 
@@ -34,7 +33,7 @@ private:
 public:
 	CRedKoopa(float x, float y) :CKoopa(x, y)
 	{
-		this->isOnPlatform = false;
+		
 		this->xLastOnPlatform = -1;
 	}
 };

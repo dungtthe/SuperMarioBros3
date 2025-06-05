@@ -33,7 +33,8 @@ void CSpawnTrigger::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			objSpawn = new CRedGoomba(xSpawnObj, ySpawnObj);
 		}
 		else if (objSpawnType == OBJECT_TYPE_GREEN_KOOPAS) {
-			objSpawn = new CGreenKoopa(xSpawnObj, ySpawnObj);
+			int isHasWing = atoi(extraConfig[0].c_str());
+			objSpawn = new CGreenKoopa(xSpawnObj, ySpawnObj, isHasWing == 1);
 		}
 		if (objSpawn == NULL) {
 			return;

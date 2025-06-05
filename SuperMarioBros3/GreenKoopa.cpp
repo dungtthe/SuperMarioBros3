@@ -3,6 +3,17 @@
 #include "PlayScene.h"
 #include "RedKoopa.h"
 #include "QuestionBlock.h"
+
+void CGreenKoopa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
+	if (isHasWing && isOnPlatform) {
+		if ((GetTickCount64() - startFlyTime) > KOOPA_GREEN_FLY_TIMEOUT) {
+			vy = -KOOPA_GREEN_FLY_SPEED;
+			startFlyTime = GetTickCount64();
+		}
+	}
+	CKoopa::Update(dt, coObjects);
+}
+
 int CGreenKoopa::GetBBoxHeightCur() {
 	if (IsShell() || state == KOOPA_STATE_DIE) {
 		return KOOPA_SHELL_BBOX_HEIGHT;
@@ -21,10 +32,20 @@ int CGreenKoopa::GetIdAnimation()
 {
 	int aniID = -1;
 	if (state == KOOPA_STATE_WALKING_LEFT) {
-		aniID = ID_ANI_KOOPA_GREEN_WALKING_LEFT;
+		if (isHasWing) {
+			aniID = ID_ANI_KOOPA_GREEN_HASWING_WALKING_LEFT;
+		}
+		else {
+			aniID = ID_ANI_KOOPA_GREEN_WALKING_LEFT;
+		}
 	}
 	else if (state == KOOPA_STATE_WALKING_RIGHT) {
-		aniID = ID_ANI_KOOPA_GREEN_WALKING_RIGHT;
+		if (isHasWing) {
+			aniID = ID_ANI_KOOPA_GREEN_HASWING_WALKING_RIGHT;
+		}
+		else {
+			aniID = ID_ANI_KOOPA_GREEN_WALKING_RIGHT;
+		}
 	}
 	else if (state == KOOPA_STATE_SHELL_IDLE) {
 		aniID = ID_ANI_KOOPA_GREEN_SHELL_IDLE;
@@ -65,6 +86,7 @@ void CGreenKoopa::OnNoCollision(DWORD dt)
 	}
 	x += vx * dt;
 	y += vy * dt;
+	isOnPlatform = false;
 	if (CGameObject::CheckFallDeath() && state != KOOPA_STATE_DIE) {
 		SetState(KOOPA_STATE_DIE);
 		DebugOut(L"set green koopa die trong CheckFallDeath \n");
@@ -82,9 +104,10 @@ void CGreenKoopa::OnCollisionWith(LPCOLLISIONEVENT e)
 
 	if (!e->obj->IsBlocking()) return;
 	if (!isBeingHeld) {
-		if (e->ny != 0)
+		if (e->ny != 0 && e->obj->IsBlocking())
 		{
 			vy = 0;
+			isOnPlatform = true;
 		}
 		else if (e->nx != 0 && !dynamic_cast<CGoomba*>(e->obj))
 		{

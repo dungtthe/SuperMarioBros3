@@ -1,8 +1,7 @@
 #pragma once
 
 #include "GameObject.h"
-
-
+#include "PlayScene.h"
 class CSpawnTrigger : public CGameObject {
 private:
 	int id;//unique
@@ -17,8 +16,10 @@ private:
 	float xSpawnObj;
 	float ySpawnObj;
 	int nxStart;
+
+	vector<string> extraConfig;
 public:
-	CSpawnTrigger(int id, float xSpawnStart, float xSpawnEnd, int spawnLimit, int objSpawnType, float xSpawnObj, float ySpawnObj,int nxStart) {
+	CSpawnTrigger(int id, float xSpawnStart, float xSpawnEnd, int spawnLimit, int objSpawnType, float xSpawnObj, float ySpawnObj,int nxStart, vector<string> extraConfig ) {
 		this->id = id;
 		this->xSpawnStart = xSpawnStart;
 		this->xSpawnEnd = xSpawnEnd;
@@ -30,6 +31,8 @@ public:
 		this->xSpawnObj = xSpawnObj;
 		this->ySpawnObj = ySpawnObj;
 		this->nxStart = nxStart;
+
+		this->extraConfig = extraConfig;
 	}
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void Render() {}

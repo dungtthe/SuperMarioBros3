@@ -16,6 +16,8 @@
 #include "Leaf.h"
 #include "PiranhaPlant.h"
 #include "Bullet.h"
+#include "RedKoopa.h"
+#include "GreenKoopa.h"
 void CMario::SetPosition(float x, float y)
 {
 	if (!isAttacking) {
@@ -39,7 +41,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			isFloating = false;
 		}
 	}
-	
+
 
 
 	vy += ay * dt;
@@ -250,6 +252,14 @@ void CMario::OnCollisionWithKoopa(LPCOLLISIONEVENT e)
 	{
 		if (koopa->GetState() != KOOPA_STATE_DIE)
 		{
+			if (dynamic_cast<CGreenKoopa*>(e->obj)) {
+				CGreenKoopa* greenKoopa = dynamic_cast<CGreenKoopa*>(e->obj);
+				if (greenKoopa->IsHasWing()) {
+					greenKoopa->SetIsHasWing(false);
+					vy = -MARIO_JUMP_DEFLECT_SPEED;
+					return;
+				}
+			}
 			if (koopa->IsShell()) {
 
 				if (koopa->GetState() == KOOPA_STATE_SHELL_WALK) {
@@ -278,6 +288,7 @@ void CMario::OnCollisionWithKoopa(LPCOLLISIONEVENT e)
 			else {
 				koopa->SetState(KOOPA_STATE_SHELL_IDLE);
 			}
+
 			vy = -MARIO_JUMP_DEFLECT_SPEED;
 		}
 	}
@@ -299,6 +310,13 @@ void CMario::OnCollisionWithKoopa(LPCOLLISIONEVENT e)
 				else if (isAttacking) {
 
 					DebugOut(L">>> vao day 3 >>> \n");
+					if (dynamic_cast<CGreenKoopa*>(e->obj)) {
+						CGreenKoopa* greenKoopa = dynamic_cast<CGreenKoopa*>(e->obj);
+						if (greenKoopa->IsHasWing()) {
+							greenKoopa->SetIsHasWing(false);
+							return;
+						}
+					}
 					koopa->SetState(KOOPA_STATE_SHELL_IDLE_UPTURNED);
 				}
 				else {

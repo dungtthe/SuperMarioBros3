@@ -179,8 +179,11 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		float ySpawnObj = (float)atof(tokens[7].c_str());
 		int nxStart = atoi(tokens[8].c_str());
 
-
-		obj = new CSpawnTrigger(id, x, y, spawnLimit, objSpawnType, xSpawnObj, ySpawnObj, nxStart);
+		vector<string> extraConfig;
+		for (size_t i = 9; i < tokens.size(); ++i) {
+			extraConfig.push_back(tokens[i]);
+		}
+		obj = new CSpawnTrigger(id, x, y, spawnLimit, objSpawnType, xSpawnObj, ySpawnObj, nxStart, extraConfig);
 		break;
 	}
 
