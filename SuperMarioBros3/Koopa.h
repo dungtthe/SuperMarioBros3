@@ -8,8 +8,7 @@
 #define KOOPA_JUMP_DEFLECT_SPEED  0.5f
 
 
-#define KOOPA_BBOX_WIDTH 16
-#define KOOPA_BBOX_HEIGHT 24
+
 #define KOOPA_SHELL_BBOX_WIDTH 16
 #define KOOPA_SHELL_BBOX_HEIGHT 14
 
@@ -30,23 +29,9 @@
 #define KOOPA_STATE_DIE 600
 
 
-//ani
-#define ID_ANI_KOOPA_WALKING_LEFT 750000
-#define ID_ANI_KOOPA_WALKING_RIGHT 750001
-#define ID_ANI_KOOPA_SHELL_IDLE 750002
-#define ID_ANI_KOOPA_SHELL_REVIVING 750003
-#define ID_ANI_KOOPA_SHELL_IDLE_UPTURNED 750004
-#define ID_ANI_KOOPA_SHELL_REVIVING_UPTURNED 750005
-#define ID_ANI_KOOPA_SHELL_WALK 750006
-#define ID_ANI_KOOPA_SHELL_WALK_UPTURNED 750007
-#define ID_ANI_KOOPA_DIE 750008
-
 //time
 #define KOOPA_SHELL_IDLE_TIMEOUT 6000
 #define KOOPA_SHELL_REVIVING_TIMEOUT 2500
-
-//
-#define KOOPA_HEIGHT_ADJUST ((KOOPA_BBOX_HEIGHT-KOOPA_SHELL_BBOX_HEIGHT)/2)
 
 
 class CKoopa : public CGameObject
@@ -56,9 +41,7 @@ protected:
 	float ay;
 
 	ULONGLONG die_start;
-	bool isOnPlatform;
-	float xLastOnPlatform;
-	float yLastOnPlatform;
+	
 	long startTime_STATE_SHELL_IDLE;
 	long startTime_STATE_SHELL_REVIVING;
 	int nxPre;
@@ -69,10 +52,14 @@ protected:
 
 	virtual int IsCollidable() { return  state != KOOPA_STATE_DIE; }
 	virtual int IsBlocking() { return state != KOOPA_STATE_DIE; }
-	virtual void OnNoCollision(DWORD dt);
-	virtual void OnCollisionWith(LPCOLLISIONEVENT e);
+	virtual void OnNoCollision(DWORD dt) = 0;
+	virtual void OnCollisionWith(LPCOLLISIONEVENT e) = 0;
 	virtual void OnCollisionWithQestionBlock(LPCOLLISIONEVENT e);
 	virtual void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
+	virtual int GetBBoxWidthCur() = 0;
+	virtual int GetBBoxHeightCur() = 0;
+	virtual int GetIdAnimation() = 0;
+	virtual float GetHeightAdjust() { return 0; }
 
 public:
 	CKoopa(float x, float y) :CGameObject(x, y)
@@ -81,8 +68,7 @@ public:
 		this->ay = KOOPA_GRAVITY;
 		die_start = -1;
 		SetState(KOOPA_STATE_WALKING_LEFT);
-		this->isOnPlatform = false;
-		this->xLastOnPlatform = -1;
+		
 		this->isBeingHeld = false;
 	}
 

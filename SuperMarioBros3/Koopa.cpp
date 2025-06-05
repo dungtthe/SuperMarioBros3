@@ -7,21 +7,10 @@
 
 void CKoopa::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-
-	if (IsShell() || state == KOOPA_STATE_DIE)
-	{
-		left = x - KOOPA_SHELL_BBOX_WIDTH / 2;
-		top = y - KOOPA_SHELL_BBOX_HEIGHT / 2;
-		right = left + KOOPA_SHELL_BBOX_WIDTH;
-		bottom = top + KOOPA_SHELL_BBOX_HEIGHT;
-	}
-	else
-	{
-		left = x - KOOPA_BBOX_WIDTH / 2;
-		top = y - KOOPA_BBOX_HEIGHT / 2;
-		right = left + KOOPA_BBOX_WIDTH;
-		bottom = top + KOOPA_BBOX_HEIGHT;
-	}
+	left = x - GetBBoxWidthCur() / 2;
+	top = y - GetBBoxHeightCur() / 2;
+	right = left + GetBBoxWidthCur();
+	bottom = top + GetBBoxHeightCur();
 }
 
 void CKoopa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -77,124 +66,10 @@ void CKoopa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void CKoopa::Render()
 {
-	int aniID = -1;
-	if (state == KOOPA_STATE_WALKING_LEFT) {
-		aniID = ID_ANI_KOOPA_WALKING_LEFT;
-	}
-	else if (state == KOOPA_STATE_WALKING_RIGHT) {
-		aniID = ID_ANI_KOOPA_WALKING_RIGHT;
-	}
-	else if (state == KOOPA_STATE_SHELL_IDLE) {
-		aniID = ID_ANI_KOOPA_SHELL_IDLE;
-	}
-	else if (state == KOOPA_STATE_SHELL_REVIVING) {
-		aniID = ID_ANI_KOOPA_SHELL_REVIVING;
-	}
-	else if (state == KOOPA_STATE_SHELL_IDLE_UPTURNED) {
-		aniID = ID_ANI_KOOPA_SHELL_IDLE_UPTURNED;
-	}
-	else if (state == KOOPA_STATE_SHELL_REVIVING_UPTURNED) {
-		aniID = ID_ANI_KOOPA_SHELL_REVIVING_UPTURNED;
-	}
-	else if (state == KOOPA_STATE_SHELL_WALK) {
-		aniID = ID_ANI_KOOPA_SHELL_WALK;
-	}
-	else if (state == KOOPA_STATE_SHELL_WALK_UPTURNED) {
-		aniID = ID_ANI_KOOPA_SHELL_WALK_UPTURNED;
-	}
-	else if (state == KOOPA_STATE_DIE) {
-		aniID = ID_ANI_KOOPA_DIE;
-	}
 	CAnimations* animations = CAnimations::GetInstance();
-	animations->Get(aniID)->Render(x, y);
+	animations->Get(GetIdAnimation())->Render(x, y);
 }
 
-void CKoopa::OnNoCollision(DWORD dt)
-{
-	if (isBeingHeld) {
-		xLastOnPlatform = x;
-		yLastOnPlatform = y;
-		CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
-		if (mario == NULL) {
-			return;
-		}
-		if (mario->GetLevel() == MARIO_LEVEL_SMALL) {
-			yLastOnPlatform -= MARIO_RACOON_SIT_HEIGHT_ADJUST;
-		}
-		return;
-	}
-	x += vx * dt;
-	y += vy * dt;
-	isOnPlatform = false;
-
-	if (xLastOnPlatform != -1 && !IsShell()) {
-		float deltaX = abs(x - xLastOnPlatform);
-		float deltaY = abs(y - yLastOnPlatform);
-		DebugOut(L"deltaX: %.2f, deltaY: %.2f \n", deltaX, deltaY);
-
-		if (deltaX > KOOPA_BBOX_WIDTH / 2 || deltaY > KOOPA_BBOX_HEIGHT / 2) {
-			SetState(KOOPA_STATE_DIE);
-			DebugOut(L"set koopa die trong check delta \n");
-			return;
-		}
-
-
-		x = xLastOnPlatform;
-		y = yLastOnPlatform;
-
-
-		//vx = -vx;
-		if (vx > 0) {
-			SetState(KOOPA_STATE_WALKING_LEFT);
-		}
-		else {
-			SetState(KOOPA_STATE_WALKING_RIGHT);
-		}
-	}
-
-	//DebugOut(L"KOOPA_OnNoCollision: x: %.2f, y: %.2f, vx: %.2f, vy: %.2f \n", x, y, vx, vy);
-
-}
-
-void CKoopa::OnCollisionWith(LPCOLLISIONEVENT e)
-{
-	if (state == KOOPA_STATE_DIE) {
-		return;
-	}
-
-	//DebugOut(L"KOOPA_OnCollisionWith: x: %.2f, y: %.2f, vx: %.2f, vy: %.2f \n", x, y, vx, vy);
-
-	if (!e->obj->IsBlocking()) return;
-
-	if (!isBeingHeld) {
-		if (e->ny != 0 && e->obj->IsBlocking())
-		{
-			vy = 0;
-			isOnPlatform = true;
-			xLastOnPlatform = x;
-			yLastOnPlatform = y;
-		}
-		else if (e->nx != 0 && !dynamic_cast<CGoomba*>(e->obj))
-		{
-			vx = -vx;
-
-			if (!IsShell() && state != KOOPA_STATE_DIE) {
-				if (vx < 0) {
-					SetState(KOOPA_STATE_WALKING_LEFT);
-				}
-				else {
-					SetState(KOOPA_STATE_WALKING_RIGHT);
-				}
-			}
-
-		}
-	}
-
-	if (dynamic_cast<CQuestionBlock*>(e->obj))
-		OnCollisionWithQestionBlock(e);
-	else if (dynamic_cast<CGoomba*>(e->obj))
-		OnCollisionWithGoomba(e);
-}
 
 void CKoopa::OnCollisionWithQestionBlock(LPCOLLISIONEVENT e)
 {
@@ -280,7 +155,8 @@ void CKoopa::SetState(int state)
 	}
 	}
 	if (isPreStateShell && !IsShell()) {
-		y -= KOOPA_HEIGHT_ADJUST;
+
+		y -= GetHeightAdjust();
 	}
 
 

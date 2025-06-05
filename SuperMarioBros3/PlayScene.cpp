@@ -18,6 +18,7 @@
 #include "RedGoomba.h"
 #include "Koopa.h"
 #include "PiranhaPlant.h"
+#include "RedKoopa.h"
 
 using namespace std;
 
@@ -138,8 +139,8 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		obj = new CQuestionBlock(x, y, isRanCoin, isRanRedMushRoom, isRanLeaf);
 		break;
 	}
-	case OBJECT_TYPE_KOOPAS: {
-		obj = new CKoopa(x, y);
+	case OBJECT_TYPE_RED_KOOPAS: {
+		obj = new CRedKoopa(x, y);
 		break;
 	}
 	case OBJECT_TYPE_PLATFORM:
