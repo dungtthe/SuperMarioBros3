@@ -60,6 +60,13 @@ void CKoopa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	if ((timeCur - startTime_STATE_SHELL_REVIVING) > KOOPA_SHELL_REVIVING_TIMEOUT) {
 		if (state == KOOPA_STATE_SHELL_REVIVING || state == KOOPA_STATE_SHELL_REVIVING_UPTURNED) {
+			if (isBeingHeld) {
+				DebugOut(L"held by mario \n");
+				CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+				if (mario != NULL) {
+					mario->DecreaseLevel();
+				}
+			}
 			if (nxPre > 0) {
 
 				SetState(KOOPA_STATE_WALKING_RIGHT);

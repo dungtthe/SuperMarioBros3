@@ -47,7 +47,7 @@ int CGreenKoopa::GetIdAnimation()
 	else if (state == KOOPA_STATE_DIE) {
 		aniID = ID_ANI_KOOPA_GREEN_DIE;
 	}
-	DebugOut(L"aniid green koopa %d \n", aniID);
+	//DebugOut(L"aniid green koopa %d \n", aniID);
 	return aniID;
 }
 

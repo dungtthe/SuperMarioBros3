@@ -908,6 +908,24 @@ void CMario::GetBoundingBox(float& left, float& top, float& right, float& bottom
 	}
 }
 
+void CMario::DecreaseLevel()
+{
+	if (level > MARIO_LEVEL_SMALL)
+	{
+		if (level > MARIO_LEVEL_BIG) {
+			level = MARIO_LEVEL_BIG;
+		}
+		else {
+			level = MARIO_LEVEL_SMALL;
+		}
+		StartUntouchable();
+	}
+	else
+	{
+		SetState(MARIO_STATE_DIE);
+	}
+}
+
 void CMario::SetLevel(int l)
 {
 	// Adjust position to avoid falling off platform
