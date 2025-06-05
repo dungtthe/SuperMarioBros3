@@ -73,7 +73,9 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			auto objs = playScene->GetObjectsSpawnTrigger();
 			for (int i = 0; i < objs.size(); i++) {
 				CSpawnTrigger* objSpawn = (CSpawnTrigger*)objs[i];
-				objSpawn->CanSpawn();
+				if (objSpawn->GetID() == idSpawnedByTrigger) {
+					objSpawn->CanSpawn();
+				}
 			}
 		}
 
