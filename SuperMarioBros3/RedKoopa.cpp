@@ -56,6 +56,7 @@ float CRedKoopa::GetHeightAdjust()
 
 void CRedKoopa::OnNoCollision(DWORD dt)
 {
+
 	if (CGameObject::CheckFallDeath() && state != KOOPA_STATE_DIE) {
 		SetState(KOOPA_STATE_DIE);
 		DebugOut(L"set koopa die trong CheckFallDeath \n");
@@ -147,4 +148,6 @@ void CRedKoopa::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithQestionBlock(e);
 	else if (dynamic_cast<CGoomba*>(e->obj))
 		OnCollisionWithGoomba(e);
+	else if (dynamic_cast<CKoopa*>(e->obj))
+		OnCollisionWithKoopa(e);
 }

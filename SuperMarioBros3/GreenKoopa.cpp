@@ -127,4 +127,6 @@ void CGreenKoopa::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithQestionBlock(e);
 	else if (dynamic_cast<CGoomba*>(e->obj))
 		OnCollisionWithGoomba(e);
+	else if (dynamic_cast<CKoopa*>(e->obj))
+		OnCollisionWithKoopa(e);
 }

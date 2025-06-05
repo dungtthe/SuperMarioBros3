@@ -13,7 +13,7 @@
 #define KOOPA_SHELL_BBOX_HEIGHT 14
 
 
-#define KOOPA_DIE_TIMEOUT 500
+#define KOOPA_DIE_TIMEOUT 2000
 
 //state
 #define KOOPA_STATE_WALKING_LEFT 100
@@ -56,6 +56,7 @@ protected:
 	virtual void OnCollisionWith(LPCOLLISIONEVENT e) = 0;
 	virtual void OnCollisionWithQestionBlock(LPCOLLISIONEVENT e);
 	virtual void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
+	virtual void OnCollisionWithKoopa(LPCOLLISIONEVENT e);
 	virtual int GetBBoxWidthCur() = 0;
 	virtual int GetBBoxHeightCur() = 0;
 	virtual int GetIdAnimation() = 0;

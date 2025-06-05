@@ -16,6 +16,7 @@ void CKoopa::GetBoundingBox(float& left, float& top, float& right, float& bottom
 
 void CKoopa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	
 	//checkdie
 	if (state == KOOPA_STATE_DIE)
 	{
@@ -42,7 +43,10 @@ void CKoopa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			}
 			isDeleted = true;
 		}
-		DebugOut(L"koopa die roi \n");
+
+		vy += ay * dt;
+		y += vy * dt;
+		//DebugOut(L"koopa die roi \n");
 		return;
 	}
 
@@ -120,6 +124,27 @@ void CKoopa::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 			goomba->KilledByTailOrKoopaShell();
 			goomba->SetState(GOOMBA_STATE_DIE);
 		}
+	}
+}
+
+
+void CKoopa::OnCollisionWithKoopa(LPCOLLISIONEVENT e)
+{
+	CKoopa* koopa = dynamic_cast<CKoopa*>(e->obj);
+
+	bool flag = false;
+
+	if (this->isBeingHeld || (IsShell() && vx != 0)) {
+		//this
+		SetState(KOOPA_STATE_DIE);
+		vy = - KOOPA_JUMP_DEFLECT_SPEED;
+		
+		//event
+		koopa->SetState(KOOPA_STATE_DIE);
+		float koopaVx;
+		float koopaVy;
+		koopa->GetPosition(koopaVx, koopaVy);
+		koopa->SetSpeed(koopaVx, - KOOPA_JUMP_DEFLECT_SPEED);
 	}
 }
 
