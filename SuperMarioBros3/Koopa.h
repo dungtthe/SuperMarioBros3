@@ -62,7 +62,6 @@ protected:
 	long startTime_STATE_SHELL_IDLE;
 	long startTime_STATE_SHELL_REVIVING;
 	int nxPre;
-	bool isKilledByTail;
 	bool isBeingHeld;
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
@@ -84,7 +83,6 @@ public:
 		SetState(KOOPA_STATE_WALKING_LEFT);
 		this->isOnPlatform = false;
 		this->xLastOnPlatform = -1;
-		this->isKilledByTail = false;
 		this->isBeingHeld = false;
 	}
 
@@ -103,5 +101,4 @@ public:
 	bool IsShellIdle() {
 		return state == KOOPA_STATE_SHELL_IDLE || state == KOOPA_STATE_SHELL_IDLE_UPTURNED;
 	}
-	void KilledByTail() { this->isKilledByTail = true; }
 };

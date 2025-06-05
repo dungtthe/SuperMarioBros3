@@ -299,7 +299,6 @@ void CMario::OnCollisionWithKoopa(LPCOLLISIONEVENT e)
 				else if (isAttacking) {
 
 					DebugOut(L">>> vao day 3 >>> \n");
-					koopa->KilledByTail();
 					koopa->SetState(KOOPA_STATE_SHELL_IDLE_UPTURNED);
 				}
 				else {
