@@ -133,10 +133,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_COIN: obj = new CCoin(x, y, COIN_PLACED); break;
 	case OBJECT_TYPE_PIRANHAPLANT: {
 		int piranhaType = atoi(tokens[3].c_str());
-		float shootRange = 0;
-		if (piranhaType != PIRANHAPLANT_GREEN_NO_BULLET_TYPE) {
-			shootRange = (float)atof(tokens[4].c_str());
-		}
+		float shootRange = (float)atof(tokens[4].c_str());
 		obj = new CPiranhaPlant(x, y, piranhaType, shootRange);
 		break;
 	}
