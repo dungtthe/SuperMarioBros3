@@ -53,7 +53,7 @@ void CGoldBrick::SpawnItem(bool isSpawnByPowerSwitch) {
 			if (!playScene) {
 				return;
 			}
-			CCoin* coin = new CCoin(x, y, COIN_PLACED);
+			CCoin* coin = new CCoin(x, y, COIN_FROM_GOLDBRICK, GetTickCount64());
 			playScene->AddObject(coin);
 			isDeleted = true;
 		}

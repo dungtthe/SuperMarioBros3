@@ -19,6 +19,8 @@
 #pragma region coin type
 #define	COIN_PLACED 1
 #define	COIN_FROM_QUESTIONBLOCK 2
+#define	COIN_FROM_GOLDBRICK 3
+
 #pragma endregion
 
 
@@ -26,13 +28,17 @@ class CCoin : public CGameObject {
 private:
 	int coinType;
 	float yStart;
+
+	//gold brick
+	long startSpawnTimeFromGoldBrick;
 public:
-	CCoin(float x, float y, int coinType) : CGameObject(x, y) 
+	CCoin(float x, float y, int coinType, long startSpawnTimeFromGoldBrick = 0) : CGameObject(x, y)
 	{
 		this->coinType = coinType;
 		vy = COIN_FLY_SPEED_Y;
 		yStart = y;
 		this->score = SCORE_VALUE_COIN;
+		this->startSpawnTimeFromGoldBrick = startSpawnTimeFromGoldBrick;
 	}
 	void Render();
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);

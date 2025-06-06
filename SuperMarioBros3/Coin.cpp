@@ -2,6 +2,8 @@
 #include "debug.h"
 #include "Mario.h"
 #include "PlayScene.h"
+#include "PowerSwitch.h"
+#include "GoldBrick.h"
 
 void CCoin::Render()
 {
@@ -13,6 +15,21 @@ void CCoin::Render()
 
 void CCoin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	if (coinType == COIN_FROM_GOLDBRICK) {
+		if ((GetTickCount64() - startSpawnTimeFromGoldBrick) > POWER_SWITCH_DURATION_TIME) {
+			CScene* scene = CGame::GetInstance()->GetCurrentScene();
+			CPlayScene* playScene = dynamic_cast<CPlayScene*>(scene);
+			if (!playScene) {
+				return;
+			}
+			CGoldBrick * goldBrick =  new CGoldBrick(x, y, true, false, false);
+			playScene->AddObject(goldBrick);
+			isDeleted = true;
+		}
+
+		return;
+	}
+
 	if (coinType != COIN_FROM_QUESTIONBLOCK) {
 		return;
 	}

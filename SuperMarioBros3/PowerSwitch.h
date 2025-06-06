@@ -14,6 +14,9 @@
 
 #define POWER_SWITCH_RANGE 300
 
+
+#define POWER_SWITCH_DURATION_TIME 10000
+
 class CPowerSwitch : public CGameObject {
 private:
 	bool isActive;
