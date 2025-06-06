@@ -59,9 +59,10 @@ private:
 	int nyFollow;
 	bool canShoot;
 	int piranhaType;
+	float shootRange;
 
 public:
-	CPiranhaPlant(float x, float y, int piranhaType) : CGameObject(x, y)
+	CPiranhaPlant(float x, float y, int piranhaType, float shootRange) : CGameObject(x, y)
 	{
 		this->yHIDDEN = y;
 
@@ -77,6 +78,7 @@ public:
 		vy = PIRANHA_Y_SPEED;
 		canShoot = true;
 		this->piranhaType = piranhaType;
+		this->shootRange = shootRange;
 	}
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);

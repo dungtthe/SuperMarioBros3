@@ -100,6 +100,11 @@ void CPiranhaPlant::FollowMario()
 		nyFollow = 1;
 	}
 
+	//check shootRange
+	float distance = calculateDistance(x, y, xMario, yMario);
+	if (distance > shootRange) {
+		return;
+	}
 
 	//ban
 	if (state == PIRANHA_STATE_CANATTACK && canShoot) {
