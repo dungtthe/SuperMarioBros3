@@ -236,7 +236,8 @@ public:
 	void Attack();
 	void UpdateAttack();
 	void UpdateHoldingObj();
-	void UpdateCoint(int coinAdd);
+	void UpdateCoin(int coinAdd);
+	void UpdateScore(int scoreAdd);
 	void SetIsCanHoldingObj(bool isCanHold) { this->isCanHoldObj = isCanHold; }
 	bool CanHoldObj() { return this->isCanHoldObj; }
 	void SetObjHold(LPGAMEOBJECT obj) { this->objHold = obj; }

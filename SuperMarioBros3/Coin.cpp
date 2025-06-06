@@ -23,7 +23,8 @@ void CCoin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	if (vy < 0 && (yStart - COIN_BBOX_HEIGHT+ COIN_BBOX_HEIGHT/4) <= y) {
 		CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
-		mario->UpdateCoint(100);
+		mario->UpdateCoin(1);
+		mario->UpdateScore(this->score);
 		isDeleted = true;
 	}
 }

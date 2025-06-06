@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "ScoreValues.h"
 
 #define KOOPA_GRAVITY 0.002f
 #define KOOPA_WALKING_SPEED 0.05f
@@ -72,6 +73,7 @@ public:
 		SetState(KOOPA_STATE_WALKING_LEFT);
 		this->isOnPlatform = false;
 		this->isBeingHeld = false;
+		this->score = SCORE_VALUE_KOOPA;
 	}
 
 	virtual void SetState(int state);

@@ -50,6 +50,10 @@ void CPiranhaPlant::SetState(int state)
 	}
 	else if (state == PIRANHA_STATE_DIE) {
 		isDeleted = true;
+		CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+		if (mario != NULL) {
+			mario->UpdateScore(this->score);
+		}
 	}
 }
 

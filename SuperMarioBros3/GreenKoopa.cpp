@@ -89,6 +89,7 @@ void CGreenKoopa::OnNoCollision(DWORD dt)
 	y += vy * dt;
 	isOnPlatform = false;
 	if (CGameObject::CheckFallDeath() && state != KOOPA_STATE_DIE) {
+		this->score = 0;
 		SetState(KOOPA_STATE_DIE);
 		DebugOut(L"set green koopa die trong CheckFallDeath \n");
 		return;

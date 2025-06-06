@@ -1,7 +1,7 @@
 #include "Goomba.h"
 #include "PlayScene.h"
 #include "SpawnTrigger.h"
-
+#include "ScoreValues.h"
 CGoomba::CGoomba(float x, float y) :CGameObject(x, y)
 {
 	this->ax = 0;
@@ -9,6 +9,7 @@ CGoomba::CGoomba(float x, float y) :CGameObject(x, y)
 	die_start = -1;
 	SetState(GOOMBA_STATE_WALKING);
 	this->isKilledByTailOrKoopaShell = false;
+	this->score = SCORE_VALUE_GOOMBA;
 }
 
 
@@ -36,6 +37,7 @@ void CGoomba::OnNoCollision(DWORD dt)
 	y += vy * dt;
 
 	if (CGameObject::CheckFallDeath() && state != GOOMBA_STATE_DIE) {
+		this->score = 0;
 		SetState(GOOMBA_STATE_DIE);
 		DebugOut(L"set goomba die trong CheckFallDeath %f, %f \n",x,y);
 	}
@@ -109,7 +111,7 @@ void CGoomba::SetState(int state)
 	{
 		CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 		if (mario != NULL) {
-			mario->UpdateCoint(100);
+			mario->UpdateScore(this->score);
 		}
 		die_start = GetTickCount64();
 		y += (GOOMBA_BBOX_HEIGHT - GOOMBA_BBOX_HEIGHT_DIE) / 2;

@@ -2,6 +2,7 @@
 #include "Gameobject.h"
 #include <ctime>
 #include "Utils.h"
+#include "ScoreValues.h"
 
 #define LEAF_GRAVITY 0.000005f
 #define LEAF_FLYING_X_SPEED 0.07f 
@@ -27,6 +28,7 @@ public:
 		this->vy = 0;
 		startTimeChange = GetTickCount64();
 		this->yStart = yStart;
+		this->score = SCORE_VALUE_LEAF;
 	}
 	int IsBlocking() { return 0; }
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);

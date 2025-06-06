@@ -2,6 +2,7 @@
 #include "Gameobject.h"
 #include <ctime>
 #include "Utils.h"
+#include "ScoreValues.h"
 
 
 
@@ -79,6 +80,7 @@ public:
 		canShoot = true;
 		this->piranhaType = piranhaType;
 		this->shootRange = shootRange;
+		this->score = SCORE_VALUE_PIRANHA;
 	}
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);

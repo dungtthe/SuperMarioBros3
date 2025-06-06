@@ -18,6 +18,7 @@ CGameObject::CGameObject()
 	isDeleted = false;
 	isSpawnedByTrigger = false;
 	idSpawnedByTrigger = -1;
+	score = 0;
 }
 
 void CGameObject::RenderBoundingBox()

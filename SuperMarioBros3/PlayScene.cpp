@@ -21,6 +21,7 @@
 #include "RedKoopa.h"
 #include "GreenKoopa.h"
 #include "GoldBrick.h"
+#include "ScoreValues.h"
 
 using namespace std;
 

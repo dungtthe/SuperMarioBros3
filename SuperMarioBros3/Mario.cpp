@@ -108,14 +108,14 @@ void CMario::OnCollisionWithMushroom(LPCOLLISIONEVENT e)
 	CMushroom* mus = dynamic_cast<CMushroom*>(e->obj);
 	SetLevel(MARIO_LEVEL_BIG);
 	mus->Delete();
-	UpdateCoint(1000);
+	UpdateScore(mus->GetScore());
 }
 void CMario::OnCollisionWithLeaf(LPCOLLISIONEVENT e)
 {
 	CLeaf* lea = dynamic_cast<CLeaf*>(e->obj);
 	SetLevel(MARIO_LEVEL_RACOON);
 	lea->Delete();
-	UpdateCoint(1000);
+	UpdateScore(lea->GetScore());
 }
 void CMario::OnCollisionWithPiranhaPlant(LPCOLLISIONEVENT e)
 {
@@ -225,7 +225,8 @@ void CMario::OnCollisionWithCoin(LPCOLLISIONEVENT e)
 		return;
 	}
 	e->obj->Delete();
-	coin += 100;
+	UpdateCoin(1);
+	UpdateScore(c->GetScore());
 }
 
 void CMario::OnCollisionWithPortal(LPCOLLISIONEVENT e)
@@ -679,7 +680,7 @@ void CMario::Render()
 	//RenderBoundingBox();
 
 	//DebugOutTitle(L"Coins: %d", coin);
-	DebugOutTitle(L"X: %.2f, Y: %.2f, P: %d , Coin: %d, isAttacking: %d, isCanHolding: %d, isFloa: %d, vy: %.4f", x, y, GetPMeter(), coin, isAttacking, isCanHoldObj, isFloating, vy);
+	DebugOutTitle(L"X: %.2f, Y: %.2f, P: %d , Coin: %d, isAttacking: %d, isCanHolding: %d, score: %d", x, y, GetPMeter(), coin, isAttacking, isCanHoldObj, score);
 }
 
 void CMario::SetState(int state)
@@ -877,9 +878,14 @@ void CMario::UpdateHoldingObj()
 	koopa->SetPosition(xHold, yHold);
 }
 
-void CMario::UpdateCoint(int coinAdd)
+void CMario::UpdateCoin(int coinAdd)
 {
 	coin += coinAdd;
+}
+
+void CMario::UpdateScore(int scoreAdd)
+{
+	score += scoreAdd;
 }
 
 void CMario::GetBoundingBox(float& left, float& top, float& right, float& bottom)

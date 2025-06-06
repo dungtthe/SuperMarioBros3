@@ -175,6 +175,10 @@ void CKoopa::SetState(int state)
 	{
 	case KOOPA_STATE_DIE: {
 		die_start = GetTickCount64();
+		CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+		if (mario != NULL) {
+			mario->UpdateScore(this->score);
+		}
 		break;
 	}
 	case KOOPA_STATE_WALKING_LEFT:
@@ -193,6 +197,12 @@ void CKoopa::SetState(int state)
 	{
 		startTime_STATE_SHELL_IDLE = GetTickCount64();
 		vx = 0;
+		if (!isPreStateShell) {
+			CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+			if (mario != NULL) {
+				mario->UpdateScore(this->score);
+			}
+		}
 		break;
 	}
 	case KOOPA_STATE_SHELL_REVIVING:
@@ -210,6 +220,12 @@ void CKoopa::SetState(int state)
 		startTime_STATE_SHELL_IDLE = GetTickCount64();
 		vy = -KOOPA_JUMP_DEFLECT_SPEED;
 		vx = 0;
+		if (!isPreStateShell) {
+			CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+			if (mario != NULL) {
+				mario->UpdateScore(this->score);
+			}
+		}
 		break;
 	}
 	case KOOPA_STATE_SHELL_REVIVING_UPTURNED:

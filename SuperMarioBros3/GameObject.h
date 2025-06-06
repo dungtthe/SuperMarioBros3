@@ -35,6 +35,8 @@ protected:
 	bool isSpawnedByTrigger;
 	int idSpawnedByTrigger;
 
+	int score;
+
 public:
 	virtual void SetPosition(float x, float y) { this->x = x, this->y = y; }
 	void SetSpeed(float vx, float vy) { this->vx = vx, this->vy = vy; }
@@ -49,8 +51,9 @@ public:
 	void RenderBoundingBox();
 	bool CheckFallDeath();
 	CGameObject();
-	CGameObject(float x, float y) :CGameObject() { this->x = x; this->y = y; this->isSpawnedByTrigger = false; }
+	CGameObject(float x, float y) :CGameObject() { this->x = x; this->y = y; this->isSpawnedByTrigger = false; this->score = 0; }
 
+	int GetScore() { return this->score; }
 
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom) = 0;
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL) {};

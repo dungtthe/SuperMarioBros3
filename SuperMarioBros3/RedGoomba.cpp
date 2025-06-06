@@ -107,6 +107,7 @@ void CRedGoomba::OnNoCollision(DWORD dt)
 	y += vy * dt;
 	isOnPlatform = false;
 	if (CGameObject::CheckFallDeath() && state != GOOMBA_STATE_DIE) {
+		this->score = 0;
 		SetState(GOOMBA_STATE_DIE);
 		DebugOut(L"set red goomba die trong CheckFallDeath %f, %f\n", x, y);
 	}
@@ -163,7 +164,7 @@ void CRedGoomba::SetState(int state)
 	if (state == GOOMBA_STATE_DIE) {
 		CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 		if (mario != NULL) {
-			mario->UpdateCoint(100);
+			mario->UpdateScore(this->score);
 		}
 	}
 

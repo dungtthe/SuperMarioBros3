@@ -162,6 +162,7 @@
     <ClInclude Include="RedKoopa.h" />
     <ClInclude Include="SampleKeyEventHandler.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="ScoreValues.h" />
     <ClInclude Include="SpawnTrigger.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Sprites.h" />

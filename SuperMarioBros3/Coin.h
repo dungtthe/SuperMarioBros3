@@ -3,6 +3,7 @@
 #include "GameObject.h"
 #include "Animation.h"
 #include "Animations.h"
+#include "ScoreValues.h"
 
 #define ID_ANI_COIN 11000
 
@@ -31,6 +32,7 @@ public:
 		this->coinType = coinType;
 		vy = COIN_FLY_SPEED_Y;
 		yStart = y;
+		this->score = SCORE_VALUE_COIN;
 	}
 	void Render();
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);

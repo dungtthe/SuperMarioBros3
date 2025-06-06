@@ -2,6 +2,7 @@
 #include "Gameobject.h"
 #include <ctime>
 #include "Utils.h"
+#include "ScoreValues.h"
 
 #define MUSHROOM_GRAVITY 0.002f
 #define MUSHROOM_WALKING_SPEED 0.05f
@@ -18,6 +19,7 @@ public:
 		int nxRan = RandomNV();
 		this->vx = nxRan * MUSHROOM_WALKING_SPEED;
 		this->vy = -MUSHROOM_PUSHUPFORCE_SPEED;
+		this->score = SCORE_VALUE_MUSHROOM;
 	}
 	int IsCollidable() { return 1; };
 	int IsBlocking() { return 0; }
