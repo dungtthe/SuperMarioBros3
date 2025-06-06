@@ -186,6 +186,15 @@
     <ClInclude Include="Bullet.h">
       <Filter>Header Files\GameObjects\Enemies</Filter>
     </ClInclude>
+    <ClInclude Include="GreenKoopa.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RedKoopa.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GoldBrick.h">
+      <Filter>Header Files\GameObjects\Blocks</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -277,6 +286,15 @@
     </ClCompile>
     <ClCompile Include="Bullet.cpp">
       <Filter>Source Files\GameObjects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="GreenKoopa.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RedKoopa.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GoldBrick.cpp">
+      <Filter>Source Files\GameObjects\Blocks</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

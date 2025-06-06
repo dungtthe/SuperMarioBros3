@@ -14,6 +14,7 @@ SCENES/koopa.txt
 SCENES/mushroom.txt
 SCENES/leaf.txt
 SCENES/piranha.txt
+SCENES/gold-brick.txt
 #
 [OBJECTS]
 # type	x	y	extra_settings per object type
@@ -21,7 +22,7 @@ SCENES/piranha.txt
 # See OBJECT_TYPE constants in AssetIDs.h
 
 # MARIO
-0	450	200
+0	2150	200
 
 # BRICKS
 
@@ -371,7 +372,6 @@ SCENES/piranha.txt
 
 7	712	360	1	0	0
 
-7	1448	136	1	0	0
 
 7	1480	376	1	0	0
 
@@ -401,3 +401,33 @@ SCENES/piranha.txt
 12	360	388	0	180
 12	1872	383	1	180
 12	1808	398	2	0
+
+
+#GOLD_BRICK
+#type	x	y
+15	1448	136
+
+15	1960	408
+15	1976	408
+15	1992	408
+15	2008	408
+15	2024	408
+15	2040	408
+15	2056	408
+
+15	1976	392
+15	1992	392
+15	2008	392
+15	2024	392
+15	2040	392
+
+15	1992	376
+15	2008	376
+15	2024	376
+15	2040	376
+
+15	2104	408
+15	2120	408
+
+15	2104	392
+

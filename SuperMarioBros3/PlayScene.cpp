@@ -20,6 +20,7 @@
 #include "PiranhaPlant.h"
 #include "RedKoopa.h"
 #include "GreenKoopa.h"
+#include "GoldBrick.h"
 
 using namespace std;
 
@@ -130,6 +131,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		break;
 	case OBJECT_TYPE_GOOMBA: obj = new CGoomba(x, y); break;
 	case OBJECT_TYPE_BRICK: obj = new CBrick(x, y); break;
+	case OBJECT_TYPE_GOLD_BRICK: obj = new CGoldBrick(x, y); break;
 	case OBJECT_TYPE_COIN: obj = new CCoin(x, y, COIN_PLACED); break;
 	case OBJECT_TYPE_PIRANHAPLANT: {
 		int piranhaType = atoi(tokens[3].c_str());
