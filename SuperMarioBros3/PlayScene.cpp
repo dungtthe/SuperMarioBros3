@@ -135,7 +135,8 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_GOLD_BRICK: {
 		bool isRanCoin = atoi(tokens[3].c_str()) == 1;
 		bool isRanPowerSwitch = atoi(tokens[4].c_str()) == 1;
-		obj = new CGoldBrick(x, y, isRanCoin, isRanPowerSwitch);
+		bool isRanMushRoom = atoi(tokens[5].c_str()) == 1;
+		obj = new CGoldBrick(x, y, isRanCoin, isRanPowerSwitch, isRanMushRoom);
 		break;
 	}
 	case OBJECT_TYPE_COIN: obj = new CCoin(x, y, COIN_PLACED); break;

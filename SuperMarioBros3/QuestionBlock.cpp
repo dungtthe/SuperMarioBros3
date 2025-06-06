@@ -53,7 +53,7 @@ void CQuestionBlock::SpawnItem()
 	LPGAMEOBJECT objRan = NULL;
 	if (isRanRedMushRoom && isRanLeaf) {
 		if (mario->GetLevel() == MARIO_LEVEL_SMALL) {
-			objRan = new CMushroom(this->x, this->y);
+			objRan = new CMushroom(this->x, this->y, MUSHROOM_TYPE_RED);
 		}
 		else {
 			objRan = new CLeaf(this->x, this->y-(QUESTIONBLOCK_BBOX_HEIGHT*2));

@@ -8,12 +8,14 @@ class CGoldBrick : public CBrick {
 private:
 	bool isRanCoin;
 	bool isRanPowerSwitch;
+	bool isRanMushRoom;
 	bool isEmpty;
 
 public:
-	CGoldBrick(float x, float y, bool isRanCoin, bool isRanPowerSwitch) : CBrick(x, y) {
+	CGoldBrick(float x, float y, bool isRanCoin, bool isRanPowerSwitch, bool isRanMushRoom) : CBrick(x, y) {
 		this->isRanCoin = isRanCoin;
 		this->isRanPowerSwitch = isRanPowerSwitch;
+		this->isRanMushRoom = isRanMushRoom;
 		this->isEmpty = false;
 	}
 	void Update(DWORD dt) {}

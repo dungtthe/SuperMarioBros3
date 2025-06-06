@@ -111,9 +111,15 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 void CMario::OnCollisionWithMushroom(LPCOLLISIONEVENT e)
 {
 	CMushroom* mus = dynamic_cast<CMushroom*>(e->obj);
-	SetLevel(MARIO_LEVEL_BIG);
-	mus->Delete();
-	UpdateScore(mus->GetScore());
+	if (mus->GetTypeMushRoom() == MUSHROOM_TYPE_RED) {
+		SetLevel(MARIO_LEVEL_BIG);
+		mus->Delete();
+		UpdateScore(mus->GetScore());
+	}
+	else {
+		DebugOut(L"cong them 1 mang");
+		mus->Delete();
+	}
 }
 void CMario::OnCollisionWithLeaf(LPCOLLISIONEVENT e)
 {

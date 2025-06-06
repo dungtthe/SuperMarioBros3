@@ -40,5 +40,10 @@ void CMushroom::OnCollisionWith(LPCOLLISIONEVENT e)
 
 void CMushroom::Render()
 {
-	CAnimations::GetInstance()->Get(ID_ANI_RED_MUSHROOM)->Render(x, y);
+	if (type == MUSHROOM_TYPE_GREEN){
+		CAnimations::GetInstance()->Get(ID_ANI_GREEN_MUSHROOM)->Render(x, y);
+	}
+	else {
+		CAnimations::GetInstance()->Get(ID_ANI_RED_MUSHROOM)->Render(x, y);
+	}
 }

@@ -3,7 +3,7 @@
 #include "PlayScene.h"
 #include "ScoreValues.h"
 #include "PowerSwitch.h"
-
+#include "Mushroom.h"
 
 int CGoldBrick::GetIdAnimation() {
 	if (isEmpty) {
@@ -13,6 +13,9 @@ int CGoldBrick::GetIdAnimation() {
 }
 
 void CGoldBrick::SpawnItem(bool isSpawnByPowerSwitch) {
+	if (isEmpty) {
+		return;
+	}
 	if (!isSpawnByPowerSwitch) {
 		if (isRanCoin) {
 			CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
@@ -29,6 +32,16 @@ void CGoldBrick::SpawnItem(bool isSpawnByPowerSwitch) {
 			}
 			CPowerSwitch* powerSwitch = new CPowerSwitch(x, y - BRICK_BBOX_HEIGHT);
 			playScene->AddObject(powerSwitch);
+			isEmpty = true;
+		}
+		else if (isRanMushRoom) {
+			CScene* scene = CGame::GetInstance()->GetCurrentScene();
+			CPlayScene* playScene = dynamic_cast<CPlayScene*>(scene);
+			if (!playScene) {
+				return;
+			}
+			CMushroom* mus = new CMushroom(x, y, MUSHROOM_TYPE_GREEN);
+			playScene->AddObject(mus);
 			isEmpty = true;
 		}
 	}
