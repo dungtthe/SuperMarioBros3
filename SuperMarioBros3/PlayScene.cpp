@@ -30,9 +30,8 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath) :
 {
 	player = NULL;
 	key_handler = new CSampleKeyHandler(this);
-	if (hud == NULL) {
-		hud = new CHUD();
-	}
+	hud = NULL;
+
 }
 
 
@@ -234,11 +233,11 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 				float xExitSecond = (float)atof(tokens[18].c_str());
 				float yExitSecond = (float)atof(tokens[19].c_str());
 
-				entrancePipe = new CEntrancePipe(entranceType, 
-					xEntryFirst, yEntryFirst, xExitFirst, yExitFirst, 
+				entrancePipe = new CEntrancePipe(entranceType,
+					xEntryFirst, yEntryFirst, xExitFirst, yExitFirst,
 					isHasTravelSecond,
 					xEntrySecond, yEntrySecond, xExitSecond, yExitSecond
-					);
+				);
 			}
 			((CPipe*)obj)->SetEntrancePipe(entrancePipe);
 		}
@@ -377,6 +376,7 @@ void CPlayScene::Load()
 	f.close();
 
 	DebugOut(L"[INFO] Done loading scene  %s\n", sceneFilePath);
+	hud = new CHUD();
 }
 
 void CPlayScene::Update(DWORD dt)
@@ -423,7 +423,7 @@ void CPlayScene::Update(DWORD dt)
 
 	PurgeDeletedObjects();
 
-	
+
 }
 
 void CPlayScene::Render()
@@ -475,7 +475,7 @@ void CPlayScene::Render()
 
 
 
-	
+
 
 	vector<LPGAMEOBJECT> objectsPIPE;
 	for (int i = 0; i < objectsNotPlatform.size(); i++) {
@@ -529,7 +529,7 @@ vector<LPGAMEOBJECT> CPlayScene::GetObjectsByType(int objType)
 {
 	vector<LPGAMEOBJECT> objectsByType;
 	for (int i = 0; i < objects.size(); i++) {
-		if(objects[i]->GetObjectType() == objType) {
+		if (objects[i]->GetObjectType() == objType) {
 			objectsByType.push_back(objects[i]);
 		}
 	}

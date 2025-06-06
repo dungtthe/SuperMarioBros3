@@ -1,10 +1,22 @@
 # list of object assets to load in this scene
 [ASSETS]
 SCENES/mario.txt
-SCENES/coin.txt
-SCENES/cloud.txt
 SCENES/brick.txt
-SCENES/bgimg2.txt
+SCENES/coin.txt
+SCENES/goomba.txt
+SCENES/cloud.txt
+SCENES/bgimg1.txt
+SCENES/platform.txt
+SCENES/pipe.txt
+SCENES/bgtile.txt
+SCENES/question-block.txt
+SCENES/koopa.txt
+SCENES/mushroom.txt
+SCENES/leaf.txt
+SCENES/piranha.txt
+SCENES/gold-brick.txt
+SCENES/power-switch.txt
+SCENES/ui.txt
 #
 [OBJECTS]
 # type	x	y	extra_settings per object type

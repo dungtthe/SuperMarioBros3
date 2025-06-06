@@ -8,6 +8,10 @@ void CHUD::Render() {
 
 	cSprite = cSprites->Get(ID_SPRITE_HUD_RIGHT);
 	cSprite->Draw(x + HUD_LEFT_BBOX_WIDTH - 30, y, false);
+
+
+
+	fontTimeLimit->Render();
 }
 
 void CHUD::Update() {
