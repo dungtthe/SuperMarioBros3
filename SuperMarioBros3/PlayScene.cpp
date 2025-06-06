@@ -30,6 +30,9 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath) :
 {
 	player = NULL;
 	key_handler = new CSampleKeyHandler(this);
+	if (hud == NULL) {
+		hud = new CHUD();
+	}
 }
 
 
@@ -401,6 +404,10 @@ void CPlayScene::Update(DWORD dt)
 		objectsSpawnTrigger[i]->Update(dt);
 	}
 
+	if (hud != NULL) {
+		hud->Update();
+	}
+
 	// Update camera to follow mario
 	float cx, cy;
 	player->GetPosition(cx, cy);
@@ -415,6 +422,8 @@ void CPlayScene::Update(DWORD dt)
 	CGame::GetInstance()->SetCamPos(cx, cy);
 
 	PurgeDeletedObjects();
+
+	
 }
 
 void CPlayScene::Render()
@@ -496,6 +505,11 @@ void CPlayScene::Render()
 		bullets[i]->Render();
 	}
 
+
+
+	if (hud != NULL) {
+		hud->Render();
+	}
 	objectsNotPlatform.clear();
 	objectsPIPE.clear();
 	bullets.clear();

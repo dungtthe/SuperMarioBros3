@@ -213,6 +213,9 @@
     <ClInclude Include="ScorePopup.h">
       <Filter>Header Files\GameObjects\UI</Filter>
     </ClInclude>
+    <ClInclude Include="HUD.h">
+      <Filter>Header Files\GameObjects\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -318,6 +321,9 @@
       <Filter>Source Files\GameObjects\Enemies</Filter>
     </ClCompile>
     <ClCompile Include="ScorePopup.cpp">
+      <Filter>Source Files\GameObjects\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="HUD.cpp">
       <Filter>Source Files\GameObjects\UI</Filter>
     </ClCompile>
   </ItemGroup>

@@ -7,7 +7,7 @@
 #include "Mario.h"
 #include "Goomba.h"
 //#include "Koopas.h"
-
+#include "HUD.h"
 
 class CPlayScene : public CScene
 {
@@ -15,6 +15,7 @@ protected:
 	float deathBoundaryY;
 	// A play scene has to have player, right? 
 	LPGAMEOBJECT player;
+	CHUD* hud;
 
 	vector<LPGAMEOBJECT> objects;
 	LPGAMEOBJECT objBackgroundImage;

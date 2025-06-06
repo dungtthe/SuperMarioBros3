@@ -148,6 +148,7 @@
     <ClInclude Include="GoldBrick.h" />
     <ClInclude Include="Goomba.h" />
     <ClInclude Include="GreenKoopa.h" />
+    <ClInclude Include="HUD.h" />
     <ClInclude Include="KeyEventHandler.h" />
     <ClInclude Include="Koopa.h" />
     <ClInclude Include="Leaf.h" />
@@ -188,6 +189,7 @@
     <ClCompile Include="GoldBrick.cpp" />
     <ClCompile Include="Goomba.cpp" />
     <ClCompile Include="GreenKoopa.cpp" />
+    <ClCompile Include="HUD.cpp" />
     <ClCompile Include="Koopa.cpp" />
     <ClCompile Include="Leaf.cpp" />
     <ClCompile Include="main.cpp" />

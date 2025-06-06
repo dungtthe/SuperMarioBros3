@@ -32,24 +32,33 @@ CSprite::CSprite(int id, int left, int top, int right, int bottom, LPTEXTURE tex
 	D3DXMatrixScaling(&this->matScaling, (FLOAT)spriteWidth, (FLOAT)spriteHeight, 1.0f);
 }
 
-void CSprite::Draw(float x, float y)
+void CSprite::Draw(float x, float y, bool isCheckCamPos)
 {
 	CGame* g = CGame::GetInstance();
-	float cx, cy;
-	g->GetCamPos(cx, cy);
 
-	cx = (FLOAT)floor(cx);
-	cy = (FLOAT)floor(cy);
+	if (isCheckCamPos) {
+		float cx, cy;
+		g->GetCamPos(cx, cy);
 
-	D3DXMATRIX matTranslation;
-	
-	x = (FLOAT)floor(x);
-	y = (FLOAT)floor(y);
+		cx = (FLOAT)floor(cx);
+		cy = (FLOAT)floor(cy);
 
-	D3DXMatrixTranslation(&matTranslation, x - cx, g->GetBackBufferHeight() - y + cy, 0.1f);
+		D3DXMATRIX matTranslation;
 
-	this->sprite.matWorld = (this->matScaling * matTranslation);
+		x = (FLOAT)floor(x);
+		y = (FLOAT)floor(y);
 
-	g->GetSpriteHandler()->DrawSpritesImmediate(&sprite, 1, 0, 0);
+		D3DXMatrixTranslation(&matTranslation, x - cx, g->GetBackBufferHeight() - y + cy, 0.1f);
+
+		this->sprite.matWorld = (this->matScaling * matTranslation);
+
+		g->GetSpriteHandler()->DrawSpritesImmediate(&sprite, 1, 0, 0);
+	}
+	else {
+		D3DXMATRIX matTranslation;
+		D3DXMatrixTranslation(&matTranslation, x, (g->GetBackBufferHeight() - y), 0.1f);
+		this->sprite.matWorld = (this->matScaling * matTranslation);
+		g->GetSpriteHandler()->DrawSpritesImmediate(&sprite, 1, 0, 0);
+	}
 }
 
