@@ -441,6 +441,14 @@ void CPlayScene::Render()
 	}*/
 	vector<LPGAMEOBJECT> bullets;
 
+	CMario* player = dynamic_cast<CMario*>(this->player);
+	if (player == NULL) {
+		return;
+	}
+	if (player->IsEnteringPipe()) {
+		player->Render();
+	}
+
 	vector<LPGAMEOBJECT> objectsNotPlatform;
 	for (int i = 0; i < objects.size(); i++)
 	{
@@ -458,17 +466,14 @@ void CPlayScene::Render()
 
 
 
-	CMario* player = dynamic_cast<CMario*>(this->player);
-	if (player == NULL) {
-		return;
-	}
-	if (player->IsEnteringPipe()) {
-		player->Render();
-	}
+	
 
 	vector<LPGAMEOBJECT> objectsPIPE;
 	for (int i = 0; i < objectsNotPlatform.size(); i++) {
 		if (objectsNotPlatform[i]->GetObjectType() != OBJECT_TYPE_PIPE) {
+			if (objectsNotPlatform[i]->GetObjectType() == OBJECT_TYPE_MARIO && player->IsEnteringPipe()) {
+				continue;
+			}
 			objectsNotPlatform[i]->Render();
 		}
 		else {

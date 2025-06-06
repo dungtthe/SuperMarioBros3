@@ -6,6 +6,7 @@
 
 #include "debug.h"
 #include "EntrancePipe.h"
+#include "AssetIDs.h"
 
 #define MARIO_GO_ING_ENTRANCE_PIPE_SPEED	0.04f
 
@@ -235,6 +236,7 @@ public:
 		isFloating = false;
 		startFloatingTime = 0;
 		isEnteringPipe = false;
+		objType = OBJECT_TYPE_MARIO;
 	}
 	void SetPosition(float x, float y);
 	void SetSpeed(float vx, float vy);
