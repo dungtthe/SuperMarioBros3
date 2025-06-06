@@ -290,12 +290,6 @@
     <ClCompile Include="Bullet.cpp">
       <Filter>Source Files\GameObjects\Enemies</Filter>
     </ClCompile>
-    <ClCompile Include="GreenKoopa.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="RedKoopa.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GoldBrick.cpp">
       <Filter>Source Files\GameObjects\Blocks</Filter>
     </ClCompile>
@@ -304,6 +298,12 @@
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
       <Filter>Source Files\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="GreenKoopa.cpp">
+      <Filter>Source Files\GameObjects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="RedKoopa.cpp">
+      <Filter>Source Files\GameObjects\Enemies</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
