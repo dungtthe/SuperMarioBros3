@@ -20,6 +20,7 @@
 #include "GreenKoopa.h"
 #include "GoldBrick.h"
 #include "PowerSwitch.h"
+#include "Pipe.h"
 
 
 void CMario::SetPosition(float x, float y)
@@ -29,9 +30,65 @@ void CMario::SetPosition(float x, float y)
 	}
 	this->y = y;
 }
+void CMario::SetSpeed(float vx, float vy) {
+	if (isEnteringPipe) {
+		return;
+	}
+	CGameObject::SetSpeed(vx, vy);
+}
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	//update entrance pipe
+	if (isEnteringPipe) {
+		if (entrancePipe == NULL) {
+			isEnteringPipe = false;
+			return;
+		}
+		y += vy * dt;
+		DebugOut(L"vy: %f, \n",vy);
+		if (entrancePipe->GetEntranceType() == ENTRANCE_MAIN_TO_HIDDEN) {
+			if (entrancePipe->IsHasTravelSecond()) {
+				if (y > entrancePipe->GetYExitSecond()) {
+					entrancePipe = NULL;
+					isEnteringPipe = false;
+				}
+				else if (y > entrancePipe->GetYExitFirst() && !entrancePipe->IsFirstTravelDone()) {
+					x = entrancePipe->GetXEntrySecond();
+					y = entrancePipe->GetYEntrySecond();
+					entrancePipe->DoneFirstTravel();
+				}
+			}
+			else {
+				if (y > entrancePipe->GetYExitFirst()) {
+					entrancePipe = NULL;
+					isEnteringPipe = false;
+				}
+			}
+		}
+		else {
+			if (entrancePipe->IsHasTravelSecond()) {
+				if (y < entrancePipe->GetYExitSecond()) {
+					entrancePipe = NULL;
+					isEnteringPipe = false;
+				}
+				else if (y < entrancePipe->GetYExitFirst() && !entrancePipe->IsFirstTravelDone()) {
+					x = entrancePipe->GetXEntrySecond();
+					y = entrancePipe->GetYEntrySecond();
+					entrancePipe->DoneFirstTravel();
+				}
+			}
+			else {
+				if (y < entrancePipe->GetYExitFirst()) {
+					entrancePipe = NULL;
+					isEnteringPipe = false;
+				}
+			}
+		}
+		return;
+	}
+
+
 	UpdateFlyTime(dt);
 	UpdateAttack();
 
@@ -67,14 +124,37 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void CMario::OnNoCollision(DWORD dt)
 {
-
+	if (isEnteringPipe) {
+		return;
+	}
 	x += vx * dt;
 	y += vy * dt;
 	isOnPlatform = false;
+	this->entrancePipe = NULL;
 }
 
 void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 {
+	if (isEnteringPipe) {
+		return;
+	}
+
+	if (e->ny != 0 && dynamic_cast<CPipe*>(e->obj))
+	{
+		/*float pipeX, pipeY;
+		e->obj->GetPosition(pipeX, pipeY);
+		DebugOut(L"PIPE x: %f, y: %f \n", pipeX, pipeY);*/
+		CPipe* pipe = dynamic_cast<CPipe*>(e->obj);
+		if (pipe->IsHasEntrance()) {
+			this->entrancePipe = pipe->GetEntrancePipe();
+			this->entrancePipe->Reset();
+		}
+		
+	}
+	else {
+		this->entrancePipe = NULL;
+	}
+
 	if (e->ny != 0 && e->obj->IsBlocking())
 	{
 		vy = 0;
@@ -720,6 +800,10 @@ void CMario::Render()
 
 void CMario::SetState(int state)
 {
+	if (isEnteringPipe) {
+		return;
+	}
+
 	// DIE is the end state, cannot be changed! 
 	if (this->state == MARIO_STATE_DIE) return;
 
@@ -983,6 +1067,24 @@ void CMario::DecreaseLevel()
 	{
 		SetState(MARIO_STATE_DIE);
 	}
+}
+
+void CMario::CheckEnterEntrance(int KeyCode)
+{
+	if (entrancePipe == NULL || isEnteringPipe) {
+		return;
+	}
+	isEnteringPipe = true;
+	if (KeyCode == DIK_DOWN && entrancePipe->GetEntranceType() == ENTRANCE_MAIN_TO_HIDDEN) {
+		DebugOut(L"PIPE_ENTRANCE_MAIN_TO_HIDDEN \n");
+		vy = MARIO_GO_ING_ENTRANCE_PIPE_SPEED;
+	}
+	else if (KeyCode == DIK_UP && entrancePipe->GetEntranceType() == ENTRANCE_HIDDEN_TO_MAIN) {
+		DebugOut(L"PIPE_ENTRANCE_HIDDEN_TO_MAIN \n");
+		vy = - MARIO_GO_ING_ENTRANCE_PIPE_SPEED;
+	}
+		x = entrancePipe->GetXEntryFirst();
+		y = entrancePipe->GetYEntryFirst();
 }
 
 void CMario::SetLevel(int l)

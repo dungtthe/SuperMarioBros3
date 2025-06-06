@@ -201,6 +201,9 @@
     <ClInclude Include="PowerSwitch.h">
       <Filter>Header Files\GameObjects\Blocks</Filter>
     </ClInclude>
+    <ClInclude Include="EntrancePipe.h">
+      <Filter>Header Files\GameObjects\Blocks</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

@@ -58,7 +58,7 @@ void CSampleKeyHandler::OnKeyUp(int KeyCode)
 		mario->SetState(MARIO_STATE_SIT_RELEASE);
 		break;
 	}
-	
+
 }
 
 void CSampleKeyHandler::KeyState(BYTE* states)
@@ -69,6 +69,13 @@ void CSampleKeyHandler::KeyState(BYTE* states)
 	/*if (game->IsKeyDown(DIK_A)) {
 		mario->SetIsCanHoldingObj(true);
 	}*/
+
+	if (game->IsKeyDown(DIK_DOWN)) {
+		mario->CheckEnterEntrance(DIK_DOWN);
+	}
+	else if (game->IsKeyDown(DIK_UP)) {
+		mario->CheckEnterEntrance(DIK_UP);
+	}
 
 	if (game->IsKeyDown(DIK_RIGHT))
 	{

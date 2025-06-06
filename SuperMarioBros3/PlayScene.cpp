@@ -204,11 +204,41 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		int sprite_begin = atoi(tokens[6].c_str());
 		int sprite_middle = atoi(tokens[7].c_str());
 		int sprite_end = atoi(tokens[8].c_str());
+		bool isHasEntrance = ((int)atoi(tokens[9].c_str())) == 1;
 		obj = new CPipe(
 			x, y,
 			cell_width, cell_height, length,
-			sprite_begin, sprite_middle, sprite_end
+			sprite_begin, sprite_middle, sprite_end,
+			isHasEntrance
 		);
+		if (isHasEntrance) {
+			CEntrancePipe* entrancePipe = NULL;
+
+			int entranceType = atoi(tokens[10].c_str());
+
+			float xEntryFirst = (float)atof(tokens[11].c_str());
+			float yEntryFirst = (float)atof(tokens[12].c_str());
+			float xExitFirst = (float)atof(tokens[13].c_str());
+			float yExitFirst = (float)atof(tokens[14].c_str());
+
+			bool isHasTravelSecond = ((int)atoi(tokens[15].c_str())) == 1;
+			if (!isHasTravelSecond) {
+				entrancePipe = new CEntrancePipe(entranceType, xEntryFirst, yEntryFirst, xExitFirst, yExitFirst, isHasTravelSecond);
+			}
+			else {
+				float xEntrySecond = (float)atof(tokens[16].c_str());
+				float yEntrySecond = (float)atof(tokens[17].c_str());
+				float xExitSecond = (float)atof(tokens[18].c_str());
+				float yExitSecond = (float)atof(tokens[19].c_str());
+
+				entrancePipe = new CEntrancePipe(entranceType, 
+					xEntryFirst, yEntryFirst, xExitFirst, yExitFirst, 
+					isHasTravelSecond,
+					xEntrySecond, yEntrySecond, xExitSecond, yExitSecond
+					);
+			}
+			((CPipe*)obj)->SetEntrancePipe(entrancePipe);
+		}
 		break;
 	}
 
@@ -426,6 +456,16 @@ void CPlayScene::Render()
 		}
 	}
 
+
+
+	CMario* player = dynamic_cast<CMario*>(this->player);
+	if (player == NULL) {
+		return;
+	}
+	if (player->IsEnteringPipe()) {
+		player->Render();
+	}
+
 	vector<LPGAMEOBJECT> objectsPIPE;
 	for (int i = 0; i < objectsNotPlatform.size(); i++) {
 		if (objectsNotPlatform[i]->GetObjectType() != OBJECT_TYPE_PIPE) {
@@ -442,9 +482,10 @@ void CPlayScene::Render()
 		objectsPIPE[i]->Render();
 	}
 
-	if (player != NULL) {
+	if (!player->IsEnteringPipe()) {
 		player->Render();
 	}
+
 
 	for (int i = 0; i < bullets.size(); i++) {
 		bullets[i]->Render();

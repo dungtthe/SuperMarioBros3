@@ -5,6 +5,9 @@
 #include "Animations.h"
 
 #include "debug.h"
+#include "EntrancePipe.h"
+
+#define MARIO_GO_ING_ENTRANCE_PIPE_SPEED	0.04f
 
 #define MARIO_WALKING_SPEED		0.1f
 #define MARIO_RUNNING_SPEED		0.2f
@@ -189,6 +192,9 @@ class CMario : public CGameObject
 	bool isFloating;
 	long startFloatingTime;
 
+	bool isEnteringPipe;
+	CEntrancePipe* entrancePipe;
+
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
 	void OnCollisionWithCoin(LPCOLLISIONEVENT e);
 	void OnCollisionWithPortal(LPCOLLISIONEVENT e);
@@ -228,8 +234,10 @@ public:
 		objHold = NULL;
 		isFloating = false;
 		startFloatingTime = 0;
+		isEnteringPipe = false;
 	}
 	void SetPosition(float x, float y);
+	void SetSpeed(float vx, float vy);
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void Render();
 	void SetState(int state);
@@ -249,7 +257,7 @@ public:
 		return (state != MARIO_STATE_DIE);
 	}
 
-	int IsBlocking() { return (state != MARIO_STATE_DIE && untouchable == 0); }
+	int IsBlocking() {return (state != MARIO_STATE_DIE && untouchable == 0);}
 
 	void OnNoCollision(DWORD dt);
 	void OnCollisionWith(LPCOLLISIONEVENT e);
@@ -259,4 +267,6 @@ public:
 
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	void DecreaseLevel();
+	void CheckEnterEntrance(int KeyCode);
+	bool IsEnteringPipe() { return this->isEnteringPipe; }
 };

@@ -39,7 +39,7 @@ protected:
 
 public:
 	virtual void SetPosition(float x, float y) { this->x = x, this->y = y; }
-	void SetSpeed(float vx, float vy) { this->vx = vx, this->vy = vy; }
+	virtual void SetSpeed(float vx, float vy) { this->vx = vx, this->vy = vy; }
 	void GetPosition(float& x, float& y) { x = this->x; y = this->y; }
 	void GetSpeed(float& vx, float& vy) { vx = this->vx; vy = this->vy; }
 
@@ -51,7 +51,7 @@ public:
 	void RenderBoundingBox();
 	bool CheckFallDeath();
 	CGameObject();
-	CGameObject(float x, float y) :CGameObject() { this->x = x; this->y = y; this->isSpawnedByTrigger = false; this->score = 0; }
+	CGameObject(float x, float y) :CGameObject() { this->x = x; this->y = y; this->isSpawnedByTrigger = false; this->score = 0; this->objType = -1; }
 
 	int GetScore() { return this->score; }
 
