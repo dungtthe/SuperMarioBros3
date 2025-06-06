@@ -28,7 +28,7 @@ SCENES/power-switch.txt
 # BRICKS
 
 # DEATH_BOUNDARY_Y
-200	0	25000
+200	0	450
 
 
 #COIN

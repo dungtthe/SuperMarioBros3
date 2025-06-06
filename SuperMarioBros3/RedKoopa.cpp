@@ -87,6 +87,9 @@ void CRedKoopa::OnNoCollision(DWORD dt)
 		DebugOut(L"deltaX: %.2f, deltaY: %.2f \n", deltaX, deltaY);
 
 		if (deltaX > KOOPA_RED_BBOX_WIDTH / 2 || deltaY > KOOPA_RED_BBOX_HEIGHT / 2) {
+			if (!CGameObject::CheckFallDeath()) {
+				return;
+			}
 			SetState(KOOPA_STATE_DIE);
 			DebugOut(L"set koopa die trong check delta \n");
 			return;
