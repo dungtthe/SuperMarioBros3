@@ -465,6 +465,17 @@ vector<LPGAMEOBJECT> CPlayScene::GetObjectsSpawnTrigger()
 	return objectsSpawnTrigger;
 }
 
+vector<LPGAMEOBJECT> CPlayScene::GetObjectsByType(int objType)
+{
+	vector<LPGAMEOBJECT> objectsByType;
+	for (int i = 0; i < objects.size(); i++) {
+		if(objects[i]->GetObjectType() == objType) {
+			objectsByType.push_back(objects[i]);
+		}
+	}
+	return objectsByType;
+}
+
 /*
 *	Clear all objects from this scene
 */

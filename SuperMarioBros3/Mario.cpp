@@ -19,6 +19,7 @@
 #include "RedKoopa.h"
 #include "GreenKoopa.h"
 #include "GoldBrick.h"
+#include "PowerSwitch.h"
 
 
 void CMario::SetPosition(float x, float y)
@@ -105,6 +106,8 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithBullet(e);
 	else if (dynamic_cast<CGoldBrick*>(e->obj))
 		OnCollisionWithGoldBrick(e);
+	else if (dynamic_cast<CPowerSwitch*>(e->obj))
+		OnCollisionWithPowerSwitch(e);
 }
 
 
@@ -187,6 +190,16 @@ void CMario::OnCollisionWithGoldBrick(LPCOLLISIONEVENT e)
 	CGoldBrick* goldBrick = dynamic_cast<CGoldBrick*>(e->obj);
 	if (e->ny > 0 || (e->nx != 0 && isAttacking)) {
 		goldBrick->SpawnItem(false);
+	}
+}
+
+void CMario::OnCollisionWithPowerSwitch(LPCOLLISIONEVENT e)
+{
+	CPowerSwitch* powerSwitch = dynamic_cast<CPowerSwitch*>(e->obj);
+	if (e->ny < 0) {
+		if (!powerSwitch->IsActive()) {
+			powerSwitch->Active();
+		}
 	}
 }
 

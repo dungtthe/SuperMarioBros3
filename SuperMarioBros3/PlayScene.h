@@ -42,6 +42,7 @@ public:
 
 	void AddObject(LPGAMEOBJECT obj);
 	vector <LPGAMEOBJECT> GetObjectsSpawnTrigger();
+	vector <LPGAMEOBJECT> GetObjectsByType(int objType);
 
 	void Clear();
 	void PurgeDeletedObjects();
