@@ -6,6 +6,7 @@
 #include "PlayScene.h"
 #include "SpawnTrigger.h"
 #include "PiranhaPlant.h"
+#include "GoldBrick.h"
 
 void CKoopa::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
@@ -107,6 +108,15 @@ void CKoopa::OnCollisionWithQestionBlock(LPCOLLISIONEVENT e)
 		qb->SpawnItem();
 	}
 }
+
+void CKoopa::OnCollisionWithGoldBrick(LPCOLLISIONEVENT e)
+{
+	CGoldBrick* goldBrick = (CGoldBrick*)e->obj;
+	if (IsShell() && vx != 0 && !isBeingHeld) {
+		goldBrick->SpawnItem(false);
+	}
+}
+
 
 void CKoopa::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 {
@@ -275,4 +285,6 @@ void CKoopa::OnCollisionWith(LPCOLLISIONEVENT e) {
 		OnCollisionWithKoopa(e);
 	else if (dynamic_cast<CPiranhaPlant*>(e->obj))
 		OnCollisionWithPiranhaPlant(e);
+	else if (dynamic_cast<CGoldBrick*>(e->obj))
+		OnCollisionWithGoldBrick(e);
 }
