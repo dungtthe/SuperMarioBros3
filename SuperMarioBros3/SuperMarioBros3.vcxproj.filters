@@ -79,6 +79,12 @@
     <Filter Include="Source Files\GameObjects\BackGrounds">
       <UniqueIdentifier>{42946b10-7265-452b-bf34-09c56d2e1744}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\GameObjects\UI">
+      <UniqueIdentifier>{6a7eeee0-6627-4313-8ba5-0258e36f25a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameObjects\UI">
+      <UniqueIdentifier>{5a1296df-bef4-490a-9c35-220d6ca80c12}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -204,6 +210,9 @@
     <ClInclude Include="EntrancePipe.h">
       <Filter>Header Files\GameObjects\Blocks</Filter>
     </ClInclude>
+    <ClInclude Include="ScorePopup.h">
+      <Filter>Header Files\GameObjects\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -307,6 +316,9 @@
     </ClCompile>
     <ClCompile Include="RedKoopa.cpp">
       <Filter>Source Files\GameObjects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="ScorePopup.cpp">
+      <Filter>Source Files\GameObjects\UI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

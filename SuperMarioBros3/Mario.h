@@ -249,7 +249,7 @@ public:
 	void UpdateAttack();
 	void UpdateHoldingObj();
 	void UpdateCoin(int coinAdd);
-	void UpdateScore(int scoreAdd);
+	void UpdateScore(int scoreAdd, bool isCanShowScorePopUp = false, float xStartShow = -1, float yStartShow = -1);
 	void SetIsCanHoldingObj(bool isCanHold) { this->isCanHoldObj = isCanHold; }
 	bool CanHoldObj() { return this->isCanHoldObj; }
 	void SetObjHold(LPGAMEOBJECT obj) { this->objHold = obj; }

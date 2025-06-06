@@ -187,7 +187,7 @@ void CKoopa::SetState(int state)
 		die_start = GetTickCount64();
 		CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 		if (mario != NULL) {
-			mario->UpdateScore(this->score);
+			mario->UpdateScore(this->score, true, x, y);
 		}
 		break;
 	}
@@ -210,7 +210,7 @@ void CKoopa::SetState(int state)
 		if (!isPreStateShell) {
 			CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 			if (mario != NULL) {
-				mario->UpdateScore(this->score);
+				mario->UpdateScore(this->score, true, x, y);
 			}
 		}
 		break;
@@ -233,7 +233,7 @@ void CKoopa::SetState(int state)
 		if (!isPreStateShell) {
 			CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 			if (mario != NULL) {
-				mario->UpdateScore(this->score);
+				mario->UpdateScore(this->score, true, x, y);
 			}
 		}
 		break;

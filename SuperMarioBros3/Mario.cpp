@@ -21,6 +21,8 @@
 #include "GoldBrick.h"
 #include "PowerSwitch.h"
 #include "Pipe.h"
+#include "PlayScene.h"
+#include "ScorePopup.h"
 
 
 void CMario::SetPosition(float x, float y)
@@ -46,7 +48,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			return;
 		}
 		y += vy * dt;
-		DebugOut(L"vy: %f, \n",vy);
+		DebugOut(L"vy: %f, \n", vy);
 		if (entrancePipe->GetEntranceType() == ENTRANCE_MAIN_TO_HIDDEN) {
 			if (entrancePipe->IsHasTravelSecond()) {
 				if (y > entrancePipe->GetYExitSecond()) {
@@ -149,7 +151,7 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 			this->entrancePipe = pipe->GetEntrancePipe();
 			this->entrancePipe->Reset();
 		}
-		
+
 	}
 	else {
 		this->entrancePipe = NULL;
@@ -197,7 +199,9 @@ void CMario::OnCollisionWithMushroom(LPCOLLISIONEVENT e)
 	if (mus->GetTypeMushRoom() == MUSHROOM_TYPE_RED) {
 		SetLevel(MARIO_LEVEL_BIG);
 		mus->Delete();
-		UpdateScore(mus->GetScore());
+		float xMus, yMus;
+		mus->GetPosition(xMus, yMus);
+		UpdateScore(mus->GetScore(), true, xMus, yMus);
 	}
 	else {
 		DebugOut(L"cong them 1 mang");
@@ -209,7 +213,7 @@ void CMario::OnCollisionWithLeaf(LPCOLLISIONEVENT e)
 	CLeaf* lea = dynamic_cast<CLeaf*>(e->obj);
 	SetLevel(MARIO_LEVEL_RACOON);
 	lea->Delete();
-	UpdateScore(lea->GetScore());
+	UpdateScore(lea->GetScore(), true, x, y);
 }
 void CMario::OnCollisionWithPiranhaPlant(LPCOLLISIONEVENT e)
 {
@@ -1002,9 +1006,20 @@ void CMario::UpdateCoin(int coinAdd)
 	coin += coinAdd;
 }
 
-void CMario::UpdateScore(int scoreAdd)
+void CMario::UpdateScore(int scoreAdd, bool isCanShowScorePopUp , float xStartShow , float yStartShow )
 {
 	score += scoreAdd;
+	if (!isCanShowScorePopUp) {
+		return;
+	}
+
+	CScene* scene = CGame::GetInstance()->GetCurrentScene();
+	CPlayScene* playScene = dynamic_cast<CPlayScene*>(scene);
+	if (!playScene) {
+		return;
+	}
+	CScorePopup* scorePopup = new CScorePopup(xStartShow, yStartShow, scoreAdd);
+	playScene->AddObject(scorePopup);
 }
 
 void CMario::GetBoundingBox(float& left, float& top, float& right, float& bottom)
@@ -1081,10 +1096,10 @@ void CMario::CheckEnterEntrance(int KeyCode)
 	}
 	else if (KeyCode == DIK_UP && entrancePipe->GetEntranceType() == ENTRANCE_HIDDEN_TO_MAIN) {
 		DebugOut(L"PIPE_ENTRANCE_HIDDEN_TO_MAIN \n");
-		vy = - MARIO_GO_ING_ENTRANCE_PIPE_SPEED;
+		vy = -MARIO_GO_ING_ENTRANCE_PIPE_SPEED;
 	}
-		x = entrancePipe->GetXEntryFirst();
-		y = entrancePipe->GetYEntryFirst();
+	x = entrancePipe->GetXEntryFirst();
+	y = entrancePipe->GetYEntryFirst();
 }
 
 void CMario::SetLevel(int l)

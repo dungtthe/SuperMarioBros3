@@ -16,6 +16,7 @@ SCENES/leaf.txt
 SCENES/piranha.txt
 SCENES/gold-brick.txt
 SCENES/power-switch.txt
+SCENES/ui.txt
 #
 [OBJECTS]
 # type	x	y	extra_settings per object type
@@ -23,7 +24,7 @@ SCENES/power-switch.txt
 # See OBJECT_TYPE constants in AssetIDs.h
 
 # MARIO
-0	2166	508
+0	78	300
 
 # BRICKS
 

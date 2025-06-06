@@ -52,7 +52,7 @@ void CPiranhaPlant::SetState(int state)
 		isDeleted = true;
 		CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 		if (mario != NULL) {
-			mario->UpdateScore(this->score);
+			mario->UpdateScore(this->score, true, x, y);
 		}
 	}
 }

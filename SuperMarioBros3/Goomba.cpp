@@ -111,7 +111,7 @@ void CGoomba::SetState(int state)
 	{
 		CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 		if (mario != NULL) {
-			mario->UpdateScore(this->score);
+			mario->UpdateScore(this->score, true, x, y);
 		}
 		die_start = GetTickCount64();
 		y += (GOOMBA_BBOX_HEIGHT - GOOMBA_BBOX_HEIGHT_DIE) / 2;
