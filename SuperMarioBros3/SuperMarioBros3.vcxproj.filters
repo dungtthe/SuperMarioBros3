@@ -198,13 +198,13 @@
     <ClInclude Include="ScoreValues.h">
       <Filter>Header Files\Systems</Filter>
     </ClInclude>
+    <ClInclude Include="PowerSwitch.h">
+      <Filter>Header Files\GameObjects\Blocks</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>Source Files\GameObjects</Filter>
     </ClCompile>
     <ClCompile Include="Animation.cpp">
       <Filter>Source Files\Systems\Graphics</Filter>
@@ -298,6 +298,12 @@
     </ClCompile>
     <ClCompile Include="GoldBrick.cpp">
       <Filter>Source Files\GameObjects\Blocks</Filter>
+    </ClCompile>
+    <ClCompile Include="PowerSwitch.cpp">
+      <Filter>Source Files\GameObjects\Blocks</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Source Files\GameObjects</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

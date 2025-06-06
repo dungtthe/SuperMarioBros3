@@ -132,7 +132,12 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		break;
 	case OBJECT_TYPE_GOOMBA: obj = new CGoomba(x, y); break;
 	case OBJECT_TYPE_BRICK: obj = new CBrick(x, y); break;
-	case OBJECT_TYPE_GOLD_BRICK: obj = new CGoldBrick(x, y); break;
+	case OBJECT_TYPE_GOLD_BRICK: {
+		bool isRanCoin = atoi(tokens[3].c_str()) == 1;
+		bool isRanPowerSwitch = atoi(tokens[4].c_str()) == 1;
+		obj = new CGoldBrick(x, y, isRanCoin, isRanPowerSwitch);
+		break;
+	}
 	case OBJECT_TYPE_COIN: obj = new CCoin(x, y, COIN_PLACED); break;
 	case OBJECT_TYPE_PIRANHAPLANT: {
 		int piranhaType = atoi(tokens[3].c_str());
@@ -245,7 +250,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		obj->SetObjectType(OBJECT_TYPE_BACKGROUND_TILE);
 		break;
 	}
-	
+
 	default:
 		DebugOut(L"[ERROR] Invalid object type: %d\n", object_type);
 		return;
