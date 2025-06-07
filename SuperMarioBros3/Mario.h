@@ -196,6 +196,8 @@ class CMario : public CGameObject
 	bool isEnteringPipe;
 	CEntrancePipe* entrancePipe;
 
+	int life;
+
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
 	void OnCollisionWithCoin(LPCOLLISIONEVENT e);
 	void OnCollisionWithPortal(LPCOLLISIONEVENT e);
@@ -237,6 +239,7 @@ public:
 		startFloatingTime = 0;
 		isEnteringPipe = false;
 		objType = OBJECT_TYPE_MARIO;
+		life = 4;
 	}
 	void SetPosition(float x, float y);
 	void SetSpeed(float vx, float vy);
@@ -272,4 +275,6 @@ public:
 	void CheckEnterEntrance(int KeyCode);
 	bool IsEnteringPipe() { return this->isEnteringPipe; }
 	int GetCoin() { return this->coin; }
+	void UpdateLife(int lifeAdd, float xStartShow, float yStartShow);
+	int GetLife() { return this->life; }
 };

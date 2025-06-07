@@ -196,15 +196,17 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 void CMario::OnCollisionWithMushroom(LPCOLLISIONEVENT e)
 {
 	CMushroom* mus = dynamic_cast<CMushroom*>(e->obj);
+	float xMus, yMus;
+	mus->GetPosition(xMus, yMus);
 	if (mus->GetTypeMushRoom() == MUSHROOM_TYPE_RED) {
 		SetLevel(MARIO_LEVEL_BIG);
 		mus->Delete();
-		float xMus, yMus;
-		mus->GetPosition(xMus, yMus);
+
 		UpdateScore(mus->GetScore(), true, xMus, yMus);
 	}
 	else {
 		DebugOut(L"cong them 1 mang");
+		UpdateLife(1, xMus, yMus);
 		mus->Delete();
 	}
 }
@@ -1006,7 +1008,7 @@ void CMario::UpdateCoin(int coinAdd)
 	coin += coinAdd;
 }
 
-void CMario::UpdateScore(int scoreAdd, bool isCanShowScorePopUp , float xStartShow , float yStartShow )
+void CMario::UpdateScore(int scoreAdd, bool isCanShowScorePopUp, float xStartShow, float yStartShow)
 {
 	score += scoreAdd;
 	if (!isCanShowScorePopUp) {
@@ -1100,6 +1102,18 @@ void CMario::CheckEnterEntrance(int KeyCode)
 	}
 	x = entrancePipe->GetXEntryFirst();
 	y = entrancePipe->GetYEntryFirst();
+}
+
+void CMario::UpdateLife(int lifeAdd, float xStartShow, float yStartShow)
+{
+	life += lifeAdd;
+	CScene* scene = CGame::GetInstance()->GetCurrentScene();
+	CPlayScene* playScene = dynamic_cast<CPlayScene*>(scene);
+	if (!playScene) {
+		return;
+	}
+	CPointPopup* lifePopup = new CPointPopup(xStartShow, yStartShow, 0, POPUP_LIFE_TYPE);
+	playScene->AddObject(lifePopup);
 }
 
 void CMario::SetLevel(int l)

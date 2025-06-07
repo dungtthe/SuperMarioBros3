@@ -1,16 +1,7 @@
 #include "PointPopup.h"
 void CPointPopup::Render() {
 
-	int idAni = -1;
-	if (score == 100) {
-		idAni = ID_ANI_SCORE_POPUP_1_0_0;
-	}
-	else if (score == 200) {
-		idAni = ID_ANI_SCORE_POPUP_2_0_0;
-	}
-	else if (score == 1000) {
-		idAni = ID_ANI_SCORE_POPUP_1_0_0_0;
-	}
+	int idAni = GetIdAni();
 	if (idAni == -1) {
 		return;
 	}
@@ -19,12 +10,15 @@ void CPointPopup::Render() {
 }
 void  CPointPopup::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 	y += vy * dt;
-	if ((GetTickCount64() - startTime) > SCORE_POPUP_TIME_LIVE) {
+	if ((GetTickCount64() - startTime) > POPUP_TIME_LIVE) {
 		isDeleted = true;
 	}
 }
 
 int CPointPopup::GetBBoxWidthCur() {
+	if (popupType == POPUP_LIFE_TYPE) {
+		return LIFE_POPUP_BBOX_WIDTH;
+	}
 	if (score == 100) {
 		return SCORE_POPUP_1_0_0_BBOX_WIDTH;
 	}
@@ -37,10 +31,34 @@ int CPointPopup::GetBBoxWidthCur() {
 	return 0;
 }
 
+int CPointPopup::GetBBoxHeightCur() {
+	if (popupType == POPUP_LIFE_TYPE) {
+		return LIFE_POPUP_BBOX_HEIGHT;
+	}
+	return SCORE_POPUP_BBOX_HEIGHT;
+}
+
+int CPointPopup::GetIdAni() {
+	if (popupType == POPUP_LIFE_TYPE) {
+		return ID_ANI_LIFE_POPUP;
+	}
+	int idAni = -1;
+	if (score == 100) {
+		idAni = ID_ANI_SCORE_POPUP_1_0_0;
+	}
+	else if (score == 200) {
+		idAni = ID_ANI_SCORE_POPUP_2_0_0;
+	}
+	else if (score == 1000) {
+		idAni = ID_ANI_SCORE_POPUP_1_0_0_0;
+	}
+	return idAni;
+}
+
 void CPointPopup::GetBoundingBox(float& l, float& t, float& r, float& b)
 {
 	l = x - GetBBoxWidthCur() / 2;
-	t = y - SCORE_POPUP_BBOX_HEIGHT / 2;
+	t = y - GetBBoxHeightCur() / 2;
 	r = l + GetBBoxWidthCur();
-	b = t + SCORE_POPUP_BBOX_HEIGHT;
+	b = t + GetBBoxHeightCur();
 }
