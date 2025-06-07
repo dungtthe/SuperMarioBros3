@@ -223,7 +223,7 @@ public:
 		ay = MARIO_GRAVITY;
 
 		//level = MARIO_LEVEL_BIG;
-		level = MARIO_LEVEL_BIG;
+		level = MARIO_LEVEL_SMALL;
 		untouchable = 0;
 		untouchable_start = -1;
 		isOnPlatform = false;

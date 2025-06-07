@@ -168,6 +168,10 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 			vx = 0;
 		}
 
+	if (isOnPlatform && e->nx != 0) {
+		pCountTimeMeter = 0;
+	}
+
 	if (dynamic_cast<CGoomba*>(e->obj))
 		OnCollisionWithGoomba(e);
 	else if (dynamic_cast<CCoin*>(e->obj))
@@ -378,6 +382,10 @@ void CMario::OnCollisionWithKoopa(LPCOLLISIONEVENT e)
 				CGreenKoopa* greenKoopa = dynamic_cast<CGreenKoopa*>(e->obj);
 				if (greenKoopa->IsHasWing()) {
 					greenKoopa->SetIsHasWing(false);
+					float xGreenK;
+					float yGreenK;
+					greenKoopa->GetPosition(xGreenK, yGreenK);
+					UpdateScore(greenKoopa->GetScore(), true, xGreenK, yGreenK);
 					vy = -MARIO_JUMP_DEFLECT_SPEED;
 					return;
 				}
@@ -436,6 +444,10 @@ void CMario::OnCollisionWithKoopa(LPCOLLISIONEVENT e)
 						CGreenKoopa* greenKoopa = dynamic_cast<CGreenKoopa*>(e->obj);
 						if (greenKoopa->IsHasWing()) {
 							greenKoopa->SetIsHasWing(false);
+							float xGreenK;
+							float yGreenK;
+							greenKoopa->GetPosition(xGreenK, yGreenK);
+							UpdateScore(greenKoopa->GetScore(), true, xGreenK, yGreenK);
 							return;
 						}
 					}
