@@ -16,6 +16,29 @@ void CHUD::Render() {
 	fontForCountdownTime->Render();
 	fontForCoinMario->Render();
 	fontForScoreMario->Render();
+
+
+	//p meter mario
+	CScene* scene = CGame::GetInstance()->GetCurrentScene();
+	CPlayScene* playScene = dynamic_cast<CPlayScene*>(scene);
+	if (playScene) {
+		CMario* mario = (CMario*)((LPPLAYSCENE)playScene)->GetPlayer();
+		if (mario) {
+			int pMeter = mario->GetPMeter();
+			if (pMeter < 0) {
+				pMeter = 0;
+			}
+			else if (pMeter >= 6) {
+				pMeter = 6;
+				cSprite = cSprites->Get(ID_SPRITE_PMETER_FULL);
+				cSprite->Draw(this->x - 20 + 7 * PMETER_BBOX_HEIGHT - 3, this->y - 3, false);
+			}
+			cSprite = cSprites->Get(ID_SPRITE_PMETER);
+			for (int i = 0; i < pMeter; i++) {
+				cSprite->Draw(this->x - 20 + i * PMETER_BBOX_HEIGHT, this->y - 3, false);
+			}
+		}
+	}
 }
 
 void CHUD::Update() {
@@ -34,8 +57,8 @@ void CHUD::Update() {
 		if (mario) {
 			//coin mario
 			int coin = mario->GetCoin();
-			if(coin > 99) {
-				coin = 99; 
+			if (coin > 99) {
+				coin = 99;
 			}
 			fontForCoinMario->SetContent(ConvertNumberToString(coin, 2));
 
