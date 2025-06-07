@@ -24,11 +24,13 @@ private:
 	float xBegin, y;
 	string content;
 	vector<CSprite*>sprites;
+	void HandleContent();
 public:
 	CFontHUD(float xBegin, float y, string content) {
 		this->xBegin = xBegin;
 		this->y = y;
 		this->content = content;
+		HandleContent();
 	}
 	void SetContent(string content);
 	void Render();

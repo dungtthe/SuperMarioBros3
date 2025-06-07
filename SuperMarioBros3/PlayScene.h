@@ -13,6 +13,7 @@ class CPlayScene : public CScene
 {
 protected:
 	float deathBoundaryY;
+	long countdownTime;
 	// A play scene has to have player, right? 
 	LPGAMEOBJECT player;
 	CHUD* hud;
@@ -40,6 +41,7 @@ public:
 
 	LPGAMEOBJECT GetPlayer() { return player; }
 	float GetDeathBoundaryY() { return deathBoundaryY; }
+	long GetCountdownTime() { return countdownTime; }
 
 	void AddObject(LPGAMEOBJECT obj);
 	vector <LPGAMEOBJECT> GetObjectsSpawnTrigger();

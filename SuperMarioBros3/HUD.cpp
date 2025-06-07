@@ -1,5 +1,7 @@
 #include "HUD.h"
 #include "Game.h"
+#include "PlayScene.h"
+#include "Utils.h"
 
 void CHUD::Render() {
 	CSprites* cSprites = CSprites::GetInstance();
@@ -11,10 +13,22 @@ void CHUD::Render() {
 
 
 
-	fontTimeLimit->Render();
+	fontForCountdownTime->Render();
 }
 
 void CHUD::Update() {
+	CScene* scene = CGame::GetInstance()->GetCurrentScene();
+	CPlayScene* playScene = dynamic_cast<CPlayScene*>(scene);
+	if (!playScene) {
+		return;
+	}
+
+	long countdownTime = playScene->GetCountdownTime();
+	int countdownTimeInSeconds = countdownTime / 1000;
+	if (countdownTimeInSeconds < 0) {
+		countdownTimeInSeconds = 0;
+	}
+	fontForCountdownTime->SetContent(ConvertNumberToString(countdownTimeInSeconds, 3));
 
 }
 

@@ -19,15 +19,13 @@
 class CHUD  {
 private:
 	float x, y;
-	CFontHUD* fontTimeLimit;
+	CFontHUD* fontForCountdownTime;
 public:
 	CHUD() {
 		this->x = HUD_LEFT_BBOX_WIDTH / 2 + 30;
 		this->y = CGame::GetInstance()->GetBackBufferHeight() - HUD_LEFT_BBOX_HEIGHT/2;
 
-		//test font
-		fontTimeLimit = new CFontHUD(this->x, this->y, "000");
-		fontTimeLimit->SetContent("0123456789");
+		fontForCountdownTime = new CFontHUD(this->x + HUD_LEFT_BBOX_WIDTH / 2 - 22, this->y + 5, "000");
 	}
 	void Render();
 	void Update();

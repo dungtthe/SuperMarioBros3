@@ -10,9 +10,8 @@ void CFontHUD::Render() {
 	}
 }
 
-void CFontHUD::SetContent(string content)
+void CFontHUD::HandleContent()
 {
-	this->content = content;
 	sprites.clear();
 	for (char c : content) {
 		CSprite* findSprite = GetSpriteByChar(c);
@@ -20,6 +19,12 @@ void CFontHUD::SetContent(string content)
 			sprites.push_back(findSprite);
 		}
 	}
+}
+
+void CFontHUD::SetContent(string content)
+{
+	this->content = content;
+	HandleContent();
 }
 
 CSprite* CFontHUD::GetSpriteByChar(char c)

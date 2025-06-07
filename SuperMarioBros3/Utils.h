@@ -22,3 +22,5 @@ LPCWSTR ToLPCWSTR(string st);
 int RandomNV();
 
 float calculateDistance(float x1, float y1, float x2, float y2);
+
+string ConvertNumberToString(long number, int minSize);

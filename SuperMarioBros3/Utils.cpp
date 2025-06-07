@@ -1,6 +1,9 @@
 #include <Windows.h>
 
 #include "Utils.h"
+#include <string>
+#include <sstream>
+#include <iomanip>
 
 vector<string> split(string line, string delimeter)
 {
@@ -63,4 +66,11 @@ float calculateDistance(float x1, float y1, float x2, float y2) {
 	float dx = x2 - x1;
 	float dy = y2 - y1;
 	return sqrt(dx * dx + dy * dy);
+}
+
+string ConvertNumberToString(long number, int minSize)
+{
+	std::ostringstream oss;
+	oss << std::setfill('0') << std::setw(minSize) << number;
+	return oss.str();
 }

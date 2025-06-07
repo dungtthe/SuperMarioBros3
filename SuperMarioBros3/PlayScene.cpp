@@ -112,6 +112,10 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
 	int object_type = atoi(tokens[0].c_str());
 	float x = (float)atof(tokens[1].c_str());
+	if (object_type == OBJECT_TYPE_COUNT_DOWN_TIME) {
+		countdownTime = (int)x;
+		return;
+	}
 	float y = (float)atof(tokens[2].c_str());
 	if (object_type == OBJECT_TYPE_DEATH_BOUNDARY_Y) {
 		deathBoundaryY = y;
@@ -423,7 +427,11 @@ void CPlayScene::Update(DWORD dt)
 
 	PurgeDeletedObjects();
 
+	countdownTime -= dt;
 
+	if (countdownTime <= 0  && player != NULL) {
+		player->SetState(MARIO_STATE_DIE);
+	}
 }
 
 void CPlayScene::Render()
