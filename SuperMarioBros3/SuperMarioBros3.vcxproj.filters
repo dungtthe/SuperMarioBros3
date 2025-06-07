@@ -219,6 +219,9 @@
     <ClInclude Include="FontHUD.h">
       <Filter>Header Files\GameObjects\UI</Filter>
     </ClInclude>
+    <ClInclude Include="FragmentGoldBrick.h">
+      <Filter>Header Files\GameObjects\Blocks</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -331,6 +334,9 @@
     </ClCompile>
     <ClCompile Include="FontHUD.cpp">
       <Filter>Source Files\GameObjects\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="FragmentGoldBrick.cpp">
+      <Filter>Source Files\GameObjects\Blocks</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

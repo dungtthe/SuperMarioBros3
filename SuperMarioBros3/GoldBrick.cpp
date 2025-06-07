@@ -5,6 +5,7 @@
 #include "PowerSwitch.h"
 #include "Mushroom.h"
 #include "Coin.h"
+#include "FragmentGoldBrick.h"
 
 int CGoldBrick::GetIdAnimation() {
 	if (isEmpty) {
@@ -44,6 +45,22 @@ void CGoldBrick::SpawnItem(bool isSpawnByPowerSwitch) {
 			CMushroom* mus = new CMushroom(x, y, MUSHROOM_TYPE_GREEN);
 			playScene->AddObject(mus);
 			isEmpty = true;
+		}
+
+		if (isDeleted) {
+			CFragmentGoldBrick* fragment1 = new CFragmentGoldBrick(x, y, 1, 1);
+			CFragmentGoldBrick* fragment2 = new CFragmentGoldBrick(x, y, 1, -1);
+			CFragmentGoldBrick* fragment3 = new CFragmentGoldBrick(x, y, -1, -1);
+			CFragmentGoldBrick* fragment4 = new CFragmentGoldBrick(x, y, -1, 1);
+			CScene* scene = CGame::GetInstance()->GetCurrentScene();
+			CPlayScene* playScene = dynamic_cast<CPlayScene*>(scene);
+			if (!playScene) {
+				return;
+			}
+			playScene->AddObject(fragment1);
+			playScene->AddObject(fragment2);
+			playScene->AddObject(fragment3);
+			playScene->AddObject(fragment4);
 		}
 	}
 	else {
