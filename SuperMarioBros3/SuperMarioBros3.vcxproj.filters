@@ -210,7 +210,7 @@
     <ClInclude Include="EntrancePipe.h">
       <Filter>Header Files\GameObjects\Blocks</Filter>
     </ClInclude>
-    <ClInclude Include="ScorePopup.h">
+    <ClInclude Include="PointPopup.h">
       <Filter>Header Files\GameObjects\UI</Filter>
     </ClInclude>
     <ClInclude Include="HUD.h">
@@ -323,7 +323,7 @@
     <ClCompile Include="RedKoopa.cpp">
       <Filter>Source Files\GameObjects\Enemies</Filter>
     </ClCompile>
-    <ClCompile Include="ScorePopup.cpp">
+    <ClCompile Include="PointPopup.cpp">
       <Filter>Source Files\GameObjects\UI</Filter>
     </ClCompile>
     <ClCompile Include="HUD.cpp">

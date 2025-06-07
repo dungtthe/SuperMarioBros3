@@ -22,7 +22,7 @@
 #include "PowerSwitch.h"
 #include "Pipe.h"
 #include "PlayScene.h"
-#include "ScorePopup.h"
+#include "PointPopup.h"
 
 
 void CMario::SetPosition(float x, float y)
@@ -1018,7 +1018,7 @@ void CMario::UpdateScore(int scoreAdd, bool isCanShowScorePopUp , float xStartSh
 	if (!playScene) {
 		return;
 	}
-	CScorePopup* scorePopup = new CScorePopup(xStartShow, yStartShow, scoreAdd);
+	CPointPopup* scorePopup = new CPointPopup(xStartShow, yStartShow, scoreAdd);
 	playScene->AddObject(scorePopup);
 }
 

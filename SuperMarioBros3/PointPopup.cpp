@@ -1,5 +1,5 @@
-#include "ScorePopup.h"
-void CScorePopup::Render() {
+#include "PointPopup.h"
+void CPointPopup::Render() {
 
 	int idAni = -1;
 	if (score == 100) {
@@ -17,14 +17,14 @@ void CScorePopup::Render() {
 	CAnimations* animations = CAnimations::GetInstance();
 	animations->Get(idAni)->Render(x, y);
 }
-void  CScorePopup::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
+void  CPointPopup::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 	y += vy * dt;
 	if ((GetTickCount64() - startTime) > SCORE_POPUP_TIME_LIVE) {
 		isDeleted = true;
 	}
 }
 
-int CScorePopup::GetBBoxWidthCur() {
+int CPointPopup::GetBBoxWidthCur() {
 	if (score == 100) {
 		return SCORE_POPUP_1_0_0_BBOX_WIDTH;
 	}
@@ -37,7 +37,7 @@ int CScorePopup::GetBBoxWidthCur() {
 	return 0;
 }
 
-void CScorePopup::GetBoundingBox(float& l, float& t, float& r, float& b)
+void CPointPopup::GetBoundingBox(float& l, float& t, float& r, float& b)
 {
 	l = x - GetBBoxWidthCur() / 2;
 	t = y - SCORE_POPUP_BBOX_HEIGHT / 2;

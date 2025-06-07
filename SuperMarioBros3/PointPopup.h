@@ -18,11 +18,11 @@
 
 #define SCORE_POPUP_TIME_LIVE 1100
 
-class CScorePopup : public CGameObject {
+class CPointPopup : public CGameObject {
 	long startTime;
 	int idAni = -1;
 public:
-	CScorePopup(float x, float y, int scoreValue) : CGameObject(x, y) {
+	CPointPopup(float x, float y, int scoreValue) : CGameObject(x, y) {
 		startTime = GetTickCount64();
 		vy = - SCORE_POPUP_SPEED_Y;
 		this->score = scoreValue;

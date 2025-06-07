@@ -166,7 +166,7 @@
     <ClInclude Include="RedKoopa.h" />
     <ClInclude Include="SampleKeyEventHandler.h" />
     <ClInclude Include="Scene.h" />
-    <ClInclude Include="ScorePopup.h" />
+    <ClInclude Include="PointPopup.h" />
     <ClInclude Include="ScoreValues.h" />
     <ClInclude Include="SpawnTrigger.h" />
     <ClInclude Include="Sprite.h" />
@@ -207,7 +207,7 @@
     <ClCompile Include="RedGoomba.cpp" />
     <ClCompile Include="RedKoopa.cpp" />
     <ClCompile Include="SampleKeyEventHandler.cpp" />
-    <ClCompile Include="ScorePopup.cpp" />
+    <ClCompile Include="PointPopup.cpp" />
     <ClCompile Include="SpawnTrigger.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Sprites.cpp" />
