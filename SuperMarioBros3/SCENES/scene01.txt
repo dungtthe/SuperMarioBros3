@@ -17,6 +17,7 @@ SCENES/piranha.txt
 SCENES/gold-brick.txt
 SCENES/power-switch.txt
 SCENES/ui.txt
+SCENES/reward-box.txt
 #
 [OBJECTS]
 # type	x	y	extra_settings per object type
@@ -24,7 +25,7 @@ SCENES/ui.txt
 # See OBJECT_TYPE constants in AssetIDs.h
 
 # MARIO
-0	2000	300
+0	2510	300
 
 # BRICKS
 
@@ -33,6 +34,9 @@ SCENES/ui.txt
 
 # COUNT_DOWN_TIME
 300	300000
+
+#RewardBox		sizeItemRandom	objItem1	objItem...
+400	2710	350	2	16	17
 
 
 #COIN
@@ -200,7 +204,7 @@ SCENES/ui.txt
 5	1976	616	16	16	32	350000	350000	350000	0	1
 
 #Portal 
-50	300	110	316	140	2
+50	2825	400	2850	430	2
 
 #BackGroundImg
 #type	x	y	spriteId

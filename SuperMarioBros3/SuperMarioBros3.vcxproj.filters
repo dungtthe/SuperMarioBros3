@@ -222,6 +222,9 @@
     <ClInclude Include="FragmentGoldBrick.h">
       <Filter>Header Files\GameObjects\Blocks</Filter>
     </ClInclude>
+    <ClInclude Include="RewardBox.h">
+      <Filter>Header Files\GameObjects\Blocks</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -336,6 +339,9 @@
       <Filter>Source Files\GameObjects\UI</Filter>
     </ClCompile>
     <ClCompile Include="FragmentGoldBrick.cpp">
+      <Filter>Source Files\GameObjects\Blocks</Filter>
+    </ClCompile>
+    <ClCompile Include="RewardBox.cpp">
       <Filter>Source Files\GameObjects\Blocks</Filter>
     </ClCompile>
   </ItemGroup>

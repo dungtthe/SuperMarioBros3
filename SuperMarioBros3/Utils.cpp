@@ -4,6 +4,9 @@
 #include <string>
 #include <sstream>
 #include <iomanip>
+#include <cstdlib>
+#include <ctime>
+#include <random>
 
 vector<string> split(string line, string delimeter)
 {
@@ -73,4 +76,12 @@ string ConvertNumberToString(long number, int minSize)
 	std::ostringstream oss;
 	oss << std::setfill('0') << std::setw(minSize) << number;
 	return oss.str();
+}
+
+//[a,b]
+int RandomInRange(int a, int b) {
+	static std::random_device rd;  
+	static std::mt19937 gen(rd()); 
+	std::uniform_int_distribution<> dist(a, b); 
+	return dist(gen);
 }

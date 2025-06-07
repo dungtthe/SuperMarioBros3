@@ -24,3 +24,5 @@ int RandomNV();
 float calculateDistance(float x1, float y1, float x2, float y2);
 
 string ConvertNumberToString(long number, int minSize);
+
+int RandomInRange(int a, int b);

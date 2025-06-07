@@ -165,6 +165,7 @@
     <ClInclude Include="QuestionBlock.h" />
     <ClInclude Include="RedGoomba.h" />
     <ClInclude Include="RedKoopa.h" />
+    <ClInclude Include="RewardBox.h" />
     <ClInclude Include="SampleKeyEventHandler.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="PointPopup.h" />
@@ -208,6 +209,7 @@
     <ClCompile Include="QuestionBlock.cpp" />
     <ClCompile Include="RedGoomba.cpp" />
     <ClCompile Include="RedKoopa.cpp" />
+    <ClCompile Include="RewardBox.cpp" />
     <ClCompile Include="SampleKeyEventHandler.cpp" />
     <ClCompile Include="PointPopup.cpp" />
     <ClCompile Include="SpawnTrigger.cpp" />
