@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 #include <fstream>
 #include "AssetIDs.h"
 
@@ -120,6 +120,11 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	float y = (float)atof(tokens[2].c_str());
 	if (object_type == OBJECT_TYPE_DEATH_BOUNDARY_Y) {
 		deathBoundaryY = y;
+		return;
+	}
+	if (object_type == OBJECT_TYPE_WIDTH_HEIGHT_MAP) {
+		mapWidth = (int)x;
+		mapHeight = (int)y;
 		return;
 	}
 	CGameObject* obj = NULL;
@@ -427,18 +432,31 @@ void CPlayScene::Update(DWORD dt)
 		hud->Update();
 	}
 
-	// Update camera to follow mario
+	// Update camera to follow Mario
 	float cx, cy;
 	player->GetPosition(cx, cy);
 
 	CGame* game = CGame::GetInstance();
-	cx -= game->GetBackBufferWidth() / 2;
-	cy -= game->GetBackBufferHeight() / 2;
+
+	int screenWidth = game->GetBackBufferWidth();
+	int screenHeight = game->GetBackBufferHeight();
+
+	cx -= screenWidth / 2;
+	cy -= screenHeight / 2;
+
+
 
 	if (cx < 0) cx = 0;
+	if (cy < 0) cy = 0;
 
-	//CGame::GetInstance()->SetCamPos(cx, 0.0f /*cy*/);
-	CGame::GetInstance()->SetCamPos(cx, cy);
+	if (cx > mapWidth - screenWidth)
+		cx = mapWidth - screenWidth;
+
+	if (cy > mapHeight - screenHeight)
+		cy = mapHeight - screenHeight;
+
+	game->SetCamPos(cx, cy);
+
 
 	PurgeDeletedObjects();
 

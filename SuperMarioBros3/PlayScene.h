@@ -17,6 +17,8 @@ protected:
 	// A play scene has to have player, right? 
 	LPGAMEOBJECT player;
 	CHUD* hud;
+	int mapWidth;
+	int mapHeight;
 
 	vector<LPGAMEOBJECT> objects;
 	LPGAMEOBJECT objBackgroundImage;

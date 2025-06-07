@@ -38,6 +38,8 @@ SCENES/reward-box.txt
 #RewardBox		sizeItemRandom	objItem1	objItem...
 400	2710	350	2	16	17
 
+# WIDTH_HEIGHT_MAP
+500	2816	626
 
 #COIN
 4	1080	328
