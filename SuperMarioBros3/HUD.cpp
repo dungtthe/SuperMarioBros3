@@ -16,6 +16,7 @@ void CHUD::Render() {
 	fontForCountdownTime->Render();
 	fontForCoinMario->Render();
 	fontForScoreMario->Render();
+	fontForLifeMario->Render();
 
 
 	//p meter mario
@@ -64,6 +65,16 @@ void CHUD::Update() {
 
 			//score mario
 			fontForScoreMario->SetContent(ConvertNumberToString(mario->GetScore(), 7));
+
+			//life mario
+			int life = mario->GetLife();
+			if (life < 0) {
+				life = 0;
+			}
+			else if (life > 99) {
+				life = 99;
+			}
+			fontForLifeMario->SetContent(ConvertNumberToString(life, 2));
 		}
 	}
 
