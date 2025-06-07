@@ -20,12 +20,16 @@ class CHUD  {
 private:
 	float x, y;
 	CFontHUD* fontForCountdownTime;
+	CFontHUD* fontForCoinMario;
+	CFontHUD* fontForScoreMario;
 public:
 	CHUD() {
 		this->x = HUD_LEFT_BBOX_WIDTH / 2 + 30;
 		this->y = CGame::GetInstance()->GetBackBufferHeight() - HUD_LEFT_BBOX_HEIGHT/2;
 
 		fontForCountdownTime = new CFontHUD(this->x + HUD_LEFT_BBOX_WIDTH / 2 - 22, this->y + 5, "000");
+		fontForCoinMario = new CFontHUD(this->x + HUD_LEFT_BBOX_WIDTH / 2 - 16, this->y - 3, "00");
+		fontForScoreMario = new CFontHUD(this->x - 20, this->y + 5, "0000000");
 	}
 	void Render();
 	void Update();

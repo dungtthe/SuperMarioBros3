@@ -271,4 +271,5 @@ public:
 	void DecreaseLevel();
 	void CheckEnterEntrance(int KeyCode);
 	bool IsEnteringPipe() { return this->isEnteringPipe; }
+	int GetCoin() { return this->coin; }
 };

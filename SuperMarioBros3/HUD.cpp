@@ -14,21 +14,36 @@ void CHUD::Render() {
 
 
 	fontForCountdownTime->Render();
+	fontForCoinMario->Render();
+	fontForScoreMario->Render();
 }
 
 void CHUD::Update() {
 	CScene* scene = CGame::GetInstance()->GetCurrentScene();
 	CPlayScene* playScene = dynamic_cast<CPlayScene*>(scene);
-	if (!playScene) {
-		return;
+	if (playScene) {
+		//count down time
+		long countdownTime = playScene->GetCountdownTime();
+		int countdownTimeInSeconds = countdownTime / 1000;
+		if (countdownTimeInSeconds < 0) {
+			countdownTimeInSeconds = 0;
+		}
+		fontForCountdownTime->SetContent(ConvertNumberToString(countdownTimeInSeconds, 3));
+
+		CMario* mario = (CMario*)((LPPLAYSCENE)playScene)->GetPlayer();
+		if (mario) {
+			//coin mario
+			int coin = mario->GetCoin();
+			if(coin > 99) {
+				coin = 99; 
+			}
+			fontForCoinMario->SetContent(ConvertNumberToString(coin, 2));
+
+			//score mario
+			fontForScoreMario->SetContent(ConvertNumberToString(mario->GetScore(), 7));
+		}
 	}
 
-	long countdownTime = playScene->GetCountdownTime();
-	int countdownTimeInSeconds = countdownTime / 1000;
-	if (countdownTimeInSeconds < 0) {
-		countdownTimeInSeconds = 0;
-	}
-	fontForCountdownTime->SetContent(ConvertNumberToString(countdownTimeInSeconds, 3));
 
 }
 
