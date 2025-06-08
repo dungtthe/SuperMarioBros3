@@ -23,6 +23,7 @@
 #include "Pipe.h"
 #include "PlayScene.h"
 #include "PointPopup.h"
+#include "RedGoomba.h"
 
 
 void CMario::SetPosition(float x, float y)
@@ -317,6 +318,12 @@ void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 				if (isAttacking) {
 					if (goomba->GetState() != GOOMBA_STATE_DIE)
 					{
+						CRedGoomba* redGoomba = dynamic_cast<CRedGoomba*>(goomba);
+						if (redGoomba) {
+							if (redGoomba->IsHasWing()) {
+								redGoomba->LoseWing();
+							}
+						}
 						goomba->KilledByTailOrKoopaShell();
 						goomba->SetState(GOOMBA_STATE_DIE);
 					}

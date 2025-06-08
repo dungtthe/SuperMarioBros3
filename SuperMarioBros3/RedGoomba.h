@@ -49,5 +49,6 @@ public:
 		this->isCanHop = true;
 	}
 	virtual void SetState(int state);
-
+	void LoseWing() { this->isHasWing = false; }
+	bool IsHasWing() { return this->isHasWing; }
 };
