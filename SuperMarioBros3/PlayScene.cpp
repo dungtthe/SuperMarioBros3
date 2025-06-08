@@ -190,12 +190,13 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		break;
 	}
 	case OBJECT_TYPE_REWARDBOX: {
-		obj = new CRewardBox(x, y);
-		int sizeItemRandom = atoi(tokens[3].c_str());
+		int autoMoveDirX = atoi(tokens[3].c_str());
+		obj = new CRewardBox(x, y, autoMoveDirX);
+		int sizeItemRandom = atoi(tokens[4].c_str());
 		if(sizeItemRandom> 0) {
 			vector<int> itemTypes;
 			for (int i = 0; i < sizeItemRandom; i++) {
-				int itemType = atoi(tokens[4 + i].c_str());
+				int itemType = atoi(tokens[5 + i].c_str());
 				itemTypes.push_back(itemType);
 			}
 			((CRewardBox*)obj)->SetObjectTypeRandom(itemTypes);

@@ -11,9 +11,11 @@ class CRewardBox : public CGameObject {
 private:
 	int typeItemCur;
 	vector<int> objsTypeItemRandom; 
+	int autoMoveDirX;
 public:
-	CRewardBox(float x, float y) :CGameObject(x, y) {
+	CRewardBox(float x, float y, int autoMoveDirX) :CGameObject(x, y) {
 		typeItemCur = -1;
+		this->autoMoveDirX = autoMoveDirX;
 	}
 	void Render();
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
@@ -21,4 +23,5 @@ public:
 	int IsBlocking() { return 0; }
 	void SetObjectTypeRandom(vector<int> objsType) { this->objsTypeItemRandom = objsType; }
 	int GetIdAniItemRan();
+	int GetAutoMoveDirX() { return autoMoveDirX; }
 };

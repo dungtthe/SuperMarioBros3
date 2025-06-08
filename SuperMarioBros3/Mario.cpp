@@ -24,6 +24,7 @@
 #include "PlayScene.h"
 #include "PointPopup.h"
 #include "RedGoomba.h"
+#include "RewardBox.h"
 
 
 void CMario::SetPosition(float x, float y)
@@ -195,6 +196,8 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithGoldBrick(e);
 	else if (dynamic_cast<CPowerSwitch*>(e->obj))
 		OnCollisionWithPowerSwitch(e);
+	else if (dynamic_cast<CRewardBox*>(e->obj))
+		OnCollisionWithRewardBox(e);
 }
 
 
@@ -295,6 +298,20 @@ void CMario::OnCollisionWithPowerSwitch(LPCOLLISIONEVENT e)
 			powerSwitch->Active();
 		}
 	}
+}
+
+void CMario::OnCollisionWithRewardBox(LPCOLLISIONEVENT e)
+{
+	CRewardBox* re = dynamic_cast<CRewardBox*>(e->obj);
+	if (re->GetAutoMoveDirX() < 0) {
+		SetState(MARIO_STATE_WALKING_LEFT);
+	}
+	else{
+		SetState(MARIO_STATE_WALKING_RIGHT);
+	}
+	this->autoMoveDirX = re->GetAutoMoveDirX();
+	vx = 0;
+	ax = MARIO_ACCEL_WALK_X * nx;
 }
 
 

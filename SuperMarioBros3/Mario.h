@@ -198,6 +198,8 @@ class CMario : public CGameObject
 
 	int life;
 
+	int autoMoveDirX;
+
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
 	void OnCollisionWithCoin(LPCOLLISIONEVENT e);
 	void OnCollisionWithPortal(LPCOLLISIONEVENT e);
@@ -209,6 +211,7 @@ class CMario : public CGameObject
 	void OnCollisionWithBullet(LPCOLLISIONEVENT e);
 	void OnCollisionWithGoldBrick(LPCOLLISIONEVENT e);
 	void OnCollisionWithPowerSwitch(LPCOLLISIONEVENT e);
+	void OnCollisionWithRewardBox(LPCOLLISIONEVENT e);
 
 	int GetAniIdBig();
 	int GetAniIdSmall();
@@ -240,6 +243,7 @@ public:
 		isEnteringPipe = false;
 		objType = OBJECT_TYPE_MARIO;
 		life = 4;
+		autoMoveDirX = 0;
 	}
 	void SetPosition(float x, float y);
 	void SetSpeed(float vx, float vy);
@@ -277,4 +281,5 @@ public:
 	int GetCoin() { return this->coin; }
 	void UpdateLife(int lifeAdd, float xStartShow, float yStartShow);
 	int GetLife() { return this->life; }
+	bool IsAutoMove() { return this->autoMoveDirX != 0; }
 };
