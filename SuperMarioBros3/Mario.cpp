@@ -278,6 +278,9 @@ void CMario::OnCollisionWithBullet(LPCOLLISIONEVENT e)
 
 void CMario::OnCollisionWithGoldBrick(LPCOLLISIONEVENT e)
 {
+	if (level == MARIO_LEVEL_SMALL) {
+		return;
+	}
 	CGoldBrick* goldBrick = dynamic_cast<CGoldBrick*>(e->obj);
 	if (e->ny > 0 || (e->nx != 0 && isAttacking)) {
 		goldBrick->SpawnItem(false);
