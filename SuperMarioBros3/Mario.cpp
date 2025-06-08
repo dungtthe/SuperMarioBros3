@@ -320,9 +320,7 @@ void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 					{
 						CRedGoomba* redGoomba = dynamic_cast<CRedGoomba*>(goomba);
 						if (redGoomba) {
-							if (redGoomba->IsHasWing()) {
-								redGoomba->LoseWing();
-							}
+							redGoomba->LoseWing();
 						}
 						goomba->KilledByTailOrKoopaShell();
 						goomba->SetState(GOOMBA_STATE_DIE);
